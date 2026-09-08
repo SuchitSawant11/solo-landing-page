@@ -1,139 +1,151 @@
+
 "use client";
 
-import { useEffect, useState } from "react";
-import Logo from "@/components/Logo";
+import { useState } from "react";
+import Image from "next/image";
 
-const NAV_ITEMS = [
-  { label: "Home", href: "#hero" },
-  { label: "Discover", href: "#discover" },
-  { label: "Learn & Grow", href: "#learn" },
-  { label: "Prove Skills", href: "#prove" },
-  { label: "Profile", href: "#profile" },
+const NAV_LINKS = [
+    { label: "Home", href: "#top" },
+    { label: "Discover", href: "#discover" },
+    { label: "Learn & Grow", href: "#learn" },
+    { label: "Prove Skills", href: "#prove" },
+    { label: "Profile", href: "#profile" },
 ];
 
+const SOLO_LOGIN_URL = "https://app.thesolo.network/signin";
+const SOLO_SIGNUP_URL = "https://app.thesolo.network/signup";
+
 export default function Nav() {
-  const [activeSection, setActiveSection] = useState<string>("hero");
-  const [menuOpen, setMenuOpen] = useState(false);
+    const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const sectionIds = NAV_ITEMS.map((item) => item.href.replace("#", ""));
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
+    const closeMenu = () => {
+        setOpen(false);
+    };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+    return (
+        <header className="sticky top-0 z-50 border-b border-black/5 bg-solo-bg/90 backdrop-blur">
+            <div className="mx-auto flex h-16 max-w-[1240px] items-center gap-6 px-6">
+
+                <a
+                    href="#top"
+                    onClick={closeMenu}
+                    className="flex shrink-0 items-center gap-2"
+                >
+                    <Image
+                        src="/solo-logo.png"
+                        alt="SOLO Logo"
+                        width={70}
+                        height={70}
+                        className="h-10 w-auto object-contain"
+                    />
+
+                    <span className="hidden whitespace-nowrap font-heading text-sm text-solo-orange sm:inline">
+                        The Career Connect Platform
+                    </span>
+                </a>
+
+                <nav className="hidden flex-1 items-center justify-center gap-8 font-body text-sm text-neutral-700 lg:flex">
+                    {NAV_LINKS.map((link) => (
+                        <a
+                            key={link.href}
+                            href={link.href}
+                            className="transition-colors hover:text-solo-orange"
+                        >
+                            {link.label}
+                        </a>
+                    ))}
+                </nav>
+
+                <div className="ml-auto hidden shrink-0 items-center gap-4 lg:flex">
+                    <a
+                        href={SOLO_LOGIN_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-medium transition-colors hover:text-solo-orange"
+                    >
+                        Login
+                    </a>
+
+                    <a
+                        href={SOLO_SIGNUP_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-full bg-solo-orange px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-orange-600"
+                    >
+                        Sign Up
+                    </a>
+                </div>
+
+                <button
+                    type="button"
+                    aria-label="Toggle navigation menu"
+                    aria-expanded={open}
+                    onClick={() => setOpen(!open)}
+                    className="ml-auto flex h-10 w-10 items-center justify-center rounded-md text-neutral-700 transition-colors hover:bg-black/5 lg:hidden"
+                >
+                    <span className="sr-only">Menu</span>
+
+                    <div className="flex flex-col gap-1.5">
+                        <span
+                            className={`block h-0.5 w-6 bg-current transition-transform ${
+                                open ? "translate-y-2 rotate-45" : ""
+                            }`}
+                        />
+
+                        <span
+                            className={`block h-0.5 w-6 bg-current transition-opacity ${
+                                open ? "opacity-0" : "opacity-100"
+                            }`}
+                        />
+
+                        <span
+                            className={`block h-0.5 w-6 bg-current transition-transform ${
+                                open ? "-translate-y-2 -rotate-45" : ""
+                            }`}
+                        />
+                    </div>
+                </button>
+            </div>
+
+            {open && (
+                <div className="border-t border-black/5 bg-solo-bg lg:hidden">
+                    <nav className="mx-auto flex max-w-[1240px] flex-col px-6 py-4 font-body text-sm text-neutral-700">
+                        {NAV_LINKS.map((link) => (
+                            <a
+                                key={link.href}
+                                href={link.href}
+                                onClick={closeMenu}
+                                className="border-b border-black/5 py-3 transition-colors hover:text-solo-orange"
+                            >
+                                {link.label}
+                            </a>
+                        ))}
+
+                        <div className="flex items-center gap-4 pt-4">
+                            <a
+                                href={SOLO_LOGIN_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={closeMenu}
+                                className="flex-1 rounded-full border border-solo-orange px-5 py-2.5 text-center text-sm font-medium text-solo-orange transition-colors hover:bg-solo-orange hover:text-white"
+                            >
+                                Login
+                            </a>
+
+                            <a
+                                href={SOLO_SIGNUP_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={closeMenu}
+                                className="flex-1 rounded-full bg-solo-orange px-5 py-2.5 text-center text-sm font-medium text-white transition-colors hover:bg-orange-600"
+                            >
+                                Sign Up
+                            </a>
+                        </div>
+                    </nav>
+                </div>
+            )}
+        </header>
     );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => sections.forEach((section) => observer.unobserve(section));
-  }, []);
-
-  return (
-    <header className="sticky top-0 z-50 border-b border-black/10 bg-white">
-      <div className="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-3">
-        {/* Logo + tagline */}
-        <a href="#hero">
-          <Logo showTagline taglineColor="text-solo-orange" />
-        </a>
-
-        {/* Desktop nav */}
-        <nav className="hidden gap-7 lg:flex">
-          {NAV_ITEMS.map((item) => {
-            const id = item.href.replace("#", "");
-            const isActive = activeSection === id;
-            return (
-              <a
-                key={item.href}
-                href={item.href}
-                className={`text-sm font-medium transition-colors ${
-                  isActive
-                    ? "text-solo-orange"
-                    : "text-solo-text hover:text-solo-orange"
-                }`}
-              >
-                {item.label}
-              </a>
-            );
-          })}
-        </nav>
-
-        {/* Auth buttons */}
-        <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href="#login"
-            className="rounded-lg border border-solo-orange px-5 py-2 text-sm font-semibold text-solo-orange transition-colors hover:bg-solo-orange hover:text-white"
-          >
-            Login
-          </a>
-          <a
-            href="#start"
-            className="rounded-lg bg-solo-orange px-5 py-2 text-sm font-semibold text-white transition-transform hover:scale-105"
-          >
-            Sign Up
-          </a>
-        </div>
-
-        {/* Mobile toggle */}
-        <button
-          className="flex flex-col gap-1.5 lg:hidden"
-          aria-label="Toggle menu"
-          onClick={() => setMenuOpen((prev) => !prev)}
-        >
-          <span
-            className={`h-0.5 w-6 bg-solo-text transition-transform ${
-              menuOpen ? "translate-y-2 rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`h-0.5 w-6 bg-solo-text transition-opacity ${
-              menuOpen ? "opacity-0" : "opacity-100"
-            }`}
-          />
-          <span
-            className={`h-0.5 w-6 bg-solo-text transition-transform ${
-              menuOpen ? "-translate-y-2 -rotate-45" : ""
-            }`}
-          />
-        </button>
-      </div>
-
-      {/* Mobile dropdown */}
-      {menuOpen && (
-        <nav className="flex flex-col gap-4 border-t border-black/10 bg-white px-6 py-4 lg:hidden">
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setMenuOpen(false)}
-              className="text-sm font-medium text-solo-text"
-            >
-              {item.label}
-            </a>
-          ))}
-          <div className="mt-2 flex gap-3">
-            <a
-              href="#login"
-              onClick={() => setMenuOpen(false)}
-              className="flex-1 rounded-lg border border-solo-orange px-5 py-2 text-center text-sm font-semibold text-solo-orange"
-            >
-              Login
-            </a>
-            <a
-              href="#start"
-              onClick={() => setMenuOpen(false)}
-              className="flex-1 rounded-lg bg-solo-orange px-5 py-2 text-center text-sm font-semibold text-white"
-            >
-              Sign Up
-            </a>
-          </div>
-        </nav>
-      )}
-    </header>
-  );
 }
+
