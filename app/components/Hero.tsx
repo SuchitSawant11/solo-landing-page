@@ -1,42 +1,57 @@
-
-"use client";
-
 const JOURNEY_STEPS = [
   {
     number: "01",
     title: "Discover",
     description: "Explore career pathways",
-    position: "left-4 top-8 md:left-10 md:top-16",
+    position: "left-3 top-10 lg:left-8 lg:top-14",
+    href: "#discover",
+    color: "border-solo-gold/30",
+    numberColor: "text-solo-gold",
   },
   {
     number: "02",
     title: "Learn",
     description: "Follow structured learning",
-    position: "right-4 top-10 md:right-10 md:top-20",
+    position: "right-3 top-14 lg:right-8 lg:top-24",
+    href: "#learn",
+    color: "border-solo-orange/30",
+    numberColor: "text-solo-orange",
   },
   {
     number: "03",
     title: "Build Skills",
     description: "Practice through real projects",
-    position: "left-2 top-[42%] md:left-8",
+    position: "left-1 top-[42%] lg:left-3",
+    href: "#learn",
+    color: "border-solo-blue/30",
+    numberColor: "text-solo-blue",
   },
   {
     number: "04",
     title: "Prove Skills",
     description: "Complete challenges",
-    position: "right-2 top-[44%] md:right-8",
+    position: "right-1 top-[45%] lg:right-3",
+    href: "#prove",
+    color: "border-solo-orange/30",
+    numberColor: "text-solo-orange",
   },
   {
     number: "05",
     title: "Grow",
     description: "Track your progress",
-    position: "left-8 bottom-8 md:left-16 md:bottom-10",
+    position: "bottom-10 left-8 lg:bottom-12 lg:left-14",
+    href: "#profile",
+    color: "border-solo-gold/30",
+    numberColor: "text-solo-gold",
   },
   {
     number: "06",
     title: "Showcase",
     description: "Share your achievements",
-    position: "right-8 bottom-8 md:right-16 md:bottom-10",
+    position: "bottom-10 right-8 lg:bottom-12 lg:right-14",
+    href: "#profile",
+    color: "border-solo-blue/30",
+    numberColor: "text-solo-blue",
   },
 ];
 
@@ -44,116 +59,149 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-[calc(100vh-70px)] overflow-hidden bg-solo-bg"
+      className="relative isolate min-h-[calc(100vh-70px)] overflow-hidden bg-solo-bg"
     >
-      {/* Background Circles */}
-      <div className="absolute left-[-120px] top-[-120px] h-[300px] w-[300px] rounded-full bg-solo-orange/10 blur-3xl" />
+      {/* Soft background color shapes */}
+      <div className="absolute -left-36 -top-36 h-[420px] w-[420px] rounded-full bg-solo-orange/15 blur-3xl" />
+      <div className="absolute -right-36 -top-20 h-[380px] w-[380px] rounded-full bg-solo-gold/15 blur-3xl" />
+      <div className="absolute -bottom-48 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-solo-blue/10 blur-3xl" />
 
-      <div className="absolute bottom-[-140px] right-[-100px] h-[320px] w-[320px] rounded-full bg-solo-orange/10 blur-3xl" />
+      {/* Decorative background grid */}
+      <div
+        className="absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #171412 1px, transparent 1px), linear-gradient(to bottom, #171412 1px, transparent 1px)",
+          backgroundSize: "42px 42px",
+        }}
+      />
 
-      {/* Floating Journey Cards */}
+      {/* Circular journey map: large screens */}
+      <div className="pointer-events-none absolute inset-0 hidden lg:block">
+        <div className="absolute left-1/2 top-1/2 h-[530px] w-[530px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-solo-orange/30" />
+
+        <div className="absolute left-1/2 top-1/2 h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-solo-blue/20" />
+
+        <div className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-solo-orange shadow-[0_0_0_10px_rgba(253,67,34,0.12)]" />
+      </div>
+
+      {/* Floating learner journey cards: tablet and desktop */}
       <div className="pointer-events-none absolute inset-0 hidden md:block">
         {JOURNEY_STEPS.map((step) => (
           <a
             key={step.number}
-            href={
-              step.number === "01"
-                ? "#discover"
-                : step.number === "02"
-                ? "#learn"
-                : step.number === "03"
-                ? "#learn"
-                : step.number === "04"
-                ? "#prove"
-                : "#profile"
-            }
-            className={`pointer-events-auto absolute ${step.position} w-44 rounded-2xl border border-black/10 bg-white/90 p-4 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:border-solo-orange/40 hover:shadow-xl`}
+            href={step.href}
+            aria-label={`${step.title}: ${step.description}`}
+            className={`group pointer-events-auto absolute z-20 w-44 rounded-2xl border ${step.color} bg-white/85 p-4 shadow-[0_12px_34px_rgba(23,20,18,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:border-solo-orange/50 hover:shadow-[0_18px_45px_rgba(23,20,18,0.16)] motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange ${step.position}`}
           >
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold text-solo-orange">
-                {step.number}
-              </span>
+            <span
+              className={`font-heading text-xs font-extrabold ${step.numberColor}`}
+            >
+              {step.number}
+            </span>
 
-              <span className="text-xs text-solo-muted transition-transform duration-300 group-hover:translate-x-1">
-                ↗
-              </span>
-            </div>
-
-            <h3 className="mt-3 font-heading text-sm font-bold text-solo-text">
+            <h3 className="mt-4 font-heading text-sm font-bold text-solo-text">
               {step.title}
             </h3>
 
             <p className="mt-1 text-[11px] leading-4 text-solo-muted">
               {step.description}
             </p>
+
+            <div className="mt-4 h-1 w-8 rounded-full bg-solo-orange/20 transition-all duration-300 group-hover:w-full group-hover:bg-solo-orange" />
           </a>
         ))}
       </div>
 
       {/* Main Hero Content */}
-      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-70px)] max-w-4xl items-center justify-center px-6 py-10 text-center">
-        <div className="w-full">
-
-          {/* Badge */}
-          <span className="inline-flex rounded-full border border-solo-orange/20 bg-solo-orange/5 px-4 py-1.5 text-xs font-semibold text-solo-orange">
+      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-70px)] max-w-5xl items-center justify-center px-5 py-20 text-center md:px-6">
+        <div className="w-full rounded-[2rem] border border-white/70 bg-white/55 px-5 py-10 shadow-[0_24px_80px_rgba(23,20,18,0.06)] backdrop-blur-sm sm:px-10 md:px-16 md:py-14">
+          {/* Hero badge */}
+          <span className="inline-flex items-center gap-2 rounded-full border border-solo-orange/20 bg-solo-orange/5 px-4 py-1.5 text-xs font-semibold text-solo-orange">
+            <span className="h-1.5 w-1.5 rounded-full bg-solo-orange" />
             Your learning journey starts here
           </span>
 
-          {/* Heading */}
-          <h1 className="mt-5 font-heading text-4xl font-extrabold leading-[1.05] tracking-tight text-solo-text sm:text-5xl md:text-6xl">
+          {/* Main heading */}
+          <h1 className="mt-6 font-heading text-4xl font-extrabold leading-[1.03] tracking-tight text-solo-text sm:text-5xl md:text-6xl lg:text-7xl">
             Build Skills.
             <br />
-            <span className="text-solo-orange">
+
+            <span className="relative inline-block text-solo-orange">
               Discover Careers.
+              <span className="absolute -bottom-1 left-0 h-1 w-full rounded-full bg-solo-gold/70" />
             </span>
+
             <br />
             Learn Your Way.
           </h1>
 
-          {/* Description */}
-          <p className="mx-auto mt-5 max-w-2xl text-sm leading-6 text-solo-muted md:text-base">
+          {/* Platform description */}
+          <p className="mx-auto mt-6 max-w-2xl text-sm leading-6 text-solo-muted md:text-base md:leading-7">
             SOLO is a career learning platform for students and aspiring
             professionals. Discover career pathways, develop practical skills,
             work on real projects, and showcase your achievements as you
             progress toward your career goals.
           </p>
 
-          {/* Buttons */}
-          <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          {/* Main actions */}
+          <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
             <a
               href="#discover"
-              className="group inline-flex items-center gap-2 rounded-lg bg-solo-orange px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-lg"
+              className="inline-flex items-center justify-center rounded-xl bg-solo-orange px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-solo-orange/20 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:shadow-xl motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange"
             >
               Explore Pathways
-              <span className="transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
             </a>
 
             <a
               href="#learn"
-              className="group inline-flex items-center gap-2 rounded-lg border border-solo-orange px-5 py-2.5 text-sm font-semibold text-solo-orange transition-all duration-300 hover:-translate-y-1 hover:bg-solo-orange hover:text-white hover:shadow-md"
+              className="inline-flex items-center justify-center rounded-xl border border-solo-orange/40 bg-white/70 px-6 py-3.5 text-sm font-bold text-solo-orange shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-solo-orange hover:bg-solo-orange hover:text-white hover:shadow-lg motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange"
             >
               Start Learning
-              <span className="transition-transform duration-300 group-hover:translate-x-1">
-                ↗
-              </span>
             </a>
           </div>
 
-          {/* Journey Indicator */}
-          <div className="mx-auto mt-8 flex max-w-xl flex-wrap items-center justify-center gap-2 text-[10px] font-semibold text-solo-muted sm:gap-3 sm:text-xs">
-            <span>Discover</span>
-            <span className="text-solo-orange">—</span>
-            <span>Learn</span>
-            <span className="text-solo-orange">—</span>
-            <span>Build</span>
-            <span className="text-solo-orange">—</span>
-            <span>Prove</span>
-            <span className="text-solo-orange">—</span>
-            <span>Grow</span>
-            <span className="text-solo-orange">—</span>
-            <span>Showcase</span>
+          {/* Six-step SOLO journey */}
+          <div className="mx-auto mt-10 max-w-3xl">
+            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-muted">
+              Your SOLO Journey
+            </p>
+
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-3 text-[10px] font-bold uppercase tracking-wide sm:gap-x-3 sm:text-xs">
+              <span className="rounded-full bg-solo-orange/10 px-3 py-1.5 text-solo-orange">
+                01 Discover
+              </span>
+
+              <span className="h-1.5 w-1.5 rounded-full bg-solo-orange" />
+
+              <span className="rounded-full bg-solo-gold/15 px-3 py-1.5 text-solo-gold">
+                02 Learn
+              </span>
+
+              <span className="h-1.5 w-1.5 rounded-full bg-solo-orange" />
+
+              <span className="rounded-full bg-solo-blue/10 px-3 py-1.5 text-solo-blue">
+                03 Build
+              </span>
+
+              <span className="h-1.5 w-1.5 rounded-full bg-solo-orange" />
+
+              <span className="rounded-full bg-solo-orange/10 px-3 py-1.5 text-solo-orange">
+                04 Prove
+              </span>
+
+              <span className="h-1.5 w-1.5 rounded-full bg-solo-orange" />
+
+              <span className="rounded-full bg-solo-gold/15 px-3 py-1.5 text-solo-gold">
+                05 Grow
+              </span>
+
+              <span className="h-1.5 w-1.5 rounded-full bg-solo-orange" />
+
+              <span className="rounded-full bg-solo-blue/10 px-3 py-1.5 text-solo-blue">
+                06 Showcase
+              </span>
+            </div>
           </div>
         </div>
       </div>

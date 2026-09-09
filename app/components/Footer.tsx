@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -42,41 +41,39 @@ export default function Footer() {
 
   return (
     <footer className="relative border-t border-solo-border bg-solo-bg px-6 py-10 text-solo-text">
-      <div className="mx-auto grid max-w-[1180px] gap-8 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
-
-        {/* Brand */}
+      <div className="mx-auto grid max-w-[1180px] gap-8 sm:grid-cols-2 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
         <div>
           <a
             href="#hero"
-            className="inline-flex items-center transition-opacity duration-300 hover:opacity-80"
+            aria-label="Go to SOLO homepage"
+            className="inline-flex items-center transition-opacity duration-300 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange"
           >
             <Image
               src="/solo-logo.png"
-              alt="SOLO Logo"
+              alt="SOLO"
               width={100}
               height={100}
               className="h-10 w-auto object-contain"
             />
           </a>
 
-          <p className="mt-3 text-xs leading-5 text-solo-muted">
+          <p className="mt-3 max-w-48 text-xs leading-5 text-solo-muted">
             Discover. Learn. Prove. Grow. Showcase.
           </p>
         </div>
 
-        {/* Footer Columns */}
         {COLUMNS.map((column) => (
           <div key={column.title}>
-            <h4 className="font-heading text-sm font-bold text-solo-orange">
+            <h2 className="font-heading text-sm font-bold text-solo-orange">
               {column.title}
-            </h4>
+            </h2>
 
             <ul className="mt-3 space-y-2">
               {column.links.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-xs text-solo-muted transition-all duration-300 hover:translate-x-1 hover:text-solo-orange"
+                    className="inline-block text-xs text-solo-muted transition-all duration-300 hover:translate-x-1 hover:text-solo-orange focus-visible:translate-x-1 focus-visible:text-solo-orange focus-visible:outline-none"
                   >
                     {link.label}
                   </a>
@@ -87,22 +84,19 @@ export default function Footer() {
         ))}
       </div>
 
-      {/* Bottom */}
       <div className="mx-auto mt-8 max-w-[1180px] border-t border-solo-border pt-5">
-        
-<p className="text-center text-[10px] leading-4 text-solo-muted">
-  © {new Date().getFullYear()} SOLO. Skills-First Infrastructure
-  Powering Learning, Employment & Workforce Readiness.
-</p>
-
-
+        <p className="pr-12 text-center text-[10px] leading-4 text-solo-muted">
+          © {new Date().getFullYear()} SOLO. Skills-First Infrastructure
+          Powering Learning, Employment & Workforce Readiness.
+        </p>
       </div>
 
-      {/* Scroll to Top */}
       <button
+        type="button"
         onClick={scrollToTop}
         aria-label="Scroll to top"
-        className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-solo-orange text-sm font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-lg"
+        title="Back to top"
+        className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-solo-orange text-sm font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange"
       >
         ↑
       </button>
