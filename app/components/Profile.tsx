@@ -72,7 +72,7 @@ export default function Profile() {
                   Learner Profile
                 </p>
 
-                {/* Student SVG image */}
+                {/* Local student SVG illustration */}
                 <div className="mt-7 flex h-20 w-20 items-center justify-center overflow-hidden rounded-[1.5rem] border border-solo-orange/20 bg-white shadow-lg shadow-solo-orange/20">
                   <Image
                     src="/Student-1623472004225-md.svg"
@@ -80,6 +80,7 @@ export default function Profile() {
                     width={80}
                     height={80}
                     className="h-full w-full object-contain p-1"
+                    priority={false}
                   />
                 </div>
 
