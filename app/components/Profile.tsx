@@ -73,13 +73,13 @@ export default function Profile() {
                 </p>
 
                 {/* Local student SVG illustration */}
-                <div className="mt-7 flex h-20 w-20 items-center justify-center overflow-hidden rounded-[1.5rem] border border-solo-orange/20 bg-white shadow-lg shadow-solo-orange/20">
+                <div className="mt-7 flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border border-solo-orange/70 bg-white p-2.5 shadow-lg shadow-solo-orange/40">
                   <Image
-                    src="/Student-1623472004225-md.svg"
+                    src="/Student-1623472004225-md.png"
                     alt="Student learner illustration"
-                    width={80}
-                    height={80}
-                    className="h-full w-full object-contain p-1"
+                    width={104}
+                    height={104}
+                    className="h-[104px] w-[104px] object-contain"
                     priority={false}
                   />
                 </div>
