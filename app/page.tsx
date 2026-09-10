@@ -11,27 +11,27 @@ export default function Page() {
     <main>
       <Hero />
 
-      {/* Discover 
+      {/* Discover */}
       <section id="discover" className="scroll-mt-20">
         <Discover />
-      </section>*/}
+      </section>
 
-      {/* Learn & Build Skills 
+      {/* Learn & Build Skills */}
       <section id="learn" className="relative scroll-mt-20">
         <span id="build" aria-hidden="true" className="absolute -top-20" />
         <LearnBuildSkills />
-      </section>*/}
+      </section>
 
-      {/* Prove Skills 
+      {/* Prove Skills */}
       <section id="prove" className="scroll-mt-20">
         <ProveSkills />
-      </section>*/}
+      </section>
 
-      {/* Grow / Profile 
+      {/* Grow / Profile */}
       <section id="profile" className="relative scroll-mt-20">
         <span id="grow" aria-hidden="true" className="absolute -top-20" />
         <Profile />
-      </section>*/}
+      </section>
 
       <FinalCTA />
       <Footer />
