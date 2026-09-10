@@ -1,5 +1,4 @@
-
-import Hero from "./components/Hero";
+import Hero from "@/components/Hero";
 import Discover from "@/components/Discover";
 import LearnBuildSkills from "@/components/LearnBuildSkills";
 import ProveSkills from "@/components/ProveSkills";
@@ -7,38 +6,35 @@ import Profile from "@/components/Profile";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 
-export default function Home() {
+export default function Page() {
   return (
-    <>
-      {/* Hero */}
+    <main>
       <Hero />
 
       {/* Discover 
-      <section id="discover">
+      <section id="discover" className="scroll-mt-20">
         <Discover />
       </section>*/}
 
       {/* Learn & Build Skills 
-      <section id="learn">
+      <section id="learn" className="relative scroll-mt-20">
+        <span id="build" aria-hidden="true" className="absolute -top-20" />
         <LearnBuildSkills />
       </section>*/}
 
       {/* Prove Skills 
-      <section id="prove">
+      <section id="prove" className="scroll-mt-20">
         <ProveSkills />
       </section>*/}
 
       {/* Grow / Profile 
-      <section id="profile">
+      <section id="profile" className="relative scroll-mt-20">
+        <span id="grow" aria-hidden="true" className="absolute -top-20" />
         <Profile />
       </section>*/}
 
-      {/* Final Call To Action */}
       <FinalCTA />
-
-      {/* Footer */}
       <Footer />
-    </>
+    </main>
   );
 }
-
