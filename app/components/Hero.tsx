@@ -139,7 +139,8 @@ export default function Hero() {
           {/* Platform description */}
           <p className="mx-auto mt-6 max-w-2xl text-sm leading-6 text-solo-muted md:text-base md:leading-7">
             SOLO is a career learning platform for students and aspiring
-            professionals. Discover career pathways, develop practical skills,
+            professionals figuring out what to learn next — from your first course to your first job.
+            Discover career pathways, develop practical skills,
             work on real projects, and showcase your achievements as you
             progress toward your career goals.
           </p>
@@ -159,6 +160,20 @@ export default function Hero() {
             >
               Start Learning
             </a>
+          </div>
+
+          {/* Trust stats */}
+          <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 mt-10 text-center">
+            {[
+              { value: "120+", label: "Learning pathways" },
+              { value: "40k", label: "Skills verified" },
+              { value: "1,800", label: "Roles mapped" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <p className="font-heading text-2xl font-bold text-neutral-900">{stat.value}</p>
+                <p className="text-sm text-neutral-500">{stat.label}</p>
+              </div>
+            ))}
           </div>
 
           {/* Six-step SOLO journey */}

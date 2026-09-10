@@ -13,25 +13,25 @@ export default function Home() {
       {/* Hero */}
       <Hero />
 
-      {/* Discover */}
+      {/* Discover 
       <section id="discover">
         <Discover />
-      </section>
+      </section>*/}
 
-      {/* Learn & Build Skills */}
+      {/* Learn & Build Skills 
       <section id="learn">
         <LearnBuildSkills />
-      </section>
+      </section>*/}
 
-      {/* Prove Skills */}
+      {/* Prove Skills 
       <section id="prove">
         <ProveSkills />
-      </section>
+      </section>*/}
 
-      {/* Grow / Profile */}
+      {/* Grow / Profile 
       <section id="profile">
         <Profile />
-      </section>
+      </section>*/}
 
       {/* Final Call To Action */}
       <FinalCTA />
