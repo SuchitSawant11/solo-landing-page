@@ -3,7 +3,6 @@ const JOURNEY_STEPS = [
     number: "01",
     title: "Discover",
     description: "Explore career pathways",
-    position: "left-3 top-10 lg:left-8 lg:top-14",
     href: "#discover",
     color: "border-solo-gold/30",
     numberColor: "text-solo-gold",
@@ -12,7 +11,6 @@ const JOURNEY_STEPS = [
     number: "02",
     title: "Learn",
     description: "Follow structured learning",
-    position: "right-3 top-14 lg:right-8 lg:top-24",
     href: "#learn",
     color: "border-solo-orange/30",
     numberColor: "text-solo-orange",
@@ -21,7 +19,6 @@ const JOURNEY_STEPS = [
     number: "03",
     title: "Build Skills",
     description: "Practice through real projects",
-    position: "left-1 top-[42%] lg:left-3",
     href: "#learn",
     color: "border-solo-blue/30",
     numberColor: "text-solo-blue",
@@ -30,7 +27,6 @@ const JOURNEY_STEPS = [
     number: "04",
     title: "Prove Skills",
     description: "Complete challenges",
-    position: "right-1 top-[45%] lg:right-3",
     href: "#prove",
     color: "border-solo-orange/30",
     numberColor: "text-solo-orange",
@@ -39,7 +35,6 @@ const JOURNEY_STEPS = [
     number: "05",
     title: "Grow",
     description: "Track your progress",
-    position: "bottom-10 left-8 lg:bottom-12 lg:left-14",
     href: "#profile",
     color: "border-solo-gold/30",
     numberColor: "text-solo-gold",
@@ -48,11 +43,19 @@ const JOURNEY_STEPS = [
     number: "06",
     title: "Showcase",
     description: "Share your achievements",
-    position: "bottom-10 right-8 lg:bottom-12 lg:right-14",
     href: "#profile",
     color: "border-solo-blue/30",
     numberColor: "text-solo-blue",
   },
+];
+
+const JOURNEY_POSITIONS = [
+  "left-1/2 top-0 -translate-x-1/2",
+  "right-0 top-20",
+  "right-0 bottom-20",
+  "left-1/2 bottom-0 -translate-x-1/2",
+  "left-0 bottom-20",
+  "left-0 top-20",
 ];
 
 export default function Hero() {
@@ -61,9 +64,11 @@ export default function Hero() {
       id="hero"
       className="relative isolate min-h-[calc(100vh-70px)] overflow-hidden bg-solo-bg"
     >
-      {/* Soft background color shapes */}
+      {/* Soft background shapes */}
       <div className="absolute -left-36 -top-36 h-[420px] w-[420px] rounded-full bg-solo-orange/15 blur-3xl" />
+
       <div className="absolute -right-36 -top-20 h-[380px] w-[380px] rounded-full bg-solo-gold/15 blur-3xl" />
+
       <div className="absolute -bottom-48 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-solo-blue/10 blur-3xl" />
 
       {/* Decorative background grid */}
@@ -76,147 +81,174 @@ export default function Hero() {
         }}
       />
 
-      {/* Circular journey map: large screens */}
-      <div className="pointer-events-none absolute inset-0 hidden lg:block">
-        <div className="absolute left-1/2 top-1/2 h-[530px] w-[530px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-solo-orange/30" />
-
-        <div className="absolute left-1/2 top-1/2 h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-solo-blue/20" />
-
-        <div className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-solo-orange shadow-[0_0_0_10px_rgba(253,67,34,0.12)]" />
-      </div>
-
-      {/* Floating learner journey cards: tablet and desktop */}
-      <div className="pointer-events-none absolute inset-0 hidden md:block">
-        {JOURNEY_STEPS.map((step) => (
-          <a
-            key={step.number}
-            href={step.href}
-            aria-label={`${step.title}: ${step.description}`}
-            className={`group pointer-events-auto absolute z-20 w-44 rounded-2xl border ${step.color} bg-white/85 p-4 shadow-[0_12px_34px_rgba(23,20,18,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:border-solo-orange/50 hover:shadow-[0_18px_45px_rgba(23,20,18,0.16)] motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange ${step.position}`}
-          >
-            <span
-              className={`font-heading text-xs font-extrabold ${step.numberColor}`}
-            >
-              {step.number}
+      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-70px)] max-w-7xl items-center px-5 py-16 sm:px-8 lg:px-12">
+        <div className="grid w-full items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
+          {/* Hero content */}
+          <div className="text-center lg:text-left">
+            {/* Badge */}
+            <span className="inline-flex items-center gap-2 rounded-full border border-solo-orange/20 bg-solo-orange/5 px-4 py-1.5 text-xs font-semibold text-solo-orange">
+              <span className="h-1.5 w-1.5 rounded-full bg-solo-orange" />
+              Your learning journey starts here
             </span>
 
-            <h3 className="mt-4 font-heading text-sm font-bold text-solo-text">
-              {step.title}
-            </h3>
+            {/* Main heading */}
+            <h1 className="mt-6 font-heading text-4xl font-extrabold leading-[1.04] tracking-tight text-solo-text sm:text-5xl md:text-6xl">
+              Build Skills.
+              <br />
 
-            <p className="mt-1 text-[11px] leading-4 text-solo-muted">
-              {step.description}
+              <span className="relative inline-block text-solo-orange">
+                Discover Careers.
+                <span className="absolute -bottom-1 left-0 h-1 w-full rounded-full bg-solo-gold/70" />
+              </span>
+
+              <br />
+              Learn Your Way.
+            </h1>
+
+            {/* Description */}
+            <p className="mx-auto mt-6 max-w-xl text-sm leading-6 text-solo-muted md:text-base md:leading-7 lg:mx-0">
+              SOLO is a career learning platform for students and aspiring
+              professionals. Discover career pathways, develop practical
+              skills, work on real projects, and showcase your achievements as
+              you progress toward your career goals.
             </p>
 
-            <div className="mt-4 h-1 w-8 rounded-full bg-solo-orange/20 transition-all duration-300 group-hover:w-full group-hover:bg-solo-orange" />
-          </a>
-        ))}
-      </div>
+            {/* Platform statistics */}
+            <div className="mx-auto mt-8 grid max-w-lg grid-cols-3 gap-5 text-center lg:mx-0 lg:text-left">
+              <div>
+                <div className="font-heading text-2xl font-extrabold text-solo-text sm:text-3xl">
+                  120+
+                </div>
 
-      {/* Main Hero Content */}
-      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-70px)] max-w-5xl items-center justify-center px-5 py-20 text-center md:px-6">
-        <div className="w-full rounded-[2rem] border border-white/70 bg-white/55 px-5 py-10 shadow-[0_24px_80px_rgba(23,20,18,0.06)] backdrop-blur-sm sm:px-10 md:px-16 md:py-14">
-          {/* Hero badge */}
-          <span className="inline-flex items-center gap-2 rounded-full border border-solo-orange/20 bg-solo-orange/5 px-4 py-1.5 text-xs font-semibold text-solo-orange">
-            <span className="h-1.5 w-1.5 rounded-full bg-solo-orange" />
-            Your learning journey starts here
-          </span>
-
-          {/* Main heading */}
-          <h1 className="mt-6 font-heading text-4xl font-extrabold leading-[1.03] tracking-tight text-solo-text sm:text-5xl md:text-6xl lg:text-7xl">
-            Build Skills.
-            <br />
-
-            <span className="relative inline-block text-solo-orange">
-              Discover Careers.
-              <span className="absolute -bottom-1 left-0 h-1 w-full rounded-full bg-solo-gold/70" />
-            </span>
-
-            <br />
-            Learn Your Way.
-          </h1>
-
-          {/* Platform description */}
-          <p className="mx-auto mt-6 max-w-2xl text-sm leading-6 text-solo-muted md:text-base md:leading-7">
-            SOLO is a career learning platform for students and aspiring
-            professionals figuring out what to learn next — from your first course to your first job.
-            Discover career pathways, develop practical skills,
-            work on real projects, and showcase your achievements as you
-            progress toward your career goals.
-          </p>
-
-          {/* Main actions */}
-          <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
-            <a
-              href="#discover"
-              className="inline-flex items-center justify-center rounded-xl bg-solo-orange px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-solo-orange/20 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:shadow-xl motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange"
-            >
-              Explore Pathways
-            </a>
-
-            <a
-              href="#learn"
-              className="inline-flex items-center justify-center rounded-xl border border-solo-orange/40 bg-white/70 px-6 py-3.5 text-sm font-bold text-solo-orange shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-solo-orange hover:bg-solo-orange hover:text-white hover:shadow-lg motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange"
-            >
-              Start Learning
-            </a>
-          </div>
-
-          {/* Trust stats */}
-          <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 mt-10 text-center">
-            {[
-              { value: "120+", label: "Learning pathways" },
-              { value: "40k", label: "Skills verified" },
-              { value: "1,800", label: "Roles mapped" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <p className="font-heading text-2xl font-bold text-neutral-900">{stat.value}</p>
-                <p className="text-sm text-neutral-500">{stat.label}</p>
+                <div className="mt-1 text-[10px] font-bold uppercase tracking-wide text-solo-muted sm:text-xs">
+                  Learning Pathways
+                </div>
               </div>
-            ))}
+
+              <div>
+                <div className="font-heading text-2xl font-extrabold text-solo-text sm:text-3xl">
+                  40k
+                </div>
+
+                <div className="mt-1 text-[10px] font-bold uppercase tracking-wide text-solo-muted sm:text-xs">
+                  Skills Verified
+                </div>
+              </div>
+
+              <div>
+                <div className="font-heading text-2xl font-extrabold text-solo-text sm:text-3xl">
+                  1,800
+                </div>
+
+                <div className="mt-1 text-[10px] font-bold uppercase tracking-wide text-solo-muted sm:text-xs">
+                  Roles Mapped
+                </div>
+              </div>
+            </div>
+
+            {/* Main actions */}
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:justify-start">
+              <a
+                href="#discover"
+                className="inline-flex items-center justify-center rounded-xl bg-solo-orange px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-solo-orange/20 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:shadow-xl motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange"
+              >
+                Explore Pathways
+              </a>
+
+              <a
+                href="#learn"
+                className="inline-flex items-center justify-center rounded-xl border border-solo-orange/40 bg-white/70 px-6 py-3.5 text-sm font-bold text-solo-orange shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-solo-orange hover:bg-solo-orange hover:text-white hover:shadow-lg motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange"
+              >
+                Start Learning
+              </a>
+            </div>
+
+            {/* Mobile journey list */}
+            <div className="mt-10 lg:hidden">
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-muted">
+                Your SOLO Journey
+              </p>
+
+              <div className="mt-4 grid grid-cols-2 gap-3 text-left sm:grid-cols-3">
+                {JOURNEY_STEPS.map((step) => (
+                  <a
+                    key={step.number}
+                    href={step.href}
+                    aria-label={`${step.title}: ${step.description}`}
+                    className={`rounded-2xl border ${step.color} bg-white/85 p-4 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-md motion-reduce:transform-none`}
+                  >
+                    <span
+                      className={`font-heading text-xs font-extrabold ${step.numberColor}`}
+                    >
+                      {step.number}
+                    </span>
+
+                    <h3 className="mt-2 font-heading text-sm font-bold text-solo-text">
+                      {step.title}
+                    </h3>
+
+                    <p className="mt-1 text-[11px] leading-4 text-solo-muted">
+                      {step.description}
+                    </p>
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* Six-step SOLO journey */}
-          <div className="mx-auto mt-10 max-w-3xl">
-            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-muted">
-              Your SOLO Journey
-            </p>
+          {/* Desktop journey map */}
+          <div className="relative mx-auto hidden h-[560px] w-full max-w-[600px] lg:block">
+            {/* Outer circle */}
+            <div className="absolute left-1/2 top-1/2 h-[470px] w-[470px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-solo-orange/30" />
 
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-3 text-[10px] font-bold uppercase tracking-wide sm:gap-x-3 sm:text-xs">
-              <span className="rounded-full bg-solo-orange/10 px-3 py-1.5 text-solo-orange">
-                01 Discover
+            {/* Inner circle */}
+            <div className="absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-solo-blue/20" />
+
+            {/* Decorative orbit dots */}
+            <div className="absolute left-1/2 top-[45px] h-3 w-3 -translate-x-1/2 rounded-full bg-solo-orange shadow-[0_0_0_10px_rgba(253,67,34,0.12)]" />
+
+            <div className="absolute bottom-[45px] left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-solo-blue shadow-[0_0_0_10px_rgba(61,126,184,0.12)]" />
+
+            <div className="absolute left-[45px] top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-solo-gold shadow-[0_0_0_10px_rgba(244,181,64,0.12)]" />
+
+            <div className="absolute right-[45px] top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-solo-orange shadow-[0_0_0_10px_rgba(253,67,34,0.12)]" />
+
+            {/* Center content */}
+            <div className="absolute left-1/2 top-1/2 flex h-32 w-32 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border border-white/80 bg-white/80 text-center shadow-xl backdrop-blur-md">
+              <span className="font-heading text-sm font-extrabold tracking-[0.2em] text-solo-orange">
+                SOLO
               </span>
 
-              <span className="h-1.5 w-1.5 rounded-full bg-solo-orange" />
-
-              <span className="rounded-full bg-solo-gold/15 px-3 py-1.5 text-solo-gold">
-                02 Learn
-              </span>
-
-              <span className="h-1.5 w-1.5 rounded-full bg-solo-orange" />
-
-              <span className="rounded-full bg-solo-blue/10 px-3 py-1.5 text-solo-blue">
-                03 Build
-              </span>
-
-              <span className="h-1.5 w-1.5 rounded-full bg-solo-orange" />
-
-              <span className="rounded-full bg-solo-orange/10 px-3 py-1.5 text-solo-orange">
-                04 Prove
-              </span>
-
-              <span className="h-1.5 w-1.5 rounded-full bg-solo-orange" />
-
-              <span className="rounded-full bg-solo-gold/15 px-3 py-1.5 text-solo-gold">
-                05 Grow
-              </span>
-
-              <span className="h-1.5 w-1.5 rounded-full bg-solo-orange" />
-
-              <span className="rounded-full bg-solo-blue/10 px-3 py-1.5 text-solo-blue">
-                06 Showcase
+              <span className="mt-2 max-w-[80px] text-[10px] leading-4 text-solo-muted">
+                Your Career Journey
               </span>
             </div>
+
+            {/* Journey cards */}
+            {JOURNEY_STEPS.map((step, index) => (
+              <a
+                key={step.number}
+                href={step.href}
+                aria-label={`${step.title}: ${step.description}`}
+                className={`group absolute z-20 w-44 rounded-2xl border ${step.color} ${JOURNEY_POSITIONS[index]} bg-white/90 p-4 shadow-[0_12px_34px_rgba(23,20,18,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:border-solo-orange/50 hover:shadow-[0_18px_45px_rgba(23,20,18,0.16)] motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange`}
+              >
+                <span
+                  className={`font-heading text-xs font-extrabold ${step.numberColor}`}
+                >
+                  {step.number}
+                </span>
+
+                <h3 className="mt-4 font-heading text-sm font-bold text-solo-text">
+                  {step.title}
+                </h3>
+
+                <p className="mt-1 text-[11px] leading-4 text-solo-muted">
+                  {step.description}
+                </p>
+
+                <div className="mt-4 h-1 w-8 rounded-full bg-solo-orange/20 transition-all duration-300 group-hover:w-full group-hover:bg-solo-orange" />
+              </a>
+            ))}
           </div>
         </div>
       </div>
