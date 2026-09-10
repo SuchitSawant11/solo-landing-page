@@ -7,6 +7,26 @@
   --color-solo-blue: #1255FF;
   --color-solo-coral: #EB5038;
   --color-solo-bg: #FFFCFA;
+  --color-solo-text: #171412;
+  --color-solo-muted: #6B6560;
   --font-heading: var(--font-montserrat);
   --font-body: var(--font-roboto);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-solo-bg);
+  color: var(--color-solo-text);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+section {
+  scroll-margin-top: 90px;
 }
