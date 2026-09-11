@@ -27,7 +27,7 @@ const NAV_ITEMS = [
         icon: Compass,
     },
     {
-        label: "Learn & Grow",
+        label: "Learn & Build",
         href: "#learn",
         id: "learn",
         icon: GraduationCap,
