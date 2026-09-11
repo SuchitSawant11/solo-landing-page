@@ -1,4 +1,3 @@
-
 import Hero from "@/components/Hero";
 import Discover from "@/components/Discover";
 import LearnBuildSkills from "@/components/LearnBuildSkills";
@@ -10,27 +9,29 @@ import Footer from "@/components/Footer";
 export default function Page() {
   return (
     <main>
-      
-
       <Hero />
 
+      {/* Discover */}
       <section id="discover" className="scroll-mt-20">
         <Discover />
       </section>
 
+      {/* Learn & Build Skills 
       <section id="learn" className="relative scroll-mt-20">
         <span id="build" aria-hidden="true" className="absolute -top-20" />
         <LearnBuildSkills />
-      </section>
+      </section>*/}
 
+      {/* Prove Skills
       <section id="prove" className="scroll-mt-20">
         <ProveSkills />
-      </section>
+      </section> */}
 
+      {/* Grow / Profile 
       <section id="profile" className="relative scroll-mt-20">
         <span id="grow" aria-hidden="true" className="absolute -top-20" />
         <Profile />
-      </section>
+      </section>*/}
 
       <FinalCTA />
       <Footer />

@@ -73,7 +73,8 @@ export default function FinalCTA() {
             {/* Main CTA */}
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <a
-                href="#discover"
+                href="https://app.thesolo.network/signup"
+                target="_blank"
                 className="inline-flex min-w-44 items-center justify-center rounded-xl bg-solo-orange px-8 py-3.5 text-sm font-bold text-white shadow-lg shadow-solo-orange/20 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:shadow-xl motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange"
               >
                 Get Started Free
