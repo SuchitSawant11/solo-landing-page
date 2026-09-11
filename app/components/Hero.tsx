@@ -62,7 +62,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative isolate min-h-[calc(100vh-70px)] overflow-hidden bg-solo-bg"
+      className="relative isolate min-h-screen pt-17 overflow-hidden bg-solo-bg"
     >
       {/* Soft background shapes */}
       <div className="absolute -left-36 -top-36 h-[420px] w-[420px] rounded-full bg-solo-orange/15 blur-3xl" />
@@ -108,7 +108,8 @@ export default function Hero() {
             {/* Description */}
             <p className="mx-auto mt-6 max-w-xl text-sm leading-6 text-solo-muted md:text-base md:leading-7 lg:mx-0">
               SOLO is a career learning platform for students and aspiring
-              professionals. Discover career pathways, develop practical
+              professionals figuring out what to learn next - from your first course to your first job.
+              Discover career pathways, develop practical
               skills, work on real projects, and showcase your achievements as
               you progress toward your career goals.
             </p>

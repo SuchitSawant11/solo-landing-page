@@ -18,6 +18,11 @@ const roboto = Roboto({
   preload: true,
 });
 
+export const metadata = {
+  title: "SOLO - Skills for the Future",
+  description: "SOLO is a platform that helps you discover, learn, and prove your skills to unlock career opportunities.",
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
