@@ -69,49 +69,79 @@ const TYPE_ICON = {
 
 /* =========================================================
    INTERESTS
-   These are mapped to actual searchable terms so they
-   perform a real action instead of being decorative.
 ========================================================= */
 
 const INTERESTS = [
     {
         name: "Web Development",
-        search: "React",
+        skills: [
+            "React",
+            "JavaScript",
+            "Frontend Development",
+            "Web Development",
+        ],
         accent: "text-solo-blue",
         bg: "bg-solo-blue/5",
         border: "border-solo-blue/20",
     },
+
     {
         name: "Data & AI",
-        search: "Python",
+        skills: [
+            "Python",
+            "Data Science",
+            "Artificial Intelligence",
+            "AI/ML",
+        ],
         accent: "text-solo-gold",
         bg: "bg-solo-gold/5",
         border: "border-solo-gold/25",
     },
+
     {
         name: "UI/UX Design",
-        search: "Design",
+        skills: [
+            "Figma",
+            "UI/UX Design",
+            "Design Systems",
+            "UX Research",
+        ],
         accent: "text-solo-coral",
         bg: "bg-solo-coral/5",
         border: "border-solo-coral/20",
     },
+
     {
         name: "Product Management",
-        search: "Product",
+        skills: [
+            "Product Management",
+            "Product Strategy",
+            "Market Research",
+        ],
         accent: "text-solo-orange",
         bg: "bg-solo-orange/5",
         border: "border-solo-orange/20",
     },
+
     {
         name: "Marketing",
-        search: "Business",
+        skills: [
+            "Marketing",
+            "Business",
+            "Market Research",
+        ],
         accent: "text-solo-orange",
         bg: "bg-solo-orange/5",
         border: "border-solo-orange/20",
     },
+
     {
         name: "Cybersecurity",
-        search: "Security",
+        skills: [
+            "Cybersecurity",
+            "Security",
+            "Network Security",
+        ],
         accent: "text-solo-blue",
         bg: "bg-solo-blue/5",
         border: "border-solo-blue/20",
@@ -126,21 +156,32 @@ export default function Discover() {
     const [category, setCategory] =
         useState<(typeof CATEGORIES)[number]>("All");
 
+    const [resultsHighlighted, setResultsHighlighted] =
+        useState(false);
+
+    const [selectedInterest, setSelectedInterest] =
+        useState<(typeof INTERESTS)[number] | null>(null);
+
 
     /* =====================================================
        FILTER COURSES
     ===================================================== */
 
     const filtered = useMemo(() => {
-
         const normalizedQuery = query.trim().toLowerCase();
 
         return COURSES.filter((course) => {
 
+            // -----------------------------------------
+            // CATEGORY FILTER
+            // -----------------------------------------
             const matchesCategory =
                 category === "All" ||
                 course.category === category;
 
+            // -----------------------------------------
+            // SEARCH FILTER
+            // -----------------------------------------
             const matchesQuery =
                 normalizedQuery === "" ||
                 course.title
@@ -154,20 +195,88 @@ export default function Discover() {
                     .includes(normalizedQuery) ||
                 course.type
                     .toLowerCase()
-                    .includes(normalizedQuery);
+                    .includes(normalizedQuery) ||
+                course.skills.some((skill) =>
+                    skill
+                        .toLowerCase()
+                        .includes(normalizedQuery)
+                );
 
-            return matchesCategory && matchesQuery;
+            // -----------------------------------------
+            // INTEREST FILTER
+            // -----------------------------------------
+            const matchesInterest =
+                selectedInterest === null ||
+                selectedInterest.skills.some((interestSkill) =>
+                    course.skills.some(
+                        (courseSkill) =>
+                            courseSkill.toLowerCase() ===
+                            interestSkill.toLowerCase()
+                    )
+                );
+
+            return (
+                matchesCategory &&
+                matchesQuery &&
+                matchesInterest
+            );
         });
-
-    }, [query, category]);
+    }, [query, category, selectedInterest]);
 
 
     /* =====================================================
-       CLEAR SEARCH
-    ===================================================== */
+   CLEAR SEARCH
+===================================================== */
 
     const clearSearch = () => {
         setQuery("");
+    };
+
+
+    /* =====================================================
+       CLEAR INTEREST
+    ===================================================== */
+
+    const clearInterest = () => {
+        setSelectedInterest(null);
+    };
+
+
+    /* =====================================================
+       INTEREST SELECTION
+    ===================================================== */
+
+    const handleInterestClick = (
+        interest: (typeof INTERESTS)[number]
+    ) => {
+        setSelectedInterest(interest);
+
+        setResultsHighlighted(true);
+
+        window.setTimeout(() => {
+            setResultsHighlighted(false);
+        }, 1200);
+
+        // Scroll to filtered results
+        window.setTimeout(() => {
+            const resultsSection = document.getElementById(
+                "learning-opportunities"
+            );
+
+            if (resultsSection) {
+                const navbarOffset = 110;
+
+                const targetPosition =
+                    resultsSection.getBoundingClientRect().top +
+                    window.scrollY -
+                    navbarOffset;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: "smooth",
+                });
+            }
+        }, 150);
     };
 
 
@@ -175,7 +284,7 @@ export default function Discover() {
 
         <section
             id="discover"
-            className="relative isolate overflow-hidden bg-solo-bg"
+            className="relative scroll-mt-28 isolate overflow-hidden bg-solo-bg"
         >
 
             {/* =================================================
@@ -208,7 +317,7 @@ export default function Discover() {
                 MAIN CONTENT
             ================================================= */}
 
-            <div className="relative z-10 mx-auto max-w-[1240px] px-5 py-20 md:px-6 md:py-24">
+            <div className="relative z-10 mx-auto max-w-[1240px] px-5 py-16 md:px-6 md:py-20">
 
 
                 {/* =================================================
@@ -313,7 +422,7 @@ export default function Discover() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="mt-14"
+                    className="mt-10 md:mt-12"
                 >
 
                     <div className="mb-4 flex items-center gap-2">
@@ -361,12 +470,29 @@ export default function Discover() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.5 }}
-                    className="mt-12 overflow-hidden rounded-[2rem] border border-neutral-200 bg-white/80 shadow-[0_20px_60px_rgba(23,20,18,0.05)] backdrop-blur-sm"
+                    className="mt-10 overflow-hidden rounded-[2rem] border border-neutral-200 bg-white/80 shadow-[0_20px_60px_rgba(23,20,18,0.05)] backdrop-blur-sm"
                 >
 
                     <div className="p-5 sm:p-6 md:p-7">
 
                         {/* Search */}
+                        <div className="mb-4 flex items-center justify-between gap-4">
+                            <div>
+                                <p className="font-heading text-sm font-bold text-solo-text">
+                                    What do you want to learn?
+                                </p>
+                                <p className="mt-1 text-xs text-solo-muted">
+                                    Search courses, skills, topics, or opportunities.
+                                </p>
+                            </div>
+
+                            {query && (
+                                <span className="hidden rounded-full bg-solo-orange/5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-solo-orange sm:inline-flex">
+                                    Searching: {query}
+                                </span>
+                            )}
+                        </div>
+
                         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
 
                             <div className="relative w-full lg:max-w-2xl">
@@ -377,9 +503,9 @@ export default function Discover() {
                                     type="text"
                                     value={query}
                                     onChange={(e) => setQuery(e.target.value)}
-                                    placeholder="Search by course, skill, topic, or opportunity..."
+                                    placeholder="Try “React”, “Python”, “Internship”..."
                                     aria-label="Search courses, skills, topics, or opportunities"
-                                    className="h-12 w-full rounded-xl border border-neutral-200 bg-solo-bg pl-12 pr-11 text-sm text-solo-text outline-none transition-all placeholder:text-neutral-400 focus:border-solo-orange/40 focus:bg-white focus:ring-4 focus:ring-solo-orange/10"
+                                    className="h-13 w-full rounded-xl border border-neutral-200 bg-solo-bg pl-12 pr-11 text-sm text-solo-text outline-none transition-all placeholder:text-neutral-400 focus:border-solo-orange/40 focus:bg-white focus:ring-4 focus:ring-solo-orange/10"
                                 />
 
                                 {query && (
@@ -398,7 +524,9 @@ export default function Discover() {
 
                             <div className="flex items-center gap-2 text-xs text-solo-muted">
 
-                                <TrendingUp className="h-4 w-4 text-solo-orange" />
+                                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-solo-gold/10">
+                                    <TrendingUp className="h-3.5 w-3.5 text-solo-gold" />
+                                </span>
 
                                 <span>
                                     Explore at your own pace
@@ -432,8 +560,8 @@ export default function Discover() {
                                             type="button"
                                             onClick={() => setCategory(cat)}
                                             className={`relative rounded-full px-4 py-2 text-xs font-semibold transition-colors ${category === cat
-                                                    ? "text-white"
-                                                    : "text-neutral-600 hover:text-solo-orange"
+                                                ? "text-white"
+                                                : "text-neutral-600 hover:text-solo-orange"
                                                 }`}
                                         >
 
@@ -479,32 +607,113 @@ export default function Discover() {
                     RESULTS HEADER
                 ================================================= */}
 
-                <div className="mt-10 flex items-end justify-between gap-4">
+                {/* =================================================
+    RESULTS HEADER
+================================================= */}
 
-                    <div>
+                <div
+                    id="learning-opportunities"
+                    className={`
+                        mt-8
+                        scroll-mt-[120px]
+                        rounded-2xl
+                        transition-all
+                        duration-500
+                        md:mt-10
+                        ${resultsHighlighted
+                            ? "bg-solo-orange/5 p-4 ring-2 ring-solo-orange/20"
+                            : ""
+                        }
+                    `}
+                >
+                    <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
 
-                        <p className="text-xs font-bold uppercase tracking-[0.14em] text-solo-orange">
-                            Learning opportunities
-                        </p>
+                        {/* LEFT — Results information */}
+                        <div>
 
-                        <h3 className="mt-1 font-heading text-xl font-bold text-solo-text md:text-2xl">
-                            Explore what's available
-                        </h3>
+                            <div className="flex items-center gap-3">
+
+                                <span className="h-px w-8 bg-solo-orange" />
+
+                                <p className="text-xs font-bold uppercase tracking-[0.14em] text-solo-orange">
+                                    Learning opportunities
+                                </p>
+
+                            </div>
+
+                            <h3 className="mt-2 font-heading text-2xl font-bold text-solo-text md:text-3xl">
+                                Explore your next step
+                            </h3>
+
+
+                            {/* Selected Interest */}
+                            {selectedInterest && (
+                                <div className="mt-4">
+
+                                    {/* Interest */}
+                                    <div className="flex flex-wrap items-center gap-2">
+
+                                        <span className="text-xs font-medium text-solo-muted">
+                                            Exploring
+                                        </span>
+
+                                        <span className="inline-flex items-center gap-1.5 rounded-full border border-solo-orange/20 bg-solo-orange/5 px-3 py-1.5 text-xs font-bold text-solo-orange">
+
+                                            {selectedInterest.name}
+
+                                            <button
+                                                type="button"
+                                                onClick={clearInterest}
+                                                aria-label={`Clear ${selectedInterest.name} filter`}
+                                                className="flex h-4 w-4 items-center justify-center rounded-full transition-colors hover:bg-solo-orange/10"
+                                            >
+                                                <X className="h-3 w-3" />
+                                            </button>
+
+                                        </span>
+
+                                    </div>
+
+
+                                    {/* Related Skills */}
+                                    <div className="mt-2 flex flex-wrap items-center gap-1.5">
+
+                                        <span className="mr-1 text-[10px] font-semibold uppercase tracking-wide text-neutral-400">
+                                            Related skills
+                                        </span>
+
+                                        {selectedInterest.skills.map((skill) => (
+                                            <span
+                                                key={skill}
+                                                className="rounded-full border border-neutral-200 bg-white px-2.5 py-1 text-[10px] font-medium text-neutral-600"
+                                            >
+                                                {skill}
+                                            </span>
+                                        ))}
+
+                                    </div>
+
+                                </div>
+                            )}
+
+                        </div>
+
+
+                        {/* RIGHT — Result count */}
+                        <div className="shrink-0">
+
+                            <p className="text-xs text-solo-muted">
+                                Showing{" "}
+                                <span className="font-bold text-solo-text">
+                                    {filtered.length}
+                                </span>{" "}
+                                of {COURSES.length}
+                            </p>
+
+                        </div>
 
                     </div>
-
-
-                    <p className="shrink-0 text-xs text-solo-muted">
-                        Showing{" "}
-                        <span className="font-bold text-solo-text">
-                            {filtered.length}
-                        </span>{" "}
-                        of {COURSES.length}
-                    </p>
-
                 </div>
-
-
 
                 {/* =================================================
                     COURSE / OPPORTUNITY GRID
@@ -549,7 +758,7 @@ export default function Discover() {
                                                 duration: 0.3,
                                                 delay: index * 0.04,
                                             }}
-                                            className={`group relative overflow-hidden rounded-2xl border border-neutral-200 border-t-4 bg-white p-5 shadow-[0_8px_30px_rgba(23,20,18,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-[0_18px_45px_rgba(23,20,18,0.09)] ${CATEGORY_ACCENT[course.category]
+                                            className={`group relative overflow-hidden rounded-2xl border border-neutral-200 border-t-4 bg-white p-5 shadow-[0_8px_30px_rgba(23,20,18,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-[0_18px_45px_rgba(23,20,18,0.09)] md:p-6 ${CATEGORY_ACCENT[course.category]
                                                 } ${isFeatured
                                                     ? "lg:col-span-2"
                                                     : ""
@@ -569,7 +778,12 @@ export default function Discover() {
                                                 {/* Top row */}
                                                 <div className="flex items-start justify-between gap-3">
 
-                                                    <div className="flex items-center gap-2">
+                                                    <div className="flex flex-wrap items-center gap-2">
+                                                        {isFeatured && (
+                                                            <span className="rounded-full bg-solo-orange px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white">
+                                                                Featured
+                                                            </span>
+                                                        )}
 
                                                         <span
                                                             className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${CATEGORY_TINT[course.category]} text-solo-muted`}
@@ -601,12 +815,12 @@ export default function Discover() {
 
 
                                                 {/* Title */}
-                                                <div className="mt-7 flex items-start justify-between gap-4">
+                                                <div className="mt-6 flex items-start justify-between gap-4">
 
                                                     <h4
                                                         className={`font-heading font-bold leading-snug text-solo-text ${isFeatured
-                                                                ? "text-xl md:text-2xl"
-                                                                : "text-base"
+                                                            ? "text-xl md:text-2xl"
+                                                            : "text-base"
                                                             }`}
                                                     >
                                                         {course.title}
@@ -623,8 +837,8 @@ export default function Discover() {
                                                 {/* Description */}
                                                 <p
                                                     className={`mt-3 max-w-2xl leading-6 text-solo-muted ${isFeatured
-                                                            ? "text-sm"
-                                                            : "text-xs"
+                                                        ? "text-sm"
+                                                        : "text-xs"
                                                         }`}
                                                 >
                                                     {course.description}
@@ -632,7 +846,7 @@ export default function Discover() {
 
 
                                                 {/* Bottom */}
-                                                <div className="mt-7 flex items-center justify-between border-t border-neutral-100 pt-4">
+                                                <div className="mt-6 flex items-center justify-between border-t border-neutral-100 pt-4">
 
                                                     <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wide text-neutral-400">
 
@@ -670,7 +884,7 @@ export default function Discover() {
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="rounded-2xl border border-dashed border-neutral-300 bg-white/70 px-6 py-16 text-center"
+                            className="rounded-2xl border border-dashed border-neutral-300 bg-white/70 px-6 py-14 text-center md:py-16"
                         >
 
                             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-solo-orange/10 text-solo-orange">
@@ -691,6 +905,7 @@ export default function Discover() {
                                 onClick={() => {
                                     setQuery("");
                                     setCategory("All");
+                                    setSelectedInterest(null);
                                 }}
                                 className="mt-5 rounded-xl bg-solo-orange px-5 py-2.5 text-xs font-bold text-white shadow-sm shadow-solo-orange/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
                             >
@@ -714,7 +929,7 @@ export default function Discover() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.5 }}
-                    className="mt-20"
+                    className="mt-16 md:mt-20"
                 >
 
                     <div className="mb-6 max-w-2xl">
@@ -750,8 +965,8 @@ export default function Discover() {
                             <button
                                 key={interest.name}
                                 type="button"
-                                onClick={() => setQuery(interest.search)}
-                                className={`group relative min-h-28 overflow-hidden rounded-2xl border ${interest.border} ${interest.bg} p-4 text-left transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-[0_14px_35px_rgba(23,20,18,0.07)]`}
+                                onClick={() => handleInterestClick(interest)}
+                                className={`group relative min-h-32 overflow-hidden rounded-2xl border ${interest.border} ${interest.bg} p-4 text-left transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-[0_16px_40px_rgba(23,20,18,0.08)]`}
                             >
 
                                 <span className="font-heading text-[10px] font-extrabold uppercase tracking-wider text-neutral-400">
@@ -764,9 +979,10 @@ export default function Discover() {
                                 </span>
 
 
-                                <ArrowUpRight
-                                    className={`absolute bottom-4 right-4 h-4 w-4 ${interest.accent} opacity-40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100`}
-                                />
+                                <span className={`absolute bottom-4 right-4 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide ${interest.accent} opacity-60 transition-all duration-300 group-hover:opacity-100`}>
+                                    Explore
+                                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                </span>
 
                             </button>
 
@@ -780,15 +996,11 @@ export default function Discover() {
 
                 {/* =================================================
                     CAREER PATH
-                    Existing interactive PathwayTree is retained.
                 ================================================= */}
 
-                <div className="mt-24">
-
+                <div className="mt-16 md:mt-20">
                     <PathwayTree />
-
                 </div>
-
 
             </div>
 

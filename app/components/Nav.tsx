@@ -1,151 +1,287 @@
-
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import {
+    Home,
+    Compass,
+    GraduationCap,
+    Trophy,
+    UserRound,
+    ArrowRight,
+    Menu,
+    X,
+} from "lucide-react";
 
-const NAV_LINKS = [
-    { label: "Home", href: "#top" },
-    { label: "Discover", href: "#discover" },
-    { label: "Learn & Grow", href: "#learn" },
-    { label: "Prove Skills", href: "#prove" },
-    { label: "Profile", href: "#profile" },
+const NAV_ITEMS = [
+    {
+        label: "Home",
+        href: "#hero",
+        id: "hero",
+        icon: Home,
+    },
+    {
+        label: "Discover",
+        href: "#discover",
+        id: "discover",
+        icon: Compass,
+    },
+    {
+        label: "Learn & Grow",
+        href: "#learn",
+        id: "learn",
+        icon: GraduationCap,
+    },
+    {
+        label: "Prove Skills",
+        href: "#prove",
+        id: "prove",
+        icon: Trophy,
+    },
+    {
+        label: "Profile",
+        href: "#profile",
+        id: "profile",
+        icon: UserRound,
+    },
 ];
 
-const SOLO_LOGIN_URL = "https://app.thesolo.network/signin";
-const SOLO_SIGNUP_URL = "https://app.thesolo.network/signup";
-
 export default function Nav() {
-    const [open, setOpen] = useState(false);
+    const [activeSection, setActiveSection] = useState("hero");
+    const [mobileOpen, setMobileOpen] = useState(false);
 
-    const closeMenu = () => {
-        setOpen(false);
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY + 160;
+
+            let currentSection = "hero";
+
+            for (const item of NAV_ITEMS) {
+                const section = document.getElementById(item.id);
+
+                if (section) {
+                    const sectionTop = section.offsetTop;
+
+                    if (scrollPosition >= sectionTop) {
+                        currentSection = item.id;
+                    }
+                }
+            }
+
+            setActiveSection(currentSection);
+        };
+
+        handleScroll();
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    const handleNavClick = (id: string) => {
+        setActiveSection(id);
+        setMobileOpen(false);
     };
 
     return (
-        <header className="sticky top-0 z-50 border-b border-black/5 bg-solo-bg/90 backdrop-blur">
-            <div className="mx-auto flex h-16 max-w-[1240px] items-center gap-6 px-6">
+        <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
+            <nav
+                className="
+          mx-auto flex max-w-[1530px] items-center
+          rounded-full
+          border border-white/80
+          bg-white/85
+          px-3 py-2
+          shadow-[0_10px_40px_rgba(0,0,0,0.08)]
+          backdrop-blur-xl
+          sm:px-4
+        "
+            >
+                {/* ================= LOGO + TAGLINE ================= */}
+                <div className="flex shrink-0 items-center">
+                    <a
+                        href="#hero"
+                        onClick={() => handleNavClick("hero")}
+                        className="flex items-center"
+                    >
+                        <Image
+                            src="/solo-logo.png"
+                            alt="SOLO"
+                            width={115}
+                            height={46}
+                            className="h-8 w-auto object-contain sm:h-9 transition-transform duration-300 group-hover:scale-[1.03]"
+                            priority
+                        />
+                    </a>
 
-                <a
-                    href="#top"
-                    onClick={closeMenu}
-                    className="flex shrink-0 items-center gap-2"
-                >
-                    <Image
-                        src="/solo-logo.png"
-                        alt="SOLO Logo"
-                        width={70}
-                        height={70}
-                        className="h-10 w-auto object-contain"
-                    />
+                    {/* Divider */}
+                    <div className="mx-3 hidden h-8 w-px bg-black/10 lg:block" />
 
-                    <span className="hidden whitespace-nowrap font-heading text-sm text-solo-orange sm:inline">
-                        The Career Connect Platform
+                    {/* Tagline */}
+                    <span className="hidden whitespace-nowrap text-sm text-gray-500 lg:block">
+                        The{" "}
+                        <span className="font-medium text-solo-orange">
+                            Career Connect
+                        </span>{" "}
+                        Platform
                     </span>
-                </a>
-
-                <nav className="hidden flex-1 items-center justify-center gap-8 font-body text-sm text-neutral-700 lg:flex">
-                    {NAV_LINKS.map((link) => (
-                        <a
-                            key={link.href}
-                            href={link.href}
-                            className="transition-colors hover:text-solo-orange"
-                        >
-                            {link.label}
-                        </a>
-                    ))}
-                </nav>
-
-                <div className="ml-auto hidden shrink-0 items-center gap-4 lg:flex">
-                    <a
-                        href={SOLO_LOGIN_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm font-medium transition-colors hover:text-solo-orange"
-                    >
-                        Login
-                    </a>
-
-                    <a
-                        href={SOLO_SIGNUP_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rounded-full bg-solo-orange px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-orange-600"
-                    >
-                        Sign Up
-                    </a>
                 </div>
 
+                {/* ================= DESKTOP NAV ================= */}
+                <div className="ml-auto hidden items-center gap-1 lg:flex">
+                    {NAV_ITEMS.map((item) => {
+                        const Icon = item.icon;
+                        const isActive = activeSection === item.id;
+
+                        return (
+                            <a
+                                key={item.id}
+                                href={item.href}
+                                onClick={() => handleNavClick(item.id)}
+                                className={`
+                  group flex items-center gap-2
+                  rounded-full
+                  px-4 py-2.5
+                  text-sm font-medium
+                  transition-all duration-200
+                  ${isActive
+                                        ? "bg-solo-orange/10 text-solo-orange"
+                                        : "text-gray-600 hover:bg-black/[0.04] hover:text-gray-900"
+                                    }
+                `}
+                            >
+                                <Icon
+                                    size={17}
+                                    strokeWidth={isActive ? 2.3 : 1.8}
+                                    className="transition-transform duration-200 group-hover:scale-105"
+                                />
+
+                                <span>{item.label}</span>
+
+                                {/* Active underline */}
+                                {isActive && (
+                                    <span className="absolute mt-8 h-[2px] w-5 rounded-full bg-solo-orange" />
+                                )}
+                            </a>
+                        );
+                    })}
+                </div>
+
+                {/* ================= JOIN SOLO ================= */}
+                <a
+                    href="https://app.thesolo.network/signup"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="
+            group ml-3 hidden
+            items-center gap-2
+            rounded-full
+            bg-solo-orange
+            px-5 py-3
+            text-sm font-bold text-white
+            shadow-[0_8px_20px_rgba(253,67,34,0.22)]
+            transition-all duration-200
+            hover:-translate-y-0.5
+            hover:shadow-[0_10px_25px_rgba(253,67,34,0.3)]
+            lg:flex
+          "
+                >
+                    <span>Join SOLO</span>
+
+                    <ArrowRight
+                        size={17}
+                        className="
+              transition-transform duration-200
+              group-hover:translate-x-1
+            "
+                    />
+                </a>
+
+                {/* ================= MOBILE MENU BUTTON ================= */}
                 <button
                     type="button"
-                    aria-label="Toggle navigation menu"
-                    aria-expanded={open}
-                    onClick={() => setOpen(!open)}
-                    className="ml-auto flex h-10 w-10 items-center justify-center rounded-md text-neutral-700 transition-colors hover:bg-black/5 lg:hidden"
+                    aria-label="Toggle navigation"
+                    onClick={() => setMobileOpen(!mobileOpen)}
+                    className="
+            ml-auto
+            flex h-10 w-10
+            items-center justify-center
+            rounded-full
+            text-gray-700
+            transition
+            hover:bg-black/5
+            lg:hidden
+          "
                 >
-                    <span className="sr-only">Menu</span>
-
-                    <div className="flex flex-col gap-1.5">
-                        <span
-                            className={`block h-0.5 w-6 bg-current transition-transform ${
-                                open ? "translate-y-2 rotate-45" : ""
-                            }`}
-                        />
-
-                        <span
-                            className={`block h-0.5 w-6 bg-current transition-opacity ${
-                                open ? "opacity-0" : "opacity-100"
-                            }`}
-                        />
-
-                        <span
-                            className={`block h-0.5 w-6 bg-current transition-transform ${
-                                open ? "-translate-y-2 -rotate-45" : ""
-                            }`}
-                        />
-                    </div>
+                    {mobileOpen ? <X size={21} /> : <Menu size={21} />}
                 </button>
-            </div>
+            </nav>
 
-            {open && (
-                <div className="border-t border-black/5 bg-solo-bg lg:hidden">
-                    <nav className="mx-auto flex max-w-[1240px] flex-col px-6 py-4 font-body text-sm text-neutral-700">
-                        {NAV_LINKS.map((link) => (
-                            <a
-                                key={link.href}
-                                href={link.href}
-                                onClick={closeMenu}
-                                className="border-b border-black/5 py-3 transition-colors hover:text-solo-orange"
-                            >
-                                {link.label}
-                            </a>
-                        ))}
+            {/* ================= MOBILE MENU ================= */}
+            {mobileOpen && (
+                <div
+                    className="
+            mx-3 mt-2
+            rounded-3xl
+            border border-white/80
+            bg-white/95
+            p-3
+            shadow-[0_15px_40px_rgba(0,0,0,0.1)]
+            backdrop-blur-xl
+            sm:mx-5
+            lg:hidden
+          "
+                >
+                    <div className="flex flex-col gap-1">
+                        {NAV_ITEMS.map((item) => {
+                            const Icon = item.icon;
+                            const isActive = activeSection === item.id;
 
-                        <div className="flex items-center gap-4 pt-4">
-                            <a
-                                href={SOLO_LOGIN_URL}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={closeMenu}
-                                className="flex-1 rounded-full border border-solo-orange px-5 py-2.5 text-center text-sm font-medium text-solo-orange transition-colors hover:bg-solo-orange hover:text-white"
-                            >
-                                Login
-                            </a>
+                            return (
+                                <a
+                                    key={item.id}
+                                    href={item.href}
+                                    onClick={() => handleNavClick(item.id)}
+                                    className={`
+                    flex items-center gap-3
+                    rounded-2xl
+                    px-4 py-3
+                    text-sm font-medium
+                    transition
+                    ${isActive
+                                            ? "bg-solo-orange/10 text-solo-orange"
+                                            : "text-gray-600 hover:bg-black/[0.04]"
+                                        }
+                  `}
+                                >
+                                    <Icon size={18} />
 
-                            <a
-                                href={SOLO_SIGNUP_URL}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={closeMenu}
-                                className="flex-1 rounded-full bg-solo-orange px-5 py-2.5 text-center text-sm font-medium text-white transition-colors hover:bg-orange-600"
-                            >
-                                Sign Up
-                            </a>
-                        </div>
-                    </nav>
+                                    <span>{item.label}</span>
+                                </a>
+                            );
+                        })}
+                    </div>
+
+                    <a
+                        href="https://app.thesolo.network/signup"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="
+              mt-2 flex items-center justify-center gap-2
+              rounded-2xl
+              bg-solo-orange
+              px-4 py-3
+              text-sm font-bold text-white
+              shadow-[0_8px_20px_rgba(253,67,34,0.2)]
+            "
+                    >
+                        Join SOLO
+                        <ArrowRight size={17} />
+                    </a>
                 </div>
             )}
         </header>
     );
 }
-

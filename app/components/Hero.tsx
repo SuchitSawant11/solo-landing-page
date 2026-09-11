@@ -3,7 +3,7 @@ const JOURNEY_STEPS = [
     number: "01",
     title: "Discover",
     description: "Explore career pathways",
-    position: "left-3 top-10 lg:left-8 lg:top-14",
+    position: "left-8 top-[100px] lg:left-8",
     href: "#discover",
     color: "border-solo-gold/30",
     numberColor: "text-solo-gold",
@@ -12,7 +12,7 @@ const JOURNEY_STEPS = [
     number: "02",
     title: "Learn",
     description: "Follow structured learning",
-    position: "right-3 top-14 lg:right-8 lg:top-24",
+    position: "right-3 top-16 lg:right-8 lg:top-24",
     href: "#learn",
     color: "border-solo-orange/30",
     numberColor: "text-solo-orange",
@@ -59,7 +59,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative isolate min-h-[calc(100vh-70px)] overflow-hidden bg-solo-bg"
+      className="relative isolate scroll-mt-28 pt-24 min-h-[calc(100vh-70px)] overflow-hidden bg-solo-bg"
     >
       {/* Soft background color shapes */}
       <div className="absolute -left-36 -top-36 h-[420px] w-[420px] rounded-full bg-solo-orange/15 blur-3xl" />

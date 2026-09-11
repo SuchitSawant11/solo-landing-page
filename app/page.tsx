@@ -12,10 +12,10 @@ export default function Home() {
       {/* Hero */}
       <Hero />
 
-      {/* Discover 
+      {/* Discover */}
       <section id="discover">
         <Discover />
-      </section>*/}
+      </section>
 
       {/* Learn & Build Skills 
       <section id="learn">
