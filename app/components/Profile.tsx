@@ -1,353 +1,428 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
-const SKILLS = ["Career Planning", "React", "UI Design", "Problem Solving"];
-
-const PROJECTS = [
+const STEPS = [
   {
-    title: "Career Path Explorer",
-    label: "Completed Project",
-    color: "bg-solo-orange/10 text-solo-orange",
+    number: "01",
+    title: "Open & complete your profile",
+    description:
+      "Open your Profile and select Edit Profile to add or update your information.",
+    actions: [
+      "Update your username",
+      "Add About You",
+      "Add your description",
+      "Add your location",
+      "Add other profile details",
+    ],
+    images: [
+      { src: "/profile.png", label: "Profile" },
+      { src: "/edit name.png", label: "Edit Profile" },
+      { src: "/edit username.png", label: "Username" },
+      { src: "/about you.png", label: "About You" },
+      { src: "/description.png", label: "Description" },
+      { src: "/location.png", label: "Location" },
+      { src: "/add adhar details.png", label: "Additional Details" },
+    ],
   },
+
   {
-    title: "Student Portfolio",
-    label: "In Progress",
-    color: "bg-solo-blue/10 text-solo-blue",
+    number: "02",
+    title: "Add your education",
+    description:
+      "Open the Education section and add your academic information.",
+    actions: [
+      "Click Add Education",
+      "Add your course or degree",
+      "Add your institute details",
+      "Enter your education information",
+      "Import your Open Badge when available",
+    ],
+    images: [
+      { src: "/education.png", label: "Education" },
+      { src: "/adding education.png", label: "Add Education" },
+      {
+        src: "/import your open badge.png",
+        label: "Import Open Badge",
+      },
+    ],
+  },
+
+  {
+    number: "03",
+    title: "Upload or generate your resume",
+    description:
+      "Upload an existing resume or use your SOLO profile information to generate one.",
+    actions: [
+      "Upload your existing resume",
+      "Open the resume option",
+      "Click Generate Resume",
+      "Check the information",
+      "Review the cover page",
+    ],
+    images: [
+      { src: "/upload resume.png", label: "Upload Resume" },
+      {
+        src: "/after click generate resume.png",
+        label: "Generate Resume",
+      },
+      { src: "/upload resume.png", label: "Upload Resume" },
+    ],
+  },
+
+  {
+    number: "04",
+    title: "Review & save your resume",
+    description:
+      "Select the resume you want, review it and save or download your resume.",
+    actions: [
+      "Select the resume you want",
+      "Review your resume",
+      "Check your profile information",
+      "Click Save",
+      "Download your resume",
+    ],
+    images: [
+      {
+        src: "/after click save resume after generating.png",
+        label: "Save & Download Resume",
+      },
+    ],
   },
 ];
 
-const BADGES = [
-  {
-    title: "First Project",
-    description: "Built a practical project",
-    label: "Achievement 01",
-    color: "border-solo-gold/30 bg-solo-gold/10 text-solo-gold",
-  },
-  {
-    title: "Skill Builder",
-    description: "Completed 5 learning modules",
-    label: "Achievement 02",
-    color: "border-solo-orange/30 bg-solo-orange/10 text-solo-orange",
-  },
-  {
-    title: "Career Ready",
-    description: "Created a shareable profile",
-    label: "Achievement 03",
-    color: "border-solo-blue/30 bg-solo-blue/10 text-solo-blue",
-  },
-];
+type Screenshot = {
+  src: string;
+  label: string;
+};
 
 export default function Profile() {
+  const [selectedImage, setSelectedImage] = useState<Screenshot | null>(null);
+
   return (
-    <section id="profile" className="relative overflow-hidden bg-solo-bg">
-      {/* Decorative background shapes */}
-      <div className="absolute -left-28 top-28 h-72 w-72 rounded-full bg-solo-orange/10 blur-3xl" />
-      <div className="absolute -right-28 bottom-0 h-80 w-80 rounded-full bg-solo-blue/10 blur-3xl" />
+    <section
+      id="profile"
+      className="relative w-full overflow-hidden bg-solo-bg"
+    >
+      {/* Background decoration */}
+      <div className="pointer-events-none absolute -left-32 top-20 h-64 w-64 rounded-full bg-solo-orange/10 blur-3xl" />
 
-      <div className="relative mx-auto max-w-[1180px] px-5 py-16 md:py-24">
-        {/* Section heading */}
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <h2 className="font-heading text-3xl font-extrabold tracking-tight text-solo-text md:text-5xl">
-              Your learning deserves
-              <span className="text-solo-orange"> to be seen.</span>
-            </h2>
-          </div>
+      <div className="pointer-events-none absolute -right-32 bottom-20 h-72 w-72 rounded-full bg-solo-blue/10 blur-3xl" />
 
-          <p className="max-w-md text-sm leading-6 text-solo-muted md:text-right">
-            Turn skills, projects, achievements, and progress into one
-            professional profile you can confidently share.
+      <div className="relative mx-auto max-w-[1150px] px-4 py-12 sm:px-6 md:px-8 lg:py-16">
+        {/* Heading */}
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex rounded-full border border-solo-orange/15 bg-white px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.16em] text-solo-orange shadow-sm sm:text-[9px]">
+            Your SOLO Profile
+          </span>
+
+          <h2 className="mt-4 font-heading text-3xl font-extrabold leading-tight tracking-tight text-solo-text sm:text-4xl">
+            Build your profile.
+            <span className="block text-solo-orange">
+              Showcase your journey.
+            </span>
+          </h2>
+
+          <p className="mx-auto mt-3 max-w-xl text-[10px] leading-5 text-solo-muted sm:text-xs">
+            Follow the steps to add your details, education and resume on
+            SOLO.
           </p>
         </div>
 
-        {/* Main learner portfolio dashboard */}
-        <div className="mt-10 overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_rgba(23,20,18,0.08)]">
-          <div className="grid lg:grid-cols-[0.8fr_1.45fr_0.9fr]">
-            {/* Left learner profile panel */}
-            <aside className="relative overflow-hidden border-b border-solo-orange/15 bg-solo-orange/5 p-6 md:p-7 lg:border-b-0 lg:border-r">
-              <div className="absolute -right-14 -top-14 h-40 w-40 rounded-full bg-solo-orange/15 blur-2xl" />
-              <div className="absolute -bottom-20 -left-16 h-40 w-40 rounded-full bg-solo-gold/20 blur-2xl" />
-
-              <div className="relative">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-solo-orange">
-                  Learner Profile
-                </p>
-
-                {/* Local student SVG illustration */}
-                <div className="mt-7 flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border border-solo-orange/70 bg-white p-2.5 shadow-lg shadow-solo-orange/40">
-                  <Image
-                    src="/Student-1623472004225-md.png"
-                    alt="Student learner illustration"
-                    width={104}
-                    height={104}
-                    className="h-[104px] w-[104px] object-contain"
-                    priority={false}
-                  />
-                </div>
-
-                <h3 className="mt-5 font-heading text-2xl font-extrabold text-solo-text">
-                  Diksha Gaonkar
-                </h3>
-
-                <p className="mt-2 text-xs leading-5 text-solo-muted">
-                  Learner Profile · Building career-ready skills
-                </p>
-
-                <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-3 py-1.5">
-                  <span className="h-2 w-2 rounded-full bg-green-500" />
-
-                  <span className="text-[10px] font-semibold text-solo-text">
-                    Actively learning
-                  </span>
-                </div>
-
-                <div className="mt-10">
-                  <div className="flex items-end justify-between">
-                    <div>
-                      <p className="text-[10px] font-semibold uppercase tracking-wider text-solo-muted">
-                        Profile Complete
-                      </p>
-
-                      <p className="mt-1 font-heading text-3xl font-extrabold text-solo-text">
-                        78%
-                      </p>
-                    </div>
-
-                    <span className="rounded-lg bg-solo-gold/15 px-2 py-1 text-[10px] font-bold text-solo-gold">
-                      Growing
-                    </span>
+        {/* ONE PROFILE SECTION */}
+        <div className="mt-10 rounded-3xl border border-black/5 bg-white p-4 shadow-[0_12px_40px_rgba(23,20,18,0.05)] sm:p-5 md:p-6">
+          {/* 2 × 2 horizontal cards */}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {STEPS.map((step, index) => (
+              <article
+                key={step.number}
+                className="
+                  group relative overflow-visible rounded-2xl
+                  border border-black/5
+                  bg-solo-bg/50
+                  p-4
+                  transition-all duration-300 ease-out
+                  hover:-translate-y-1
+                  hover:border-solo-orange/20
+                  hover:bg-white
+                  hover:shadow-[0_16px_35px_rgba(23,20,18,0.10)]
+                "
+              >
+                {/* Step heading */}
+                <div className="mb-3 flex items-center gap-3">
+                  <div
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[9px] font-extrabold ${
+                      index % 2 === 0
+                        ? "bg-solo-orange/10 text-solo-orange"
+                        : "bg-solo-blue/10 text-solo-blue"
+                    }`}
+                  >
+                    {step.number}
                   </div>
 
-                  <div className="mt-4 h-2 overflow-hidden rounded-full bg-solo-orange/15">
-                    <div className="h-full w-[78%] rounded-full bg-solo-orange" />
-                  </div>
-                </div>
-
-                <a
-                  href="#learn"
-                  className="group mt-10 inline-flex items-center gap-2 text-xs font-bold text-solo-orange transition-all duration-300 hover:translate-x-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange"
-                >
-                  View Learning Journey
-
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </a>
-              </div>
-            </aside>
-
-            {/* Centre panel: learning, skills, and projects */}
-            <div className="p-5 md:p-7">
-              {/* Learning progress */}
-              <div className="rounded-2xl border border-solo-orange/20 bg-solo-orange/5 p-5 md:p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-orange">
-                      Learning Progress
-                    </p>
-
-                    <h3 className="mt-2 font-heading text-xl font-extrabold text-solo-text md:text-2xl">
-                      Career Foundations Pathway
-                    </h3>
-
-                    <p className="mt-2 max-w-sm text-xs leading-5 text-solo-muted">
-                      Building the skills, confidence, and proof needed for
-                      future career opportunities.
-                    </p>
-                  </div>
-
-                  <span className="font-heading text-3xl font-extrabold text-solo-orange">
-                    72%
-                  </span>
-                </div>
-
-                <div className="mt-6 h-3 overflow-hidden rounded-full bg-solo-orange/15">
-                  <div className="h-full w-[72%] rounded-full bg-solo-orange" />
-                </div>
-
-                <div className="mt-3 flex justify-between text-[10px] font-medium text-solo-muted">
-                  <span>Started learning</span>
-                  <span>Career-ready profile</span>
-                </div>
-              </div>
-
-              {/* Skills */}
-              <div className="mt-7">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-orange">
-                      Skills
-                    </p>
-
-                    <h3 className="mt-1 font-heading text-lg font-bold text-solo-text">
-                      Skills in Progress
-                    </h3>
-                  </div>
-
-                  <span className="rounded-full bg-solo-orange/10 px-3 py-1.5 text-[10px] font-bold text-solo-orange">
-                    4 Skills
-                  </span>
-                </div>
-
-                <div className="mt-4 grid grid-cols-2 gap-3">
-                  {SKILLS.map((skill, index) => (
-                    <div
-                      key={skill}
-                      className={
+                  <div className="min-w-0">
+                    <p
+                      className={`text-[7px] font-bold uppercase tracking-[0.15em] ${
                         index % 2 === 0
-                          ? "rounded-2xl border border-solo-orange/15 bg-solo-orange/5 p-3 transition-transform duration-300 hover:-translate-y-1 hover:shadow-sm"
-                          : "rounded-2xl border border-solo-blue/15 bg-solo-blue/5 p-3 transition-transform duration-300 hover:-translate-y-1 hover:shadow-sm"
-                      }
+                          ? "text-solo-orange"
+                          : "text-solo-blue"
+                      }`}
+                    >
+                      Step {step.number}
+                    </p>
+
+                    <h3 className="font-heading text-sm font-extrabold leading-tight text-solo-text sm:text-base">
+                      {step.title}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Main Screenshot */}
+                <button
+                  type="button"
+                  onClick={() => setSelectedImage(step.images[0])}
+                  className="group/image block w-full text-left"
+                >
+                  <div className="relative aspect-[16/9] overflow-hidden rounded-xl border border-black/10 bg-white">
+                    <Image
+                      src={step.images[0].src}
+                      alt={step.images[0].label}
+                      fill
+                      className="
+                        object-cover object-top
+                        transition-transform duration-500
+                        group-hover/image:scale-[1.045]
+                      "
+                      sizes="(max-width: 768px) 100vw, 500px"
+                    />
+
+                    {/* Screenshot hover */}
+                    <div
+                      className="
+                        absolute inset-0
+                        flex items-center justify-center
+                        bg-black/0
+                        transition-all duration-300
+                        group-hover/image:bg-black/10
+                      "
                     >
                       <span
-                        className={
-                          index % 2 === 0
-                            ? "text-[10px] font-bold text-solo-orange"
-                            : "text-[10px] font-bold text-solo-blue"
-                        }
+                        className="
+                          rounded-full bg-white
+                          px-3 py-1.5
+                          text-[7px] font-bold text-solo-text
+                          opacity-0 shadow-md
+                          transition-all duration-300
+                          group-hover/image:opacity-100
+                        "
                       >
-                        {String(index + 1).padStart(2, "0")}
+                        View screenshot
                       </span>
+                    </div>
+                  </div>
 
-                      <p className="mt-3 text-xs font-bold text-solo-text">
-                        {skill}
-                      </p>
+                  <p className="mt-1.5 text-[7px] font-semibold text-solo-muted">
+                    {step.images[0].label} · Click to enlarge
+                  </p>
+                </button>
+
+                {/* Description */}
+                <p className="mt-3 text-[9px] leading-4 text-solo-muted sm:text-[10px]">
+                  {step.description}
+                </p>
+
+                {/* Actions */}
+                <div className="mt-3 grid grid-cols-1 gap-y-1.5 sm:grid-cols-2">
+                  {step.actions.map((action) => (
+                    <div
+                      key={action}
+                      className="flex items-start gap-2 text-[8px] leading-4 text-solo-text sm:text-[9px]"
+                    >
+                      <span
+                        className={`mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full ${
+                          index % 2 === 0
+                            ? "bg-solo-orange"
+                            : "bg-solo-blue"
+                        }`}
+                      />
+
+                      <span>{action}</span>
                     </div>
                   ))}
                 </div>
-              </div>
 
-              {/* Featured projects */}
-              <div className="mt-7">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-orange">
-                      Portfolio
-                    </p>
-
-                    <h3 className="mt-1 font-heading text-lg font-bold text-solo-text">
-                      Featured Projects
-                    </h3>
-                  </div>
-
-                  <span className="text-[10px] font-semibold text-solo-muted">
-                    2 Projects
-                  </span>
-                </div>
-
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  {PROJECTS.map((project, index) => (
-                    <article
-                      key={project.title}
-                      className="group relative overflow-hidden rounded-2xl border border-black/10 bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:border-solo-orange/30 hover:shadow-lg"
-                    >
-                      <div
-                        className={
-                          index === 0
-                            ? "absolute right-0 top-0 h-20 w-20 rounded-bl-full bg-solo-orange/10"
-                            : "absolute right-0 top-0 h-20 w-20 rounded-bl-full bg-solo-blue/10"
-                        }
-                      />
-
-                      <div className="relative flex items-start justify-between gap-3">
-                        <span
-                          className={`rounded-full px-2 py-1 text-[9px] font-bold ${project.color}`}
+                {/* Small Screenshot Cards */}
+                {step.images.length > 1 && (
+                  <div className="mt-4 border-t border-black/5 pt-3">
+                    <div className="flex flex-wrap gap-2">
+                      {step.images.slice(1).map((image, imageIndex) => (
+                        <button
+                          key={`${image.src}-${imageIndex}`}
+                          type="button"
+                          onClick={() => setSelectedImage(image)}
+                          className="
+                            group/thumb relative
+                            flex items-center gap-2
+                            overflow-hidden
+                            rounded-xl
+                            border border-black/5
+                            bg-white
+                            px-2 py-1.5
+                            text-left
+                            transition-all duration-300 ease-out
+                            hover:z-20
+                            hover:-translate-y-1
+                            hover:scale-[1.12]
+                            hover:border-solo-orange/30
+                            hover:shadow-[0_12px_25px_rgba(23,20,18,0.12)]
+                          "
                         >
-                          {project.label}
-                        </span>
+                          {/* Small screenshot */}
+                          <span
+                            className="
+                              relative
+                              h-8 w-12
+                              shrink-0
+                              overflow-hidden
+                              rounded-lg
+                              bg-solo-bg
+                              transition-all duration-300
+                              group-hover/thumb:h-12
+                              group-hover/thumb:w-20
+                            "
+                          >
+                            <Image
+                              src={image.src}
+                              alt={image.label}
+                              fill
+                              className="
+                                object-cover object-top
+                                transition-transform duration-500
+                                group-hover/thumb:scale-110
+                              "
+                              sizes="80px"
+                            />
+                          </span>
 
-                        <span className="text-xs text-solo-muted transition-transform duration-300 group-hover:translate-x-1">
-                          ↗
-                        </span>
-                      </div>
+                          {/* Card label */}
+                          <span
+                            className="
+                              whitespace-nowrap
+                              text-[7px]
+                              font-semibold
+                              text-solo-text
+                              transition-all duration-300
+                              group-hover/thumb:text-[8px]
+                            "
+                          >
+                            {image.label}
+                          </span>
 
-                      <p className="relative mt-8 font-heading text-sm font-bold text-solo-text">
-                        {project.title}
-                      </p>
+                          {/* Arrow */}
+                          <span
+                            className="
+                              text-[8px]
+                              font-bold
+                              text-solo-blue
+                              transition-transform duration-300
+                              group-hover/thumb:translate-x-1
+                            "
+                          >
+                            →
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
-                      <p className="relative mt-2 text-[10px] leading-4 text-solo-muted">
-                        Evidence of practical learning and problem-solving.
-                      </p>
-                    </article>
-                  ))}
-                </div>
+                {/* Bottom hover line */}
+                <div
+                  className={`absolute bottom-0 left-0 h-[2px] w-0 transition-all duration-500 group-hover:w-full ${
+                    index % 2 === 0
+                      ? "bg-solo-orange"
+                      : "bg-solo-blue"
+                  }`}
+                />
+              </article>
+            ))}
+          </div>
+
+          {/* Workflow */}
+          <div className="mt-5 border-t border-black/5 pt-4">
+            <div className="rounded-2xl bg-solo-bg/70 px-4 py-4 text-center">
+              <p className="text-[7px] font-bold uppercase tracking-[0.15em] text-solo-muted">
+                Your profile workflow
+              </p>
+
+              <div className="mt-2 flex flex-wrap items-center justify-center gap-2 text-[8px] font-bold text-solo-text sm:text-[9px]">
+                <span>Complete Profile</span>
+
+                <span className="text-solo-orange">→</span>
+
+                <span>Add Education</span>
+
+                <span className="text-solo-orange">→</span>
+
+                <span>Upload or Generate Resume</span>
+
+                <span className="text-solo-orange">→</span>
+
+                <span>Select Resume</span>
+
+                <span className="text-solo-orange">→</span>
+
+                <span>Save & Download</span>
               </div>
             </div>
-
-            {/* Right panel: achievements and shareable profile */}
-            <aside className="border-t border-solo-blue/15 bg-solo-blue/5 p-5 md:p-7 lg:border-l lg:border-t-0">
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-blue">
-                  Achievement Cabinet
-                </p>
-
-                <h3 className="mt-2 font-heading text-2xl font-extrabold leading-tight text-solo-text">
-                  Proof that grows with you.
-                </h3>
-
-                <p className="mt-3 text-xs leading-5 text-solo-muted">
-                  Each completed project, milestone, and credential becomes part
-                  of your professional story.
-                </p>
-              </div>
-
-              {/* Achievement cards without icons */}
-              <div className="mt-6 space-y-3">
-                {BADGES.map((badge) => (
-                  <article
-                    key={badge.title}
-                    className="rounded-2xl border border-black/10 bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:border-solo-blue/30 hover:shadow-md"
-                  >
-                    <span
-                      className={`inline-flex rounded-full border px-2.5 py-1 text-[9px] font-bold ${badge.color}`}
-                    >
-                      {badge.label}
-                    </span>
-
-                    <p className="mt-4 text-xs font-bold text-solo-text">
-                      {badge.title}
-                    </p>
-
-                    <p className="mt-1 text-[10px] leading-4 text-solo-muted">
-                      {badge.description}
-                    </p>
-                  </article>
-                ))}
-              </div>
-
-              {/* Shareable portfolio */}
-              <div className="mt-7 rounded-2xl border border-solo-blue/20 bg-white p-5 shadow-sm">
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-blue">
-                  Your Shareable Portfolio
-                </p>
-
-                <p className="mt-3 font-heading text-lg font-bold text-solo-text">
-                  One profile. Every achievement.
-                </p>
-
-                <p className="mt-2 text-xs leading-5 text-solo-muted">
-                  Share your learning journey with mentors, peers, recruiters,
-                  and future opportunities.
-                </p>
-
-                <div className="mt-4 rounded-xl border border-solo-blue/15 bg-solo-blue/5 px-3 py-2 text-[10px] font-medium text-solo-muted">
-                  solo.example/diksha
-                </div>
-
-                <a
-                  href="#start"
-                  className="group mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-solo-orange px-4 py-3 text-xs font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange"
-                >
-                  Build Your Profile
-
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </a>
-              </div>
-            </aside>
           </div>
         </div>
       </div>
+
+      {/* Screenshot Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div
+            className="relative max-h-[92vh] w-full max-w-5xl overflow-hidden rounded-2xl bg-white p-2 shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              type="button"
+              onClick={() => setSelectedImage(null)}
+              className="
+                absolute right-3 top-3 z-10
+                flex h-9 w-9
+                items-center justify-center
+                rounded-full
+                bg-white
+                text-lg font-bold text-solo-text
+                shadow-md
+                transition
+                hover:scale-105
+              "
+              aria-label="Close screenshot"
+            >
+              ×
+            </button>
+
+            {/* Large screenshot */}
+            <div className="max-h-[88vh] overflow-auto rounded-xl bg-solo-bg">
+              <Image
+                src={selectedImage.src}
+                alt={selectedImage.label}
+                width={1800}
+                height={1100}
+                className="h-auto w-full object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

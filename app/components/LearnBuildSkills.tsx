@@ -1,323 +1,715 @@
-const LEARNING_FEATURES = [
-  {
-    number: "01",
-    title: "Structured Learning Pathways",
-    description:
-      "Follow structured learning pathways that guide you through concepts and skills step by step.",
-    accent: "border-solo-orange/25 bg-solo-orange/5",
-    numberColor: "text-solo-orange",
-  },
-  {
-    number: "02",
-    title: "Learning Activities",
-    description:
-      "Complete practical activities and exercises that help you understand and apply what you learn.",
-    accent: "border-solo-gold/30 bg-solo-gold/10",
-    numberColor: "text-solo-gold",
-  },
-  {
-    number: "03",
-    title: "Progressive Learning",
-    description:
-      "Build your knowledge progressively by moving from foundational concepts to more advanced skills.",
-    accent: "border-solo-blue/25 bg-solo-blue/5",
-    numberColor: "text-solo-blue",
-  },
-  {
-    number: "04",
-    title: "Track Learning Progress",
-    description:
-      "Monitor your learning progress and see how your skills develop as you complete different activities.",
-    accent: "border-solo-orange/25 bg-solo-orange/5",
-    numberColor: "text-solo-orange",
-  },
-  {
-    number: "05",
-    title: "Explore Learning Areas",
-    description:
-      "Explore different areas of learning and discover subjects that match your interests and career goals.",
-    accent: "border-solo-blue/25 bg-solo-blue/5",
-    numberColor: "text-solo-blue",
-  },
-];
 
-const PATHWAY_STEPS = [
+import Image from "next/image";
+
+const learnSteps = [
   {
     number: "01",
-    title: "Discover",
-    status: "complete",
-    color: "bg-solo-gold text-white",
-    href: "#discover",
+    title: "Find a course",
+    text: "Browse courses from your dashboard.",
+    src: "/courses.png",
   },
   {
     number: "02",
-    title: "Learn",
-    status: "complete",
-    color: "bg-solo-orange text-white",
-    href: "#learn",
+    title: "Enroll",
+    text: "Click Enroll to add it to your journey.",
+    src: "/enroll .png",
   },
   {
     number: "03",
-    title: "Build",
-    status: "active",
-    color: "bg-solo-blue text-white",
-    href: "#learn",
+    title: "Start learning",
+    text: "Go to My Enrollments and begin lessons.",
+    src: "/my enrollment.png",
   },
   {
     number: "04",
-    title: "Prove",
-    status: "upcoming",
-    color: "border border-solo-orange/20 bg-white text-solo-muted",
-    href: "#prove",
+    title: "Complete the course",
+    text: "Finish lessons, activities and assessments.",
+    src: "/course page.png",
   },
   {
     number: "05",
-    title: "Grow",
-    status: "upcoming",
-    color: "border border-solo-gold/30 bg-white text-solo-muted",
-    href: "#profile",
+    title: "Request completion",
+    text: "Fill the form, add badge/certificate, submit.",
+    src: "/request completion.png",
   },
   {
     number: "06",
-    title: "Showcase",
-    status: "upcoming",
-    color: "border border-solo-blue/30 bg-white text-solo-muted",
-    href: "#profile",
+    title: "Done!",
+    text: "See your learning achievement on your profile.",
+    src: "/enrollsuccess.png",
   },
 ];
 
+const learningFeatures = [
+  {
+    title: "Learning activities",
+    text: "Open your dashboard to access your learning activities, courses and other available opportunities.",
+    src: "/dashboard.png",
+  },
+  {
+    title: "Track your progress",
+    text: "Open your dashboard or Career Pathway to view your enrollment, learning progress and completed activities.",
+    src: "/Your Enrollment Progress.png",
+  },
+  {
+    title: "Discover opportunities",
+    text: "Explore your dashboard and Career Pathways to find opportunities that match your skills and career interests.",
+    src: "/Top Matching Jobs.png",
+  },
+];
+
+const careerSteps = [
+  { title: "Discover career paths" },
+  { title: "Understand required skills" },
+  { title: "Identify your skill gaps" },
+  { title: "Explore possible job roles" },
+  { title: "Prepare for opportunities" },
+  { title: "Showcase readiness" },
+];
+
+const journeyItems = [
+  {
+    title: "Learn",
+    text: "Courses, activities and structured learning.",
+    color: "#fd4322",
+  },
+  {
+    title: "Build Skills",
+    text: "Projects, internships and real experiences.",
+    color: "#ff7f07",
+  },
+  {
+    title: "Prove Skills",
+    text: "Credentials, badges and achievements.",
+    color: "#1255ff",
+  },
+  {
+    title: "Showcase",
+    text: "Bring your skills and experiences together.",
+    color: "#eb5038",
+  },
+];
+
+function ImageCard({
+  src,
+  caption,
+}: {
+  src: string;
+  caption: string;
+}) {
+  return (
+    <div
+      className="
+        group relative z-0
+        overflow-visible
+        rounded-lg
+        border border-black/10
+        bg-white
+        shadow-sm
+        transition-all duration-300 ease-out
+        hover:z-30
+        hover:-translate-y-2
+        hover:scale-[1.55]
+        hover:shadow-2xl
+        hover:border-[#fd4322]/30
+      "
+    >
+      {/* Screenshot */}
+
+      <div className="overflow-hidden rounded-t-lg bg-white">
+        <Image
+          src={src}
+          alt={caption}
+          className="
+            block
+            h-auto
+            w-full
+            object-contain
+          "
+          width={600}
+          height={360}
+          priority={false}
+        />
+      </div>
+
+      {/* Caption */}
+
+      <p
+        className="
+          rounded-b-lg
+          bg-white
+          px-2
+          py-1.5
+          text-center
+          text-[8px]
+          font-bold
+          text-[#263952]
+        "
+      >
+        {caption}
+      </p>
+    </div>
+  );
+}
+
+function WorkflowBar({
+  steps,
+  color,
+  bgColor,
+}: {
+  steps: string[];
+  color: string;
+  bgColor: string;
+}) {
+  return (
+    <div
+      className="mt-3 rounded-lg border px-3 py-2"
+      style={{
+        borderColor: `${color}20`,
+        backgroundColor: bgColor,
+      }}
+    >
+      <p
+        className="
+          mb-1
+          text-center
+          text-[6px]
+          font-bold
+          uppercase
+          tracking-[0.14em]
+        "
+        style={{ color }}
+      >
+        SOLO Learner Flow
+      </p>
+
+      <div className="flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1">
+        {steps.map((step, index) => (
+          <div
+            key={step}
+            className="flex items-center gap-1"
+          >
+            <span
+              className="rounded-full px-2 py-0.5 text-[7px] font-bold"
+              style={{
+                backgroundColor: `${color}15`,
+                color,
+              }}
+            >
+              {step}
+            </span>
+
+            {index < steps.length - 1 && (
+              <span
+                className="text-[8px] font-bold"
+                style={{ color }}
+              >
+                →
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function LearnBuildSkills() {
   return (
-    <section id="learn" className="relative overflow-hidden bg-solo-bg">
-      {/* Light background decoration */}
-      <div className="absolute -left-28 top-20 h-80 w-80 rounded-full bg-solo-orange/10 blur-3xl" />
-      <div className="absolute -right-28 bottom-10 h-80 w-80 rounded-full bg-solo-gold/15 blur-3xl" />
+    <section
+      id="learn-build"
+      className="
+        bg-[#fff8f3]
+        py-7
+        lg:min-h-[calc(100vh-68px)]
+        lg:py-8
+      "
+    >
+      <div className="mx-auto w-[calc(100%-24px)] max-w-[1180px]">
 
-      <div className="relative mx-auto max-w-[1180px] px-5 py-16 md:py-24">
-        {/* Section heading */}
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="font-heading text-3xl font-extrabold tracking-tight text-solo-text md:text-5xl">
-            Learn & Build
-            <span className="text-solo-orange"> Skills That Matter.</span>
+        {/* ===================================================== */}
+        {/* SECTION INTRO */}
+        {/* ===================================================== */}
+
+        <div className="max-w-[600px]">
+          <p className="text-[9px] font-bold uppercase tracking-wider text-[#fd4322]">
+            Learn & Grow
+          </p>
+
+          <h2
+            className="
+              mt-0.5
+              text-xl
+              font-extrabold
+              leading-tight
+              text-[#172b44]
+              sm:text-2xl
+            "
+          >
+            From your first course
+            <br />
+            to your next opportunity.
           </h2>
 
-          <p className="mt-4 text-sm leading-6 text-solo-muted md:text-base">
-            Develop your skills through structured learning, practical
-            activities, progressive learning experiences, and continuous
-            progress tracking.
+          <p className="mt-1.5 text-[10px] leading-4 text-[#607087]">
+            Learn new skills, build experience, prove what you can do,
+            and grow your career on SOLO.
           </p>
         </div>
 
-        {/* Learning pathway dashboard */}
-        <div className="mx-auto mt-10 max-w-6xl overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_rgba(23,20,18,0.08)]">
-          {/* Dashboard header */}
-          <div className="grid border-b border-black/10 lg:grid-cols-[1fr_auto]">
-            <div className="p-5 md:p-7">
-              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-orange">
-                Learning Journey
-              </p>
+        {/* ===================================================== */}
+        {/* LEARN ON SOLO */}
+        {/* ===================================================== */}
 
-              <h3 className="mt-2 font-heading text-2xl font-extrabold text-solo-text md:text-3xl">
-                Learn. Practice. Progress.
-              </h3>
+        <div className="mt-5">
 
-              <p className="mt-3 max-w-2xl text-xs leading-5 text-solo-muted md:text-sm">
-                Build practical knowledge through guided pathways and
-                activities designed to help you learn at your own pace.
-              </p>
+          {/* Heading */}
+
+          <div className="flex items-center gap-2">
+            <div
+              className="
+                grid
+                h-6
+                w-6
+                shrink-0
+                place-items-center
+                rounded-md
+                bg-[#fd4322]
+                text-[8px]
+                font-bold
+                text-white
+              "
+            >
+              01
             </div>
 
-            <div className="flex items-center border-t border-black/10 bg-solo-orange/5 p-5 lg:border-l lg:border-t-0 md:p-7">
-              <a
-                href="#prove"
-                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border border-solo-orange bg-white px-5 py-3 text-xs font-bold text-solo-orange transition-all duration-300 hover:-translate-y-1 hover:bg-solo-orange hover:text-white hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange lg:w-auto"
-              >
-                Continue Learning
+            <div>
+              <p className="text-[8px] font-bold uppercase tracking-wide text-[#fd4322]">
+                Learn on SOLO
+              </p>
 
-                <span className="transition-transform duration-300 group-hover:translate-x-1">
-                  →
-                </span>
-              </a>
+              <h3 className="text-sm font-extrabold leading-tight text-[#172b44]">
+                From finding a course to earning your certificate
+              </h3>
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-[0.78fr_1.22fr]">
-            {/* Left learning pathway overview */}
-            <aside className="relative overflow-hidden border-b border-black/10 bg-solo-orange/5 p-6 md:p-7 lg:border-b-0 lg:border-r">
-              <div className="absolute -right-14 -top-14 h-40 w-40 rounded-full bg-solo-orange/15 blur-2xl" />
-              <div className="absolute -bottom-20 -left-16 h-44 w-44 rounded-full bg-solo-gold/20 blur-2xl" />
+          {/* ================================================= */}
+          {/* HORIZONTAL LEARNING CARDS */}
+          {/* ================================================= */}
 
-              <div className="relative">
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-orange">
-                  Your Learning Pathway
-                </p>
+          <div className="mt-3 overflow-visible">
+            <div
+              className="
+                flex
+                gap-2
+                overflow-x-auto
+                overflow-y-visible
+                px-1
+                py-4
+                scrollbar-thin
+              "
+            >
+              {learnSteps.map((step) => (
+                <div
+                  key={step.number}
+                  className="w-[145px] shrink-0"
+                >
 
-                <h3 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-solo-text">
-                  One clear path.
-                  <br />
-                  Real progress.
-                </h3>
+                  {/* Step number + title */}
 
-                <p className="mt-4 text-xs leading-5 text-solo-muted">
-                  Move through learning experiences that build confidence,
-                  capability, and practical skills over time.
-                </p>
-
-                {/* Updated 6-step journey progress */}
-                <div className="mt-8 rounded-2xl border border-solo-orange/20 bg-white p-5 shadow-sm">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-orange">
-                        SOLO Journey
-                      </p>
-
-                      <p className="mt-2 font-heading text-3xl font-extrabold text-solo-text">
-                        03 / 06
-                      </p>
+                  <div className="mb-1.5 flex items-center gap-1">
+                    <div
+                      className="
+                        grid
+                        h-4
+                        w-4
+                        shrink-0
+                        place-items-center
+                        rounded
+                        bg-[#fd4322]
+                        text-[6px]
+                        font-extrabold
+                        text-white
+                      "
+                    >
+                      {step.number}
                     </div>
 
-                    <span className="rounded-full bg-solo-orange/10 px-3 py-1.5 text-[10px] font-bold text-solo-orange">
-                      Building
-                    </span>
+                    <h4
+                      className="
+                        truncate
+                        text-[8px]
+                        font-extrabold
+                        leading-tight
+                        text-[#263952]
+                      "
+                    >
+                      {step.title}
+                    </h4>
                   </div>
 
-                  <div className="mt-5 h-2.5 overflow-hidden rounded-full bg-solo-orange/10">
-                    <div className="h-full w-1/2 rounded-full bg-solo-orange" />
-                  </div>
+                  {/* Screenshot Card */}
 
-                  <p className="mt-3 text-[10px] leading-4 text-solo-muted">
-                    Discover, learn, build, prove, grow, and showcase your
-                    skills.
-                  </p>
+                  <ImageCard
+                    src={step.src}
+                    caption={step.title}
+                  />
+
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ================================================= */}
+          {/* LEARNING FLOW */}
+          {/* ================================================= */}
+
+          <WorkflowBar
+            steps={[
+              "Browse",
+              "Enroll",
+              "Start Learning",
+              "Activities",
+              "Complete",
+              "Request Completion",
+              "Submit",
+            ]}
+            color="#fd4322"
+            bgColor="#fff1eb"
+          />
+
+          {/* ================================================= */}
+          {/* LEARNING FEATURES */}
+          {/* ================================================= */}
+
+          <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-3">
+            {learningFeatures.map((item) => (
+              <div
+                key={item.title}
+                className="
+                  group
+                  overflow-hidden
+                  rounded-lg
+                  border
+                  border-[#fd4322]/10
+                  bg-white
+                  shadow-sm
+                  transition-all
+                  duration-300
+                  hover:-translate-y-1
+                  hover:shadow-md
+                "
+              >
+                {/* Original SOLO Screenshot */}
+
+                <div className="overflow-hidden bg-[#fff8f3]">
+                  <Image
+                    src={item.src}
+                    alt={item.title}
+                    width={600}
+                    height={340}
+                    className="
+                      block
+                      h-[105px]
+                      w-full
+                      object-cover
+                      object-top
+                      transition-transform
+                      duration-300
+                      group-hover:scale-[1.03]
+                    "
+                  />
                 </div>
 
-                {/* Six-step learning flow */}
-                <div className="mt-8">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-blue">
-                    Your SOLO Journey
+                {/* Card Content */}
+
+                <div className="px-2.5 py-2">
+                  <p className="text-[8px] font-extrabold text-[#263952]">
+                    {item.title}
                   </p>
 
-                  <div className="mt-4 space-y-3">
-                    {PATHWAY_STEPS.map((step) => (
-                      <a
-                        key={step.number}
-                        href={step.href}
-                        className="group flex items-center gap-3 rounded-xl p-1 transition-colors duration-300 hover:bg-white/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solo-orange"
-                      >
-                        <span
-                          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${step.color}`}
-                        >
-                          {step.number}
-                        </span>
-
-                        <span
-                          className={
-                            step.status === "upcoming"
-                              ? "text-xs font-semibold text-solo-muted"
-                              : "text-xs font-bold text-solo-text"
-                          }
-                        >
-                          {step.title}
-                        </span>
-
-                        {step.status === "active" && (
-                          <span className="ml-auto rounded-full bg-solo-blue/10 px-2 py-1 text-[9px] font-bold text-solo-blue">
-                            Current
-                          </span>
-                        )}
-                      </a>
-                    ))}
-                  </div>
+                  <p className="mt-0.5 text-[7px] leading-3 text-[#697586]">
+                    {item.text}
+                  </p>
                 </div>
               </div>
-            </aside>
+            ))}
+          </div>
+        </div>
 
-            {/* Right learning features */}
-            <div className="p-5 md:p-7">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        {/* ===================================================== */}
+        {/* GROW YOUR CAREER */}
+        {/* ===================================================== */}
+
+        <div className="mt-5">
+
+          <div
+            className="
+              grid
+              gap-4
+              lg:grid-cols-[1fr_390px]
+              lg:items-center
+            "
+          >
+
+            {/* LEFT CONTENT */}
+
+            <div>
+
+              <div className="flex items-center gap-2">
+
+                <div
+                  className="
+                    grid
+                    h-6
+                    w-6
+                    shrink-0
+                    place-items-center
+                    rounded-md
+                    bg-[#1255ff]
+                    text-[8px]
+                    font-bold
+                    text-white
+                  "
+                >
+                  02
+                </div>
+
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-orange">
-                    How You Learn
+                  <p className="text-[8px] font-bold uppercase tracking-wide text-[#1255ff]">
+                    Grow your career
                   </p>
 
-                  <h3 className="mt-1 font-heading text-xl font-extrabold text-solo-text">
-                    Build skills through meaningful learning
+                  <h3 className="text-sm font-extrabold leading-tight text-[#172b44]">
+                    Connect learning to your career
                   </h3>
                 </div>
 
-                <span className="w-fit rounded-full bg-solo-blue/10 px-3 py-1.5 text-[10px] font-bold text-solo-blue">
-                  Learn at your pace
-                </span>
               </div>
 
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {LEARNING_FEATURES.map((feature, index) => (
-                  <article
-                    key={feature.number}
-                    className={`group relative overflow-hidden rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none ${feature.accent} ${
-                      index === 4 ? "sm:col-span-2" : ""
-                    }`}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <span
-                        className={`font-heading text-sm font-extrabold ${feature.numberColor}`}
-                      >
-                        {feature.number}
-                      </span>
+              <p className="mt-1.5 max-w-[460px] text-[10px] leading-4 text-[#667085]">
+                Career Pathways connect courses, skills and real-world
+                opportunities into a structured journey.
+              </p>
 
-                      <span className="rounded-full border border-black/5 bg-white/70 px-2 py-1 text-[9px] font-bold text-solo-muted">
-                        Learning
-                      </span>
+              {/* ================================================= */}
+              {/* CAREER STEPS */}
+              {/* ================================================= */}
+
+              <div className="mt-2 flex flex-wrap gap-1.5">
+
+                {careerSteps.map((item) => (
+                  <div
+                    key={item.title}
+                    className="
+                      flex
+                      items-center
+                      gap-1
+                      rounded-md
+                      border
+                      border-black/8
+                      bg-white
+                      px-2
+                      py-1.5
+                      transition-all
+                      hover:-translate-y-0.5
+                      hover:shadow-sm
+                    "
+                  >
+                    <span className="text-[7px] font-extrabold text-[#1255ff]">
+                      ✓
+                    </span>
+
+                    <span className="text-[8px] text-[#5e6877]">
+                      {item.title}
+                    </span>
+                  </div>
+                ))}
+
+              </div>
+
+              {/* ================================================= */}
+              {/* BUILD → PROVE → SHOWCASE */}
+              {/* ================================================= */}
+
+              <div className="mt-3 grid grid-cols-2 gap-1.5">
+
+                {journeyItems.map((item) => (
+                  <div
+                    key={item.title}
+                    className="
+                      rounded-md
+                      border
+                      border-black/8
+                      bg-white
+                      px-2
+                      py-1.5
+                      transition-all
+                      hover:-translate-y-0.5
+                      hover:shadow-sm
+                    "
+                  >
+                    <div className="flex items-center gap-1">
+
+                      <span
+                        className="h-1.5 w-1.5 rounded-full"
+                        style={{
+                          backgroundColor: item.color,
+                        }}
+                      />
+
+                      <p
+                        className="text-[7px] font-extrabold"
+                        style={{
+                          color: item.color,
+                        }}
+                      >
+                        {item.title}
+                      </p>
+
                     </div>
 
-                    <h4 className="mt-8 font-heading text-base font-bold text-solo-text">
-                      {feature.title}
-                    </h4>
-
-                    <p className="mt-2 max-w-md text-[11px] leading-5 text-solo-muted">
-                      {feature.description}
+                    <p className="mt-0.5 text-[6.5px] leading-3 text-[#697586]">
+                      {item.text}
                     </p>
-
-                    <div
-                      className={`absolute bottom-0 left-0 h-1 w-0 transition-all duration-300 group-hover:w-full ${
-                        index === 1
-                          ? "bg-solo-gold"
-                          : index === 2 || index === 4
-                          ? "bg-solo-blue"
-                          : "bg-solo-orange"
-                      }`}
-                    />
-                  </article>
+                  </div>
                 ))}
+
               </div>
+
             </div>
+
+            {/* ================================================= */}
+            {/* CAREER SCREENSHOTS */}
+            {/* ================================================= */}
+
+            <div className="grid grid-cols-2 gap-2">
+
+              <ImageCard
+                src="/opportunities.png"
+                caption="Discover opportunities"
+              />
+
+              <ImageCard
+                src="/course1page.png"
+                caption="Career Pathway"
+              />
+
+            </div>
+
           </div>
 
-          {/* Bottom progress CTA */}
-          <div className="flex flex-col gap-4 border-t border-black/10 bg-solo-blue/5 p-5 sm:flex-row sm:items-center sm:justify-between md:px-7 md:py-6">
-            <div>
-              <p className="font-heading text-base font-bold text-solo-text">
-                Keep growing your skills
-              </p>
+          {/* ================================================= */}
+          {/* CAREER FLOW */}
+          {/* ================================================= */}
 
-              <p className="mt-1 text-xs text-solo-muted">
-                Track your progress as you complete learning activities and
-                move through your pathway.
-              </p>
-            </div>
+          <WorkflowBar
+            steps={[
+              "Explore Pathways",
+              "Choose",
+              "Enroll",
+              "Build Skills",
+              "Complete",
+              "Grow Profile",
+            ]}
+            color="#1255ff"
+            bgColor="#eef3ff"
+          />
 
-            <a
-              href="#prove"
-              className="group inline-flex w-fit items-center gap-2 rounded-xl bg-solo-orange px-5 py-3 text-xs font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange"
-            >
-              Move to Prove Skills
+          {/* ================================================= */}
+          {/* PROFILE CONNECTION */}
+          {/* ================================================= */}
 
-              <span className="transition-transform duration-300 group-hover:translate-x-1">
+          <div
+            className="
+              mt-2
+              rounded-lg
+              border
+              border-[#1255ff]/10
+              bg-white
+              px-3
+              py-2
+            "
+          >
+            <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+
+              <span className="text-[7px] font-extrabold text-[#1255ff]">
+                YOUR SOLO PROFILE
+              </span>
+
+              <span className="text-[7px] text-[#9aa3af]">
+                Skills
+              </span>
+
+              <span className="text-[7px] text-[#9aa3af]">
+                +
+              </span>
+
+              <span className="text-[7px] text-[#9aa3af]">
+                Experience
+              </span>
+
+              <span className="text-[7px] text-[#9aa3af]">
+                +
+              </span>
+
+              <span className="text-[7px] text-[#9aa3af]">
+                Credentials
+              </span>
+
+              <span className="text-[7px] text-[#9aa3af]">
+                +
+              </span>
+
+              <span className="text-[7px] text-[#9aa3af]">
+                Achievements
+              </span>
+
+              <span className="text-[8px] font-bold text-[#1255ff]">
                 →
               </span>
-            </a>
+
+              <span className="text-[7px] font-extrabold text-[#263952]">
+                Opportunities
+              </span>
+
+            </div>
           </div>
+
         </div>
+
+        {/* ===================================================== */}
+        {/* FINAL LIGHT-MODE MESSAGE */}
+        {/* ===================================================== */}
+
+        <div
+          className="
+            mt-4
+            rounded-lg
+            border
+            border-[#fd4322]/15
+            bg-white
+            px-4
+            py-3
+            text-center
+            shadow-sm
+          "
+        >
+          <h3 className="text-sm font-extrabold text-[#172b44]">
+            Learn something. Build something. Grow from it.
+          </h3>
+
+          <p className="mx-auto mt-0.5 max-w-[500px] text-[8px] leading-3.5 text-[#667085]">
+            Every course, experience and achievement becomes part of your
+            verified journey on SOLO.
+          </p>
+
+          <p className="mt-1 text-[7px] font-semibold text-[#7a8492]">
+            Learn → Build Skills → Prove Skills → Grow → Showcase
+          </p>
+        </div>
+
       </div>
     </section>
   );
