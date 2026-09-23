@@ -2,927 +2,807 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 
 type Screenshot = {
   src: string;
   label: string;
+  description?: string;
 };
 
+/* =========================================================
+   SCREENSHOT DATA
+========================================================= */
+
 const PROFILE_IMAGES: Screenshot[] = [
-  { src: "/profile.png", label: "Profile" },
-  { src: "/edit name.png", label: "Edit Profile" },
-  { src: "/edit username.png", label: "Username" },
-  { src: "/about you.png", label: "About You" },
-  { src: "/description.png", label: "Description" },
-  { src: "/location.png", label: "Location" },
-  { src: "/add adhar details.png", label: "Additional Details" },
+  {
+    src: "/profile.png",
+    label: "Profile",
+    description: "View your learner profile and personal information.",
+  },
+  {
+    src: "/edit name.png",
+    label: "Edit Name",
+    description: "Update your name and basic profile details.",
+  },
+  {
+    src: "/edit username.png",
+    label: "Username",
+    description: "Choose and update your SOLO username.",
+  },
+  {
+    src: "/about you.png",
+    label: "About You",
+    description: "Add information about yourself and your interests.",
+  },
+  {
+    src: "/description.png",
+    label: "Description",
+    description: "Add a short description to introduce yourself.",
+  },
+  {
+    src: "/location.png",
+    label: "Location",
+    description: "Add your location to complete your profile.",
+  },
+  {
+    src: "/add adhar details.png",
+    label: "Identity Details",
+    description:
+      "Add the required identity information to your profile.",
+  },
 ];
 
 const EDUCATION_IMAGES: Screenshot[] = [
-  { src: "/education.png", label: "Education" },
-  { src: "/adding education.png", label: "Add Education" },
-  { src: "/import your open badge.png", label: "Import Open Badge" },
+  {
+    src: "/education.png",
+    label: "Education",
+    description:
+      "Add your educational background to your profile.",
+  },
+  {
+    src: "/adding education.png",
+    label: "Add Education",
+    description:
+      "Enter your qualification, institution and education details.",
+  },
 ];
 
 const RESUME_IMAGES: Screenshot[] = [
-  { src: "/upload resume.png", label: "Upload Resume" },
+  {
+    src: "/import your open badge.png",
+    label: "Import Open Badge",
+    description:
+      "Import eligible credentials into your SOLO profile.",
+  },
+  {
+    src: "/upload resume.png",
+    label: "Upload Resume",
+    description:
+      "Upload your existing resume to your profile.",
+  },
   {
     src: "/after click generate resume.png",
     label: "Generate Resume",
+    description:
+      "Generate a resume using the information in your profile.",
   },
   {
     src: "/after click save resume after generating.png",
-    label: "Save & Download Resume",
+    label: "Save Resume",
+    description:
+      "Save your generated resume for future use.",
   },
 ];
 
-const PROFILE_FEATURES = [
+const OPPORTUNITY_IMAGES: Screenshot[] = [
   {
-    number: "01",
-    title: "About You",
-    text: "Introduce yourself, interests and goals.",
+    src: "/opportunities.png",
+    label: "Explore Opportunities",
+    description:
+      "Browse courses, internships, projects and other opportunities.",
   },
   {
-    number: "02",
-    title: "Education",
-    text: "Add your course, degree and institute.",
+    src: "/enroll .png",
+    label: "Enroll in a Course",
+    description:
+      "Open a course and enroll to add it to your learning journey.",
   },
   {
-    number: "03",
-    title: "Skills",
-    text: "Show the skills you develop.",
-  },
-  {
-    number: "04",
-    title: "Projects",
-    text: "Highlight academic and personal projects.",
-  },
-  {
-    number: "05",
-    title: "Achievements",
-    text: "Add recognitions and milestones.",
-  },
-  {
-    number: "06",
-    title: "Credentials",
-    text: "Keep certificates and badges together.",
-  },
-  {
-    number: "07",
-    title: "Resume",
-    text: "Import or generate your resume.",
-  },
-  {
-    number: "08",
-    title: "Progress",
-    text: "Show your learning progress.",
+    src: "/careerpathway.png",
+    label: "Career Pathway",
+    description:
+      "Explore a structured pathway and enroll in opportunities that support your career goals.",
   },
 ];
 
-const PROFILE_STEPS = [
-  "Complete your profile",
-  "Add your education",
-  "Add skills & projects",
-  "Add achievements & credentials",
+const LEARNING_IMAGES: Screenshot[] = [
+  {
+    src: "/dashboard.png",
+    label: "Learner Dashboard",
+    description:
+      "Use your dashboard to access learning activities and opportunities.",
+  },
+  {
+    src: "/pathwayprogess.png",
+    label: "Pathway Progress",
+    description:
+      "Track your enrollment and progress through your career pathway.",
+  },
+  {
+    src: "/my enrollment.png",
+    label: "Manage Enrollments",
+    description:
+      "View and manage the opportunities you have joined.",
+  },
 ];
 
-const RESUME_STEPS = [
-  "Import your resume",
-  "Review information",
-  "Generate your resume",
-  "Save & download",
+const COMPLETION_IMAGES: Screenshot[] = [
+  {
+    src: "/request completion.png",
+    label: "Request Completion",
+    description:
+      "For applicable external courses, request completion on SOLO.",
+  },
+  {
+    src: "/badgeDesign-1788165226796.png",
+    label: "Credential",
+    description:
+      "Receive a badge or certificate after completing an eligible opportunity.",
+  },
 ];
 
-export default function Profile() {
-  const [selectedImage, setSelectedImage] =
-    useState<Screenshot | null>(null);
+const CAREER_IMAGES: Screenshot[] = [
+  {
+    src: "/SkillGapIdentification.png",
+    label: "Skill Gap Identification",
+    description:
+      "Identify skills that you can develop for your career goals.",
+  },
+  {
+    src: "/skillmatchanalysis.png",
+    label: "Match Skills with Jobs",
+    description:
+      "Use your skills and profile information to explore relevant job opportunities.",
+  },
+  {
+    src: "/job serach.png",
+    label: "Job Search",
+    description:
+      "Explore available jobs based on your interests and career goals.",
+  },
+];
 
+/* =========================================================
+   SCREENSHOT CARD
+========================================================= */
+
+function ScreenshotCard({
+  image,
+}: {
+  image: Screenshot;
+}) {
   return (
-    <section
-      id="profile"
-      className="relative overflow-hidden bg-solo-bg"
-    >
-      {/* Soft background decoration */}
-      <div className="pointer-events-none absolute -left-28 top-16 h-48 w-48 rounded-full bg-solo-orange/10 blur-3xl" />
-      <div className="pointer-events-none absolute -right-28 top-[45%] h-56 w-56 rounded-full bg-solo-blue/10 blur-3xl" />
-
-      <div className="relative mx-auto w-full max-w-[1180px] px-4 py-9 sm:px-6 sm:py-11 lg:px-8">
-
-        {/* ===================================================== */}
-        {/* HEADER */}
-        {/* ===================================================== */}
-
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex rounded-full border border-solo-orange/15 bg-white px-2.5 py-1 text-[7px] font-bold uppercase tracking-[0.15em] text-solo-orange shadow-sm">
-            Your SOLO Learner Profile
-          </span>
-
-          <h2 className="mt-3 font-heading text-2xl font-extrabold leading-[1.08] tracking-tight text-solo-text sm:text-3xl md:text-4xl">
-            One profile.
-            <span className="block text-solo-orange">
-              Your learning & career identity.
-            </span>
-          </h2>
-
-          <p className="mx-auto mt-3 max-w-lg text-[9px] leading-4 text-solo-muted sm:text-[10px]">
-            Bring your education, skills, projects, achievements,
-            credentials, progress and resume together in one place.
-          </p>
-        </div>
-
-        {/* ===================================================== */}
-        {/* PROFILE INTRODUCTION */}
-        {/* ===================================================== */}
-
-        <div className="mt-7 grid items-center gap-5 md:grid-cols-[0.85fr_1.15fr]">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-solo-orange text-[8px] font-extrabold text-white">
-                01
-              </span>
-
-              <div>
-                <p className="text-[6px] font-bold uppercase tracking-[0.15em] text-solo-orange">
-                  Learner Profile
-                </p>
-
-                <h3 className="mt-0.5 font-heading text-lg font-extrabold text-solo-text sm:text-xl">
-                  Build your profile.
-                </h3>
-              </div>
-            </div>
-
-            <p className="mt-3 max-w-sm text-[9px] leading-4 text-solo-muted sm:text-[10px]">
-              Your SOLO profile brings your learning and career
-              information together. Keep it updated as you learn,
-              build and grow.
-            </p>
-
-            <div className="mt-4 grid grid-cols-2 gap-1.5">
-              {[
-                "Education",
-                "Skills",
-                "Projects",
-                "Achievements",
-                "Credentials",
-                "Resume",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="rounded-lg border border-black/5 bg-white px-2.5 py-2 text-[7px] font-semibold text-solo-text shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-solo-orange/20 hover:shadow-md"
-                >
-                  <span className="mr-1 text-solo-orange">✓</span>
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <ScreenshotCard
-            image={PROFILE_IMAGES[0]}
-            onClick={() => setSelectedImage(PROFILE_IMAGES[0])}
-            large
-          />
-        </div>
-
-        {/* ===================================================== */}
-        {/* PROFILE SETUP STEPS */}
-        {/* ===================================================== */}
-
-        <div className="mt-10">
-          <SectionHeading
-            eyebrow="Build your profile"
-            title="Add information as you grow."
-            description="Complete the important parts of your learner profile."
-          />
-
-          <div className="mt-4 grid gap-2 sm:grid-cols-2">
-            {PROFILE_STEPS.map((step, index) => (
-              <div
-                key={step}
-                className="group flex gap-2.5 rounded-xl border border-black/5 bg-white p-3 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
-              >
-                <span
-                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-[7px] font-extrabold text-white ${
-                    index % 2 === 0
-                      ? "bg-solo-orange"
-                      : "bg-solo-blue"
-                  }`}
-                >
-                  0{index + 1}
-                </span>
-
-                <div>
-                  <h4 className="text-[8px] font-extrabold text-solo-text sm:text-[9px]">
-                    {step}
-                  </h4>
-
-                  <p className="mt-1 text-[7px] leading-3.5 text-solo-muted sm:text-[8px]">
-                    Open your profile and update this information
-                    whenever needed.
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ===================================================== */}
-        {/* PROFILE FEATURES - HORIZONTAL */}
-        {/* ===================================================== */}
-
-        <div className="mt-10">
-          <SectionHeading
-            eyebrow="Profile features"
-            title="Everything important in one place."
-            description="Your profile grows with your learning and experience."
-          />
-
-          <div className="mt-4 overflow-x-auto pb-2 scrollbar-thin">
-            <div className="flex min-w-max gap-2">
-              {PROFILE_FEATURES.map((feature, index) => (
-                <div
-                  key={feature.title}
-                  className="group w-[145px] shrink-0 rounded-xl border border-black/5 bg-white p-3 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-solo-orange/20 hover:shadow-md sm:w-[155px]"
-                >
-                  <div className="flex items-center justify-between">
-                    <span
-                      className={`text-[7px] font-extrabold ${
-                        index % 2 === 0
-                          ? "text-solo-orange"
-                          : "text-solo-blue"
-                      }`}
-                    >
-                      {feature.number}
-                    </span>
-
-                    <span className="h-1 w-1 rounded-full bg-black/10 transition-all duration-200 group-hover:w-4 group-hover:bg-solo-orange" />
-                  </div>
-
-                  <h4 className="mt-2.5 text-[8px] font-extrabold text-solo-text sm:text-[9px]">
-                    {feature.title}
-                  </h4>
-
-                  <p className="mt-1 min-h-[30px] text-[7px] leading-3.5 text-solo-muted sm:text-[8px]">
-                    {feature.text}
-                  </p>
-
-                  <div className="mt-2 text-[7px] font-bold text-solo-orange opacity-70 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100">
-                    Explore →
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ===================================================== */}
-        {/* PROFILE SETUP SCREENSHOTS */}
-        {/* ===================================================== */}
-
-        <div className="mt-10">
-          <SectionHeading
-            eyebrow="Profile setup"
-            title="Update your details."
-            description="Click a screenshot to view the original SOLO interface."
-          />
-
-          <div className="mt-4 overflow-x-auto pb-2">
-            <div className="flex min-w-max gap-2">
-              {PROFILE_IMAGES.slice(1).map((image) => (
-                <button
-                  key={image.src}
-                  type="button"
-                  onClick={() => setSelectedImage(image)}
-                  className="group w-[150px] shrink-0 overflow-hidden rounded-lg border border-black/5 bg-white text-left shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-solo-orange/20 hover:shadow-md sm:w-[165px]"
-                >
-                  <div className="relative aspect-[16/10] overflow-hidden bg-solo-bg">
-                    <Image
-                      src={image.src}
-                      alt={image.label}
-                      fill
-                      className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
-                      sizes="165px"
-                    />
-
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-200 group-hover:bg-black/10">
-                      <span className="translate-y-1 rounded-full bg-white px-2.5 py-1 text-[6px] font-bold text-solo-text opacity-0 shadow-md transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
-                        View
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between px-2 py-2">
-                    <span className="truncate text-[7px] font-bold text-solo-text sm:text-[8px]">
-                      {image.label}
-                    </span>
-
-                    <span className="ml-1 shrink-0 text-[8px] font-bold text-solo-orange transition-transform duration-200 group-hover:translate-x-1">
-                      →
-                    </span>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ===================================================== */}
-        {/* EDUCATION - RESPONSIVE */}
-        {/* ===================================================== */}
-
-        <div className="mt-10">
-          <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-sm sm:p-5">
-
-            {/* Education intro + steps */}
-            <div className="grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-
-              {/* Education intro */}
-              <div>
-                <span className="text-[7px] font-bold uppercase tracking-[0.15em] text-solo-blue">
-                  Education
-                </span>
-
-                <h3 className="mt-1.5 font-heading text-lg font-extrabold leading-tight text-solo-text sm:text-xl">
-                  Add your education.
-                </h3>
-
-                <p className="mt-2 max-w-sm text-[8px] leading-4 text-solo-muted sm:text-[9px]">
-                  Add your academic information so your profile reflects
-                  your educational journey.
-                </p>
-              </div>
-
-              {/* Education steps */}
-              <div className="overflow-x-auto pb-1">
-                <div className="flex min-w-max gap-1.5">
-                  {[
-                    "Open the Education section",
-                    "Click Add Education",
-                    "Enter your course or degree",
-                    "Add your institute details",
-                    "Import your Open Badge when available",
-                  ].map((item, index) => (
-                    <div
-                      key={item}
-                      className="group flex w-[125px] shrink-0 flex-col rounded-lg border border-black/5 bg-solo-bg p-2.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-solo-blue/20 hover:bg-white hover:shadow-sm sm:w-[135px]"
-                    >
-                      <span className="flex h-5 w-5 items-center justify-center rounded-md bg-solo-blue/10 text-[6px] font-extrabold text-solo-blue transition-colors duration-200 group-hover:bg-solo-blue group-hover:text-white">
-                        0{index + 1}
-                      </span>
-
-                      <span className="mt-2 text-[7px] font-semibold leading-3.5 text-solo-text sm:text-[8px]">
-                        {item}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Education screenshots BELOW steps */}
-            <div className="mt-5 border-t border-black/5 pt-4">
-
-              <div className="mb-2.5 flex items-center justify-between">
-                <div>
-                  <p className="text-[7px] font-bold uppercase tracking-[0.15em] text-solo-blue">
-                    Original SOLO interface
-                  </p>
-
-                  <p className="mt-0.5 text-[7px] text-solo-muted sm:text-[8px]">
-                    Click any screenshot to view it larger.
-                  </p>
-                </div>
-
-                <span className="hidden text-[7px] font-semibold text-solo-muted sm:block">
-                  Scroll →
-                </span>
-              </div>
-
-              {/* Small horizontal screenshot cards */}
-              <div className="overflow-x-auto pb-2">
-                <div className="flex min-w-max gap-2">
-                  {EDUCATION_IMAGES.map((image) => (
-                    <button
-                      key={image.src}
-                      type="button"
-                      onClick={() => setSelectedImage(image)}
-                      className="group w-[155px] shrink-0 overflow-hidden rounded-lg border border-black/5 bg-white text-left shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-solo-blue/20 hover:shadow-md sm:w-[175px] md:w-[190px]"
-                    >
-                      {/* Screenshot */}
-                      <div className="relative aspect-[16/10] overflow-hidden bg-solo-bg">
-                        <Image
-                          src={image.src}
-                          alt={image.label}
-                          fill
-                          className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
-                          sizes="190px"
-                        />
-
-                        {/* Hover overlay */}
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-200 group-hover:bg-black/10">
-                          <span className="translate-y-1 rounded-full bg-white px-2.5 py-1 text-[6px] font-bold text-solo-text opacity-0 shadow-md transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
-                            View
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Screenshot title */}
-                      <div className="flex items-center justify-between px-2 py-2">
-                        <span className="truncate text-[7px] font-bold text-solo-text sm:text-[8px]">
-                          {image.label}
-                        </span>
-
-                        <span className="ml-1 shrink-0 text-[8px] font-bold text-solo-blue transition-transform duration-200 group-hover:translate-x-1">
-                          →
-                        </span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ===================================================== */}
-        {/* YOUR RESUME */}
-        {/* ===================================================== */}
-
-        <div className="mt-10">
-          <div className="overflow-x-auto pb-2">
-            <div className="flex min-w-max items-stretch gap-2">
-
-              {/* Resume intro */}
-              <div className="w-[205px] shrink-0 rounded-xl border border-solo-orange/10 bg-solo-orange/5 px-3 py-3 sm:w-[225px]">
-                <span className="text-[7px] font-bold uppercase tracking-[0.15em] text-solo-orange">
-                  Your resume
-                </span>
-
-                <h3 className="mt-1.5 font-heading text-base font-extrabold leading-tight text-solo-text sm:text-lg">
-                  Import or generate your resume.
-                </h3>
-
-                <p className="mt-1.5 text-[8px] leading-3.5 text-solo-muted sm:text-[9px]">
-                  Use an existing resume or create one from your
-                  SOLO profile.
-                </p>
-              </div>
-
-              {/* Import resume */}
-              <ResumeOption
-                number="01"
-                title="Import your resume"
-                description="Upload an existing resume and reuse the available information."
-                steps={[
-                  "Upload",
-                  "Review",
-                  "Edit",
-                  "Update",
-                ]}
-                image={RESUME_IMAGES[0]}
-                onClick={() =>
-                  setSelectedImage(RESUME_IMAGES[0])
-                }
-                compact
-              />
-
-              {/* Generate resume */}
-              <ResumeOption
-                number="02"
-                title="Generate your resume"
-                description="Use your SOLO profile information to create a resume."
-                steps={[
-                  "Open",
-                  "Generate",
-                  "Check",
-                  "Review",
-                ]}
-                image={RESUME_IMAGES[1]}
-                onClick={() =>
-                  setSelectedImage(RESUME_IMAGES[1])
-                }
-                compact
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* ===================================================== */}
-        {/* SAVE & DOWNLOAD */}
-        {/* ===================================================== */}
-
-        <div className="mt-4 grid items-center gap-4 rounded-2xl border border-black/5 bg-white p-4 shadow-sm md:grid-cols-[0.75fr_1.25fr]">
-          <div>
-            <span className="text-[7px] font-bold uppercase tracking-[0.15em] text-solo-orange">
-              Final resume step
-            </span>
-
-            <h3 className="mt-1.5 font-heading text-lg font-extrabold text-solo-text sm:text-xl">
-              Review, save & download.
-            </h3>
-
-            <p className="mt-2 text-[8px] leading-4 text-solo-muted sm:text-[9px]">
-              Check your information, save the resume and
-              download the final version.
-            </p>
-
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              {[
-                "Select",
-                "Review",
-                "Save",
-                "Download",
-              ].map((item, index) => (
-                <span
-                  key={item}
-                  className="rounded-full bg-solo-bg px-2.5 py-1 text-[7px] font-semibold text-solo-text"
-                >
-                  {index + 1}. {item}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <ScreenshotCard
-            image={RESUME_IMAGES[2]}
-            onClick={() =>
-              setSelectedImage(RESUME_IMAGES[2])
-            }
-            large
-          />
-        </div>
-
-        {/* ===================================================== */}
-        {/* RESUME JOURNEY */}
-        {/* ===================================================== */}
-
-        <div className="mt-4 rounded-2xl border border-solo-orange/10 bg-solo-orange/5 px-4 py-5">
-          <div className="text-center">
-            <span className="text-[7px] font-bold uppercase tracking-[0.15em] text-solo-orange">
-              Resume journey
-            </span>
-
-            <h3 className="mt-1.5 font-heading text-lg font-extrabold text-solo-text sm:text-xl">
-              From profile to resume.
-            </h3>
-
-            <p className="mx-auto mt-1.5 max-w-lg text-[8px] leading-4 text-solo-muted">
-              Keep your information updated and use it whenever
-              you need to create or update your resume.
-            </p>
-          </div>
-
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5">
-            {RESUME_STEPS.map((step, index) => (
-              <div
-                key={step}
-                className="flex items-center gap-1.5"
-              >
-                <span className="rounded-full border border-black/5 bg-white px-2.5 py-1.5 text-[7px] font-bold text-solo-text shadow-sm">
-                  {index + 1}. {step}
-                </span>
-
-                {index < RESUME_STEPS.length - 1 && (
-                  <span className="text-[8px] font-bold text-solo-orange">
-                    →
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ===================================================== */}
-        {/* SHOWCASE */}
-        {/* ===================================================== */}
-
-        <div className="mt-10 grid items-center gap-5 md:grid-cols-[0.75fr_1.25fr]">
-          <div>
-            <span className="text-[7px] font-bold uppercase tracking-[0.15em] text-solo-orange">
-              Showcase your profile
-            </span>
-
-            <h3 className="mt-1.5 font-heading text-lg font-extrabold leading-tight text-solo-text sm:text-xl">
-              Let your journey tell your story.
-            </h3>
-
-            <p className="mt-2 max-w-sm text-[8px] leading-4 text-solo-muted sm:text-[9px]">
-              Bring your learning, skills, projects, achievements
-              and credentials together.
-            </p>
-          </div>
-
-          <div className="overflow-x-auto pb-2">
-            <div className="flex min-w-max gap-1.5">
-              {[
-                "Learning",
-                "Skills",
-                "Projects",
-                "Achievements",
-                "Credentials",
-                "Progress",
-              ].map((item, index) => (
-                <div
-                  key={item}
-                  className="group w-[105px] shrink-0 rounded-xl border border-black/5 bg-white p-3 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:w-[115px]"
-                >
-                  <span className="text-[6px] font-extrabold text-solo-orange">
-                    0{index + 1}
-                  </span>
-
-                  <p className="mt-2.5 text-[8px] font-bold text-solo-text sm:text-[9px]">
-                    {item}
-                  </p>
-
-                  <span className="mt-1 block text-[7px] text-solo-muted transition-transform duration-200 group-hover:translate-x-1">
-                    Explore →
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ===================================================== */}
-        {/* FINAL MESSAGE */}
-        {/* ===================================================== */}
-
-        <div className="mt-10 text-center">
-          <div className="mx-auto h-px max-w-24 bg-black/10" />
-
-          <p className="mt-5 text-[7px] font-bold uppercase tracking-[0.15em] text-solo-orange">
-            Keep building your journey
-          </p>
-
-          <h3 className="mt-1.5 font-heading text-lg font-extrabold text-solo-text sm:text-xl">
-            Your profile grows with you.
-          </h3>
-
-          <p className="mx-auto mt-1.5 max-w-md text-[8px] leading-4 text-solo-muted sm:text-[9px]">
-            Add new learning experiences, skills, projects,
-            achievements and credentials as you continue your
-            journey on SOLO.
-          </p>
-        </div>
+    <figure className="group min-w-0 overflow-hidden rounded-xl border border-[#e8e1dc] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-md">
+      <div className="relative flex h-[190px] items-center justify-center overflow-hidden bg-[#f7f4f1] p-2.5 sm:h-[210px]">
+        <Image
+          src={image.src}
+          alt={image.label}
+          width={1200}
+          height={750}
+          className="h-full w-full object-contain transition duration-300 group-hover:scale-[1.02]"
+        />
       </div>
 
-      {/* ===================================================== */}
-      {/* SCREENSHOT MODAL */}
-      {/* ===================================================== */}
+      <figcaption className="px-3.5 py-3">
+        <h4 className="text-sm font-semibold text-[#171412]">
+          {image.label}
+        </h4>
 
-      {selectedImage && (
-        <div
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 p-3 backdrop-blur-sm"
-          onClick={() => setSelectedImage(null)}
-        >
-          <div
-            className="relative max-h-[92vh] w-full max-w-4xl overflow-hidden rounded-xl bg-white p-1.5 shadow-2xl"
-            onClick={(event) =>
-              event.stopPropagation()
-            }
-          >
-            <button
-              type="button"
-              onClick={() => setSelectedImage(null)}
-              className="absolute right-2 top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-base font-bold text-solo-text shadow-md transition-all hover:scale-105 hover:bg-solo-orange hover:text-white"
-              aria-label="Close screenshot"
-            >
-              ×
-            </button>
-
-            <div className="max-h-[88vh] overflow-auto rounded-lg bg-solo-bg">
-              <Image
-                src={selectedImage.src}
-                alt={selectedImage.label}
-                width={1800}
-                height={1100}
-                className="h-auto w-full object-contain"
-              />
-            </div>
-          </div>
-        </div>
-      )}
-    </section>
+        {image.description && (
+          <p className="mt-1 text-xs leading-5 text-[#6B6560]">
+            {image.description}
+          </p>
+        )}
+      </figcaption>
+    </figure>
   );
 }
 
-/* ===================================================== */
-/* SECTION HEADING */
-/* ===================================================== */
+/* =========================================================
+   STANDARD GRID
+========================================================= */
 
-function SectionHeading({
+function ScreenshotGrid({
+  images,
+  columns = 3,
+}: {
+  images: Screenshot[];
+  columns?: 1 | 2 | 3;
+}) {
+  const gridClass =
+    columns === 1
+      ? "grid min-w-0 gap-4"
+      : columns === 2
+        ? "grid min-w-0 gap-4 sm:grid-cols-2"
+        : "grid min-w-0 gap-4 sm:grid-cols-2 lg:grid-cols-3";
+
+  return (
+    <div className={gridClass}>
+      {images.map((image) => (
+        <ScreenshotCard key={image.src} image={image} />
+      ))}
+    </div>
+  );
+}
+
+/* =========================================================
+   STEP HEADER
+========================================================= */
+
+function StepHeader({
+  number,
   eyebrow,
   title,
   description,
 }: {
+  number: string;
   eyebrow: string;
   title: string;
   description: string;
 }) {
   return (
-    <div className="flex flex-col gap-1.5 sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        <span className="text-[7px] font-bold uppercase tracking-[0.15em] text-solo-orange">
-          {eyebrow}
-        </span>
-
-        <h3 className="mt-1.5 font-heading text-lg font-extrabold text-solo-text sm:text-xl">
-          {title}
-        </h3>
+    <div className="mb-5 flex gap-4">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#FD4322] text-sm font-bold text-white shadow-sm">
+        {number}
       </div>
 
-      <p className="max-w-sm text-[8px] leading-4 text-solo-muted sm:text-right sm:text-[9px]">
-        {description}
+      <div className="min-w-0">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#FD4322]">
+          {eyebrow}
+        </p>
+
+        <h3 className="mt-1 text-xl font-bold tracking-tight text-[#171412] sm:text-2xl">
+          {title}
+        </h3>
+
+        <p className="mt-1 max-w-3xl text-sm leading-6 text-[#6B6560]">
+          {description}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   STORY CONNECTOR
+========================================================= */
+
+function StoryConnector({
+  text,
+}: {
+  text: string;
+}) {
+  return (
+    <div className="my-6 flex items-center gap-3">
+      <div className="h-px flex-1 bg-[#eee7e2]" />
+
+      <span className="rounded-full border border-[#ffd8ce] bg-[#fff7f4] px-3 py-1.5 text-xs font-medium text-[#FD4322]">
+        {text}
+      </span>
+
+      <div className="h-px flex-1 bg-[#eee7e2]" />
+    </div>
+  );
+}
+
+/* =========================================================
+   SMALL STORY BOX
+========================================================= */
+
+function StoryBox({
+  title,
+  text,
+}: {
+  title: string;
+  text: string;
+}) {
+  return (
+    <div className="rounded-xl border border-[#eee7e2] bg-[#fffcfa] px-4 py-3.5">
+      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#FD4322]">
+        {title}
+      </p>
+
+      <p className="mt-1 text-sm leading-6 text-[#6B6560]">
+        {text}
       </p>
     </div>
   );
 }
 
-/* ===================================================== */
-/* SCREENSHOT CARD */
-/* ===================================================== */
+/* =========================================================
+   CREDENTIAL WALLET
+========================================================= */
 
-function ScreenshotCard({
-  image,
-  onClick,
-  large = false,
-}: {
-  image: Screenshot;
-  onClick: () => void;
-  large?: boolean;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="group relative block w-full overflow-hidden rounded-xl border border-black/5 bg-white text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(23,20,18,0.09)]"
-    >
-      <div
-        className={`relative ${
-          large
-            ? "aspect-[16/8]"
-            : "aspect-[16/9]"
-        }`}
-      >
-        <Image
-          src={image.src}
-          alt={image.label}
-          fill
-          className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
-          sizes="(max-width: 768px) 100vw, 600px"
-        />
-
-        <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-200 group-hover:bg-black/10">
-          <span className="translate-y-1 rounded-full bg-white px-3 py-1.5 text-[7px] font-bold text-solo-text opacity-0 shadow-md transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
-            View screenshot
-          </span>
-        </div>
-      </div>
-
-      <div className="flex items-center justify-between border-t border-black/5 bg-white px-2.5 py-2">
-        <span className="text-[7px] font-bold text-solo-text sm:text-[8px]">
-          {image.label}
-        </span>
-
-        <span className="text-[8px] font-bold text-solo-orange transition-transform duration-200 group-hover:translate-x-1">
-          →
-        </span>
-      </div>
-    </button>
-  );
-}
-
-/* ===================================================== */
-/* RESUME OPTION */
-/* ===================================================== */
-
-function ResumeOption({
-  number,
-  title,
-  description,
-  steps,
-  image,
-  onClick,
-  compact = false,
-}: {
-  number: string;
-  title: string;
-  description: string;
-  steps: string[];
-  image: Screenshot;
-  onClick: () => void;
-  compact?: boolean;
-}) {
-  if (compact) {
-    return (
-      <div className="group w-[245px] shrink-0 overflow-hidden rounded-xl border border-black/5 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md sm:w-[265px]">
-        <div className="p-3">
-          <div className="flex items-start gap-2">
-            <span
-              className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[7px] font-extrabold text-white ${
-                number === "01"
-                  ? "bg-solo-orange"
-                  : "bg-solo-blue"
-              }`}
-            >
-              {number}
-            </span>
-
-            <div>
-              <h4 className="font-heading text-[10px] font-extrabold text-solo-text sm:text-[11px]">
-                {title}
-              </h4>
-
-              <p className="mt-1 text-[7px] leading-3.5 text-solo-muted sm:text-[8px]">
-                {description}
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-2.5 flex flex-wrap gap-1">
-            {steps.map((step, index) => (
-              <span
-                key={step}
-                className="rounded-full bg-solo-bg px-2 py-1 text-[6px] font-semibold text-solo-text"
-              >
-                {index + 1}. {step}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="px-2.5 pb-2.5">
-          <button
-            type="button"
-            onClick={onClick}
-            className="group relative block w-full overflow-hidden rounded-lg border border-black/5"
-          >
-            <div className="relative aspect-[16/8] overflow-hidden bg-solo-bg">
-              <Image
-                src={image.src}
-                alt={image.label}
-                fill
-                className="object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
-                sizes="265px"
-              />
-
-              <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-200 group-hover:bg-black/10">
-                <span className="rounded-full bg-white px-2 py-1 text-[6px] font-bold text-solo-text opacity-0 shadow-md transition-opacity duration-200 group-hover:opacity-100">
-                  View
-                </span>
-              </div>
-            </div>
-          </button>
-        </div>
-      </div>
-    );
-  }
+function CredentialWalletSection() {
+  const walletImages: Screenshot[] = [
+    {
+      src: "/Credentialwallet.png",
+      label: "Open Credential Wallet",
+      description:
+        "Open the Credential Wallet to access your verified credentials and badges.",
+    },
+    {
+      src: "/select credential.png",
+      label: "Select a Credential",
+      description:
+        "Choose the credential or badge you want to view or share.",
+    },
+    {
+      src: "/view Credential.png",
+      label: "View Credential Details",
+      description:
+        "Check the credential name, issuer, skills and verification information.",
+    },
+    {
+      src: "/share credential.png",
+      label: "Share Credential",
+      description:
+        "Use the sharing option to digitally share your verified credential.",
+    },
+  ];
 
   return (
-    <div className="group overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
-      <div className="p-4">
-        <div className="flex items-start gap-2.5">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-solo-orange text-[7px] font-extrabold text-white">
-            {number}
-          </span>
-
+    <div className="mt-7">
+      {/* Wallet introduction */}
+      <div className="rounded-xl border border-[#e8e1dc] bg-[#fffcfa] p-4 sm:p-5">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h4 className="font-heading text-base font-extrabold text-solo-text sm:text-lg">
-              {title}
-            </h4>
-
-            <p className="mt-1.5 text-[8px] leading-4 text-solo-muted sm:text-[9px]">
-              {description}
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1255FF]">
+              Your digital proof
             </p>
+
+            <h4 className="mt-1 text-lg font-bold text-[#171412]">
+              Accessing the Credential Wallet App
+            </h4>
           </div>
+
+          <span className="w-fit rounded-full bg-white px-3 py-1.5 text-xs font-medium text-[#6B6560]">
+            Verified achievements
+          </span>
         </div>
 
-        <div className="mt-3 grid grid-cols-2 gap-1.5">
-          {steps.map((step, index) => (
-            <div
-              key={step}
-              className="flex items-center gap-1.5 rounded-lg bg-solo-bg px-2 py-1.5"
-            >
-              <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white text-[6px] font-bold text-solo-orange">
-                {index + 1}
-              </span>
+        <p className="mt-2 max-w-4xl text-sm leading-6 text-[#6B6560]">
+          The Credential Mobile Wallet App allows learners to securely store,
+          manage, and access their verified credentials and badges directly
+          from their mobile devices.
+        </p>
 
-              <span className="text-[7px] font-semibold text-solo-text">
-                {step}
-              </span>
+        <div className="mt-3 rounded-lg border border-[#ffe0d8] bg-[#fff7f4] px-4 py-3">
+          <p className="text-sm leading-6 text-[#171412]">
+            <strong>Accessing the Credential Wallet App:</strong>{" "}
+            Download the SOLO Credential Wallet app from the Google Play Store
+            to access and manage your credentials.
+          </p>
+        </div>
+      </div>
+
+      {/* What you can do */}
+      <div className="mt-6">
+        <h4 className="text-lg font-bold text-[#171412]">
+          What You Can Do with the Credential Wallet
+        </h4>
+
+        <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              title: "View Credentials",
+              text: "Access all your earned credentials and badges in one place.",
+            },
+            {
+              title: "Check Details",
+              text: "View information such as the issuer, skills, and verification status.",
+            },
+            {
+              title: "Share Credentials",
+              text: "Digitally share your verified credentials with employers, institutions, or professional networks.",
+            },
+            {
+              title: "Carry Digital Proof",
+              text: "Keep your verified achievements readily accessible without relying on physical documents.",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="rounded-lg border border-[#eee7e2] bg-white p-3.5"
+            >
+              <h5 className="text-sm font-semibold text-[#171412]">
+                {item.title}
+              </h5>
+
+              <p className="mt-1 text-xs leading-5 text-[#6B6560]">
+                {item.text}
+              </p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="px-3 pb-3">
-        <ScreenshotCard
-          image={image}
-          onClick={onClick}
-        />
+      {/* Wallet journey */}
+      <div className="mt-7">
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1255FF]">
+              Credential workflow
+            </p>
+
+            <h4 className="mt-1 text-lg font-bold text-[#171412]">
+              How to Access and Share Your Credential
+            </h4>
+          </div>
+
+          <p className="max-w-xl text-xs leading-5 text-[#6B6560] sm:text-right">
+            View your credential, check its details and share it when applying
+            for opportunities.
+          </p>
+        </div>
+
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {walletImages.map((image) => (
+            <ScreenshotCard key={image.src} image={image} />
+          ))}
+        </div>
+      </div>
+
+      {/* Sharing */}
+      <div className="mt-6 rounded-xl border border-[#eee7e2] bg-white px-4 py-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h4 className="text-base font-bold text-[#171412]">
+              Where Can You Share Your Credential?
+            </h4>
+
+            <p className="mt-1 text-xs leading-5 text-[#6B6560]">
+              Use your verified credential as digital proof of your learning
+              and achievements.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-2 sm:max-w-[60%] sm:justify-end">
+            {[
+              "Job Applications",
+              "Internships",
+              "LinkedIn",
+              "Resume / CV",
+              "Portfolio",
+              "Employers",
+              "Institutions",
+            ].map((item) => (
+              <span
+                key={item}
+                className="rounded-full border border-[#ffd8ce] bg-[#fff7f4] px-3 py-1.5 text-xs font-medium text-[#171412]"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Why it matters */}
+      <div className="mt-6">
+        <h4 className="text-lg font-bold text-[#171412]">
+          Why the Credential Wallet Matters
+        </h4>
+
+        <div className="mt-3 grid gap-3 sm:grid-cols-3">
+          <StoryBox
+            title="One place"
+            text="A single place to manage verified achievements."
+          />
+
+          <StoryBox
+            title="Always accessible"
+            text="Access credentials anytime, anywhere."
+          />
+
+          <StoryBox
+            title="Showcase skills"
+            text="Quickly showcase verified skills and achievements."
+          />
+        </div>
       </div>
     </div>
+  );
+}
+
+/* =========================================================
+   MAIN COMPONENT
+========================================================= */
+
+export default function Profile() {
+  return (
+    <section
+      id="profile"
+      className="w-full overflow-hidden bg-[#fffcfa] px-3 py-10 sm:px-5 lg:px-6"
+    >
+      <div className="mx-auto w-full max-w-7xl min-w-0">
+
+        {/* =================================================
+            SECTION INTRO
+        ================================================= */}
+
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="inline-flex rounded-full bg-[#fff0eb] px-3 py-1 text-xs font-semibold text-[#FD4322]">
+            Your Journey
+          </span>
+
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#171412] sm:text-4xl">
+            From learner to career-ready
+          </h2>
+
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-[#6B6560]">
+            Follow your journey on SOLO — build your profile, learn new
+            skills, earn verified credentials and discover opportunities
+            that support your career goals.
+          </p>
+        </div>
+
+        {/* =================================================
+            JOURNEY MAP
+        ================================================= */}
+
+        <div className="mx-auto mt-7 max-w-5xl">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
+            {[
+              "Start with You",
+              "Education",
+              "Resume",
+              "Opportunities",
+              "Build Skills",
+              "Credentials",
+              "Career",
+            ].map((item, index) => (
+              <div
+                key={item}
+                className="relative flex items-center gap-2 rounded-lg border border-[#eee7e2] bg-white px-2.5 py-2.5"
+              >
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#fff0eb] text-[10px] font-bold text-[#FD4322]">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                <span className="text-xs font-medium text-[#171412]">
+                  {item}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* =================================================
+            JOURNEY CONTAINER
+        ================================================= */}
+
+        <div className="mt-8 overflow-hidden rounded-2xl border border-[#e8e1dc] bg-white shadow-sm">
+
+          {/* =================================================
+              STEP 01
+          ================================================= */}
+
+          <section className="border-b border-[#eee7e2] px-4 py-8 sm:px-6 lg:px-8">
+            <StepHeader
+              number="01"
+              eyebrow="Start with you"
+              title="Build your profile"
+              description="Every learner starts with their own story. Complete your profile with your personal information, interests and identity details."
+            />
+
+            <ScreenshotGrid images={PROFILE_IMAGES} columns={3} />
+
+            <StoryConnector text="Your story is taking shape" />
+          </section>
+
+          {/* =================================================
+              STEP 02
+          ================================================= */}
+
+          <section className="border-b border-[#eee7e2] px-4 py-8 sm:px-6 lg:px-8">
+            <StepHeader
+              number="02"
+              eyebrow="Add your background"
+              title="Add your education"
+              description="Your education gives context to your knowledge and experience. Add your academic background to complete your learner profile."
+            />
+
+            <ScreenshotGrid images={EDUCATION_IMAGES} columns={2} />
+
+            <StoryConnector text="Now connect your learning with your experience" />
+          </section>
+
+          {/* =================================================
+              STEP 03
+          ================================================= */}
+
+          <section className="border-b border-[#eee7e2] px-4 py-8 sm:px-6 lg:px-8">
+            <StepHeader
+              number="03"
+              eyebrow="Present your experience"
+              title="Import or create your resume"
+              description="Turn your profile, learning and achievements into a professional resume that represents your journey."
+            />
+
+            <div className="mb-5 grid gap-2 sm:grid-cols-4">
+              {[
+                "Import achievements",
+                "Upload resume",
+                "Generate resume",
+                "Save and use it",
+              ].map((item, index) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-2 rounded-lg bg-[#fffcfa] px-3 py-2.5"
+                >
+                  <span className="text-xs font-bold text-[#FD4322]">
+                    0{index + 1}
+                  </span>
+
+                  <span className="text-xs font-medium text-[#6B6560]">
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <ScreenshotGrid images={RESUME_IMAGES} columns={2} />
+
+            <StoryConnector text="Your profile is ready to meet opportunities" />
+          </section>
+
+          {/* =================================================
+              STEP 04
+          ================================================= */}
+
+          <section className="border-b border-[#eee7e2] px-4 py-8 sm:px-6 lg:px-8">
+            <StepHeader
+              number="04"
+              eyebrow="Explore what comes next"
+              title="Discover opportunities"
+              description="With your profile ready, explore courses, career pathways and other opportunities that match your learning and career goals."
+            />
+
+            <div className="mb-5 grid gap-3 sm:grid-cols-3">
+              <StoryBox
+                title="Explore"
+                text="Browse opportunities that match your interests."
+              />
+
+              <StoryBox
+                title="Enroll"
+                text="Choose learning opportunities and start building experience."
+              />
+
+              <StoryBox
+                title="Choose your path"
+                text="Follow a career pathway that supports your goals."
+              />
+            </div>
+
+            <ScreenshotGrid images={OPPORTUNITY_IMAGES} columns={3} />
+
+            <StoryConnector text="Discover → Learn → Build" />
+          </section>
+
+          {/* =================================================
+              STEP 05
+          ================================================= */}
+
+          <section className="border-b border-[#eee7e2] px-4 py-8 sm:px-6 lg:px-8">
+            <StepHeader
+              number="05"
+              eyebrow="Keep moving forward"
+              title="Learn and build skills"
+              description="Learning becomes meaningful when you can track your activities, monitor your progress and manage the opportunities you have joined."
+            />
+
+            <ScreenshotGrid images={LEARNING_IMAGES} columns={3} />
+
+            <StoryConnector text="Learn it. Build it. Track it." />
+          </section>
+
+          {/* =================================================
+              STEP 06
+          ================================================= */}
+
+          <section className="border-b border-[#eee7e2] px-4 py-8 sm:px-6 lg:px-8">
+            <StepHeader
+              number="06"
+              eyebrow="Turn learning into proof"
+              title="Complete and receive credentials"
+              description="Complete eligible opportunities, request completion where required and receive your badge or credential."
+            />
+
+            {/* Completion flow */}
+
+            <div className="mb-6 grid gap-3 sm:grid-cols-2">
+              {COMPLETION_IMAGES.map((image, index) => (
+                <div key={image.src} className="relative">
+                  <ScreenshotCard image={image} />
+
+                  {index === 0 && (
+                    <div className="pointer-events-none absolute -right-2 top-1/2 z-10 hidden -translate-y-1/2 sm:block">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#ffd8ce] bg-white text-sm text-[#FD4322] shadow-sm">
+                        →
+                      </span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <CredentialWalletSection />
+
+            <StoryConnector text="Your achievements are ready to be shared" />
+          </section>
+
+          {/* =================================================
+              STEP 07
+          ================================================= */}
+
+          <section className="px-4 py-8 sm:px-6 lg:px-8">
+            <StepHeader
+              number="07"
+              eyebrow="Take your next step"
+              title="Grow your career"
+              description="Your profile, skills and credentials can now help you identify skill gaps, explore relevant opportunities and continue your career journey."
+            />
+
+            <div className="mb-5 grid gap-3 sm:grid-cols-3">
+              <StoryBox
+                title="Identify"
+                text="Identify skills that you can develop for your career goals."
+              />
+
+              <StoryBox
+                title="Match"
+                text="Use your skills and profile information to explore relevant jobs."
+              />
+
+              <StoryBox
+                title="Explore"
+                text="Discover available jobs based on your interests and career goals."
+              />
+            </div>
+
+            <ScreenshotGrid images={CAREER_IMAGES} columns={3} />
+
+            {/* =================================================
+                FINAL CTA
+            ================================================= */}
+
+            <div className="mt-8 overflow-hidden rounded-2xl border border-[#ffd8ce] bg-gradient-to-r from-[#fff1ed] via-[#fff7f1] to-[#eef4ff] px-5 py-8 text-center sm:px-8">
+              <span className="inline-flex rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#FD4322]">
+                Your next chapter starts here
+              </span>
+
+              <h3 className="mt-3 text-2xl font-bold tracking-tight text-[#171412]">
+                Keep growing with SOLO
+              </h3>
+
+              <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-[#6B6560]">
+                Keep learning, building skills, earning credentials and
+                discovering new opportunities as you move forward in your
+                career journey.
+              </p>
+
+              <button
+                type="button"
+                className="mt-5 rounded-full bg-[#FD4322] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#EB5038]"
+              >
+                Start Your Journey
+              </button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
   );
 }
