@@ -298,7 +298,7 @@ export default function ProveSkills() {
         }}
       />
 
-      <div className="relative mx-auto max-w-[1240px] px-5 py-16 md:py-24">
+      <div className="relative mx-auto max-w-[1240px] px-5 py-16 md:py-15">
 
         {/* ===================================================
             SECTION INTRO

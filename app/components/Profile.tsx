@@ -38,7 +38,7 @@ const journeyCards: JourneyCard[] = [
         number: "01",
         title: "Add your details",
         description:
-          "Complete your basic information, education, bio, and profile photo.",
+          "Complete your basic information, education, bio, and profile photo. You can also import your details from resume",
       },
       {
         number: "02",
@@ -124,7 +124,7 @@ const journeyCards: JourneyCard[] = [
         number: "02",
         title: "Find your gaps",
         description:
-          "Understand which skills you can develop for your desired pathway.",
+          "Understand which skills you can develop for your dream job.",
       },
       {
         number: "03",
@@ -186,6 +186,30 @@ const communityCards = [
 export default function Profile() {
   return (
     <section className="career-section" id="profile">
+      {/* =================================================
+                BACKGROUND ATMOSPHERE
+            ================================================= */}
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-40 top-24 h-[420px] w-[420px] rounded-full bg-solo-orange/10 blur-3xl"
+      />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-40 top-[35%] h-[420px] w-[420px] rounded-full bg-solo-blue/8 blur-3xl"
+      />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #171412 1px, transparent 1px), linear-gradient(to bottom, #171412 1px, transparent 1px)",
+          backgroundSize: "42px 42px",
+        }}
+      />
+
       <div className="career-container">
 
         {/* =========================
@@ -194,9 +218,9 @@ export default function Profile() {
 
         <div className="journey-intro">
           <div className="journey-intro-top">
-            <p className="section-eyebrow">
-              YOUR JOURNEY WITH SOLO
-            </p>
+            <span className="inline-flex rounded-full border border-solo-orange/15 bg-white px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.16em] text-solo-orange shadow-sm sm:text-[9px]">
+              Your journey with SOLO
+            </span>
           </div>
 
           <h2>
@@ -249,11 +273,10 @@ export default function Profile() {
         <div className="journey-cards">
           {journeyCards.map((card, index) => (
             <article
-              className={`journey-card ${
-                index % 2 !== 0
-                  ? "journey-card-reverse"
-                  : ""
-              }`}
+              className={`journey-card ${index % 2 !== 0
+                ? "journey-card-reverse"
+                : ""
+                }`}
               id={card.anchor}
               key={card.number}
             >
@@ -394,9 +417,8 @@ export default function Profile() {
             {communityCards.map((card, index) => (
               <div
                 key={card.image}
-                className={`community-card community-card-${
-                  index + 1
-                }`}
+                className={`community-card community-card-${index + 1
+                  }`}
               >
                 <div className="community-card-image">
                   <Image
@@ -429,10 +451,10 @@ export default function Profile() {
         }
 
         .career-container {
-          width: calc(100% - 80px);
-          max-width: 1400px;
+          width: calc(100% - 48px);
+          max-width: 1240px;
           margin: 0 auto;
-          padding: 110px 0 90px;
+          padding: 50px 0 90px;
         }
 
         /* =========================
@@ -581,6 +603,11 @@ export default function Profile() {
         /* =========================
            JOURNEY CARDS
         ========================== */
+
+        .journey-card,
+        .community-section {
+          scroll-margin-top: 110px;
+        }
 
         .journey-cards {
           display: flex;
@@ -812,7 +839,7 @@ export default function Profile() {
           align-items: center;
           gap: 80px;
           min-height: 650px;
-          margin-top: 130px;
+          margin-top: 110px;
           padding: 100px;
           overflow: hidden;
 

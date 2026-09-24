@@ -1,6 +1,6 @@
 export default function FinalCTA() {
   return (
-    <section id="start" className="relative overflow-hidden bg-solo-bg px-5 py-16 md:px-6 md:py-24">
+    <section id="start" className="relative overflow-hidden bg-solo-bg px-5 py-16 md:px-6 md:py-15">
       {/* Soft background decoration */}
       <div className="absolute -left-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-solo-orange/10 blur-3xl" />
       <div className="absolute -right-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-solo-blue/10 blur-3xl" />

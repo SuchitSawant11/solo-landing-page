@@ -677,7 +677,7 @@ export default function LearnBuildSkills() {
             <div>
 
               <p className="text-xs font-bold uppercase tracking-[0.12em] text-solo-blue">
-                Grow your career
+                Build your career
               </p>
 
               <h3 className="mt-1 font-heading text-xl font-extrabold leading-tight text-solo-text sm:text-2xl">
