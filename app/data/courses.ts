@@ -2,29 +2,25 @@ export type Course = {
     id: string;
     title: string;
     description: string;
-    category: "Design" | "Development" | "Data Science" | "Business" | "AI/ML";
+    category:
+    | "Design"
+    | "Development"
+    | "Data Science"
+    | "Business"
+    | "AI/ML";
     level: "Beginner" | "Intermediate" | "Advanced";
     type: "Course" | "Internship" | "Live Project" | "Hackathon";
+
     skills: string[];
+    provider?: string;
+    logo?: string;
+    price?: string;
+    posted?: string;
+    mode?: "Onsite" | "Virtual";
+    duration?: string;
 };
 
 export const COURSES: Course[] = [
-    {
-        id: "design-systems",
-        title: "Design Systems Foundations",
-        description:
-            "Learn how to build reusable components, tokens, and documentation that scale across teams.",
-        category: "Design",
-        level: "Intermediate",
-        type: "Course",
-        skills: [
-            "Figma",
-            "UI/UX Design",
-            "Design Systems",
-            "UX Research",
-        ],
-    },
-
     {
         id: "react-fundamentals",
         title: "React Fundamentals",
@@ -33,12 +29,36 @@ export const COURSES: Course[] = [
         category: "Development",
         level: "Beginner",
         type: "Course",
+
+        skills: ["React", "JavaScript", "Frontend Development"],
+
+        provider: "SOLO",
+        price: "Free",
+        posted: "Posted 6 Months Ago",
+        mode: "Virtual",
+        duration: "15 Hours",
+    },
+
+    {
+        id: "react-redux",
+        title: "React Redux",
+        description:
+            "Learn to manage application state with Redux and integrate it with React applications.",
+        category: "Development",
+        level: "Intermediate",
+        type: "Course",
         skills: [
             "React",
             "JavaScript",
             "Frontend Development",
             "Web Development",
         ],
+
+        provider: "SOLO",
+        price: "Free",
+        posted: "Posted 6 Months Ago",
+        mode: "Virtual",
+        duration: "10 Hours",
     },
 
     {
@@ -88,6 +108,20 @@ export const COURSES: Course[] = [
             "AI/ML",
         ],
     },
+
+    {
+        id: "Google AI Tools Workshop (Hands-On)",
+        title: "Google AI Tools Workshop (Hands-On)",
+        description: "Get hands-on experience with Google's AI tools and learn how to apply them in real-world scenarios.",
+        category: "AI/ML",
+        level: "Intermediate",
+        type: "Course",
+        skills: [
+            "AI/ML",
+            "Google AI",
+            "Machine Learning",
+        ],
+    }
 ];
 
 export const CATEGORIES = ["All", "Design", "Development", "Data Science", "Business", "AI/ML"] as const;
