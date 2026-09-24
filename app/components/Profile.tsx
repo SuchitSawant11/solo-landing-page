@@ -1,808 +1,1236 @@
-
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
-type Screenshot = {
-  src: string;
-  label: string;
-  description?: string;
+type JourneyStep = {
+  number: string;
+  title: string;
+  description: string;
 };
 
-/* =========================================================
-   SCREENSHOT DATA
-========================================================= */
-
-const PROFILE_IMAGES: Screenshot[] = [
-  {
-    src: "/profile.png",
-    label: "Profile",
-    description: "View your learner profile and personal information.",
-  },
-  {
-    src: "/edit name.png",
-    label: "Edit Name",
-    description: "Update your name and basic profile details.",
-  },
-  {
-    src: "/edit username.png",
-    label: "Username",
-    description: "Choose and update your SOLO username.",
-  },
-  {
-    src: "/about you.png",
-    label: "About You",
-    description: "Add information about yourself and your interests.",
-  },
-  {
-    src: "/description.png",
-    label: "Description",
-    description: "Add a short description to introduce yourself.",
-  },
-  {
-    src: "/location.png",
-    label: "Location",
-    description: "Add your location to complete your profile.",
-  },
-  {
-    src: "/add adhar details.png",
-    label: "Identity Details",
-    description:
-      "Add the required identity information to your profile.",
-  },
-];
-
-const EDUCATION_IMAGES: Screenshot[] = [
-  {
-    src: "/education.png",
-    label: "Education",
-    description:
-      "Add your educational background to your profile.",
-  },
-  {
-    src: "/adding education.png",
-    label: "Add Education",
-    description:
-      "Enter your qualification, institution and education details.",
-  },
-];
-
-const RESUME_IMAGES: Screenshot[] = [
-  {
-    src: "/import your open badge.png",
-    label: "Import Open Badge",
-    description:
-      "Import eligible credentials into your SOLO profile.",
-  },
-  {
-    src: "/upload resume.png",
-    label: "Upload Resume",
-    description:
-      "Upload your existing resume to your profile.",
-  },
-  {
-    src: "/after click generate resume.png",
-    label: "Generate Resume",
-    description:
-      "Generate a resume using the information in your profile.",
-  },
-  {
-    src: "/after click save resume after generating.png",
-    label: "Save Resume",
-    description:
-      "Save your generated resume for future use.",
-  },
-];
-
-const OPPORTUNITY_IMAGES: Screenshot[] = [
-  {
-    src: "/opportunities.png",
-    label: "Explore Opportunities",
-    description:
-      "Browse courses, internships, projects and other opportunities.",
-  },
-  {
-    src: "/enroll .png",
-    label: "Enroll in a Course",
-    description:
-      "Open a course and enroll to add it to your learning journey.",
-  },
-  {
-    src: "/careerpathway.png",
-    label: "Career Pathway",
-    description:
-      "Explore a structured pathway and enroll in opportunities that support your career goals.",
-  },
-];
-
-const LEARNING_IMAGES: Screenshot[] = [
-  {
-    src: "/dashboard.png",
-    label: "Learner Dashboard",
-    description:
-      "Use your dashboard to access learning activities and opportunities.",
-  },
-  {
-    src: "/pathwayprogess.png",
-    label: "Pathway Progress",
-    description:
-      "Track your enrollment and progress through your career pathway.",
-  },
-  {
-    src: "/my enrollment.png",
-    label: "Manage Enrollments",
-    description:
-      "View and manage the opportunities you have joined.",
-  },
-];
-
-const COMPLETION_IMAGES: Screenshot[] = [
-  {
-    src: "/request completion.png",
-    label: "Request Completion",
-    description:
-      "For applicable external courses, request completion on SOLO.",
-  },
-  {
-    src: "/badgeDesign-1788165226796.png",
-    label: "Credential",
-    description:
-      "Receive a badge or certificate after completing an eligible opportunity.",
-  },
-];
-
-const CAREER_IMAGES: Screenshot[] = [
-  {
-    src: "/SkillGapIdentification.png",
-    label: "Skill Gap Identification",
-    description:
-      "Identify skills that you can develop for your career goals.",
-  },
-  {
-    src: "/skillmatchanalysis.png",
-    label: "Match Skills with Jobs",
-    description:
-      "Use your skills and profile information to explore relevant job opportunities.",
-  },
-  {
-    src: "/job serach.png",
-    label: "Job Search",
-    description:
-      "Explore available jobs based on your interests and career goals.",
-  },
-];
-
-/* =========================================================
-   SCREENSHOT CARD
-========================================================= */
-
-function ScreenshotCard({
-  image,
-}: {
-  image: Screenshot;
-}) {
-  return (
-    <figure className="group min-w-0 overflow-hidden rounded-xl border border-[#e8e1dc] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-md">
-      <div className="relative flex h-[190px] items-center justify-center overflow-hidden bg-[#f7f4f1] p-2.5 sm:h-[210px]">
-        <Image
-          src={image.src}
-          alt={image.label}
-          width={1200}
-          height={750}
-          className="h-full w-full object-contain transition duration-300 group-hover:scale-[1.02]"
-        />
-      </div>
-
-      <figcaption className="px-3.5 py-3">
-        <h4 className="text-sm font-semibold text-[#171412]">
-          {image.label}
-        </h4>
-
-        {image.description && (
-          <p className="mt-1 text-xs leading-5 text-[#6B6560]">
-            {image.description}
-          </p>
-        )}
-      </figcaption>
-    </figure>
-  );
-}
-
-/* =========================================================
-   STANDARD GRID
-========================================================= */
-
-function ScreenshotGrid({
-  images,
-  columns = 3,
-}: {
-  images: Screenshot[];
-  columns?: 1 | 2 | 3;
-}) {
-  const gridClass =
-    columns === 1
-      ? "grid min-w-0 gap-4"
-      : columns === 2
-        ? "grid min-w-0 gap-4 sm:grid-cols-2"
-        : "grid min-w-0 gap-4 sm:grid-cols-2 lg:grid-cols-3";
-
-  return (
-    <div className={gridClass}>
-      {images.map((image) => (
-        <ScreenshotCard key={image.src} image={image} />
-      ))}
-    </div>
-  );
-}
-
-/* =========================================================
-   STEP HEADER
-========================================================= */
-
-function StepHeader({
-  number,
-  eyebrow,
-  title,
-  description,
-}: {
+type JourneyCard = {
   number: string;
+  anchor: string;
   eyebrow: string;
   title: string;
   description: string;
-}) {
-  return (
-    <div className="mb-5 flex gap-4">
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#FD4322] text-sm font-bold text-white shadow-sm">
-        {number}
-      </div>
+  image: string;
+  imageAlt: string;
+  steps: JourneyStep[];
+  details: string[];
+  cta: string;
+  href: string;
+};
 
-      <div className="min-w-0">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#FD4322]">
-          {eyebrow}
-        </p>
+const journeyCards: JourneyCard[] = [
+  {
+    number: "01",
+    anchor: "journey-build",
+    eyebrow: "BUILD YOUR PROFILE",
+    title: "Tell your story. Build your profile.",
+    description:
+      "Create a learner profile that brings together who you are, what you have learned, and what you can do.",
+    image: "/profile.png",
+    imageAlt: "SOLO learner profile",
+    steps: [
+      {
+        number: "01",
+        title: "Add your details",
+        description:
+          "Complete your basic information, education, bio, and profile photo.",
+      },
+      {
+        number: "02",
+        title: "Show your learning",
+        description:
+          "Bring your badges, certificates, courses, and achievements together.",
+      },
+      {
+        number: "03",
+        title: "Build your identity",
+        description:
+          "Create one learner profile that represents your journey.",
+      },
+    ],
+    details: [
+      "Personal information",
+      "Education",
+      "Skills",
+      "Badges & certificates",
+      "Learning experiences",
+    ],
+    cta: "Build your profile",
+    href: "/profile#profile",
+  },
 
-        <h3 className="mt-1 text-xl font-bold tracking-tight text-[#171412] sm:text-2xl">
-          {title}
-        </h3>
+  {
+    number: "02",
+    anchor: "journey-present",
+    eyebrow: "GENERATE YOUR RESUME",
+    title: "Turn your profile into a resume.",
+    description:
+      "Transform the information already in your SOLO profile into a resume that presents your skills and experiences clearly.",
+    image: "/resumegenerate.jpeg",
+    imageAlt: "SOLO resume generation",
+    steps: [
+      {
+        number: "01",
+        title: "Review your profile",
+        description:
+          "Check your education, skills, credentials, and experiences.",
+      },
+      {
+        number: "02",
+        title: "Generate your resume",
+        description:
+          "Create a professional resume using the information in your profile.",
+      },
+      {
+        number: "03",
+        title: "Present your journey",
+        description:
+          "Use your resume when applying for learning and career opportunities.",
+      },
+    ],
+    details: [
+      "Profile information",
+      "Education & skills",
+      "Projects & experiences",
+      "Credentials",
+      "Resume generation",
+    ],
+    cta: "Create your resume",
+    href: "/profile#resume",
+  },
 
-        <p className="mt-1 max-w-3xl text-sm leading-6 text-[#6B6560]">
-          {description}
-        </p>
-      </div>
-    </div>
-  );
-}
+  {
+    number: "03",
+    anchor: "journey-grow",
+    eyebrow: "GROW YOUR CAREER",
+    title: "Discover what comes next.",
+    description:
+      "Understand your skill gaps and discover learning opportunities that can help you move towards your goals.",
+    image: "/skillgap.png",
+    imageAlt: "SOLO skill gap identification",
+    steps: [
+      {
+        number: "01",
+        title: "Identify your skills",
+        description:
+          "See the skills connected to your profile and experiences.",
+      },
+      {
+        number: "02",
+        title: "Find your gaps",
+        description:
+          "Understand which skills you can develop for your desired pathway.",
+      },
+      {
+        number: "03",
+        title: "Explore opportunities",
+        description:
+          "Discover courses, internships, projects, jobs, and other opportunities.",
+      },
+    ],
+    details: [
+      "Skill gap identification",
+      "Learning pathways",
+      "Courses",
+      "Internships",
+      "Career opportunities",
+    ],
+    cta: "Explore opportunities",
+    href: "/#discovery",
+  },
+];
 
-/* =========================================================
-   STORY CONNECTOR
-========================================================= */
+const journeyNav = [
+  {
+    label: "Build",
+    subtitle: "Your identity",
+    href: "#journey-build",
+  },
+  {
+    label: "Present",
+    subtitle: "Your resume",
+    href: "#journey-present",
+  },
+  {
+    label: "Grow",
+    subtitle: "Your next step",
+    href: "#journey-grow",
+  },
+  {
+    label: "Connect",
+    subtitle: "Your community",
+    href: "#journey-connect",
+  },
+];
 
-function StoryConnector({
-  text,
-}: {
-  text: string;
-}) {
-  return (
-    <div className="my-6 flex items-center gap-3">
-      <div className="h-px flex-1 bg-[#eee7e2]" />
-
-      <span className="rounded-full border border-[#ffd8ce] bg-[#fff7f4] px-3 py-1.5 text-xs font-medium text-[#FD4322]">
-        {text}
-      </span>
-
-      <div className="h-px flex-1 bg-[#eee7e2]" />
-    </div>
-  );
-}
-
-/* =========================================================
-   SMALL STORY BOX
-========================================================= */
-
-function StoryBox({
-  title,
-  text,
-}: {
-  title: string;
-  text: string;
-}) {
-  return (
-    <div className="rounded-xl border border-[#eee7e2] bg-[#fffcfa] px-4 py-3.5">
-      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#FD4322]">
-        {title}
-      </p>
-
-      <p className="mt-1 text-sm leading-6 text-[#6B6560]">
-        {text}
-      </p>
-    </div>
-  );
-}
-
-/* =========================================================
-   CREDENTIAL WALLET
-========================================================= */
-
-function CredentialWalletSection() {
-  const walletImages: Screenshot[] = [
-    {
-      src: "/Credentialwallet.png",
-      label: "Open Credential Wallet",
-      description:
-        "Open the Credential Wallet to access your verified credentials and badges.",
-    },
-    {
-      src: "/select credential.png",
-      label: "Select a Credential",
-      description:
-        "Choose the credential or badge you want to view or share.",
-    },
-    {
-      src: "/view Credential.png",
-      label: "View Credential Details",
-      description:
-        "Check the credential name, issuer, skills and verification information.",
-    },
-    {
-      src: "/share credential.png",
-      label: "Share Credential",
-      description:
-        "Use the sharing option to digitally share your verified credential.",
-    },
-  ];
-
-  return (
-    <div className="mt-7">
-      {/* Wallet introduction */}
-      <div className="rounded-xl border border-[#e8e1dc] bg-[#fffcfa] p-4 sm:p-5">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1255FF]">
-              Your digital proof
-            </p>
-
-            <h4 className="mt-1 text-lg font-bold text-[#171412]">
-              Accessing the Credential Wallet App
-            </h4>
-          </div>
-
-          <span className="w-fit rounded-full bg-white px-3 py-1.5 text-xs font-medium text-[#6B6560]">
-            Verified achievements
-          </span>
-        </div>
-
-        <p className="mt-2 max-w-4xl text-sm leading-6 text-[#6B6560]">
-          The Credential Mobile Wallet App allows learners to securely store,
-          manage, and access their verified credentials and badges directly
-          from their mobile devices.
-        </p>
-
-        <div className="mt-3 rounded-lg border border-[#ffe0d8] bg-[#fff7f4] px-4 py-3">
-          <p className="text-sm leading-6 text-[#171412]">
-            <strong>Accessing the Credential Wallet App:</strong>{" "}
-            Download the SOLO Credential Wallet app from the Google Play Store
-            to access and manage your credentials.
-          </p>
-        </div>
-      </div>
-
-      {/* What you can do */}
-      <div className="mt-6">
-        <h4 className="text-lg font-bold text-[#171412]">
-          What You Can Do with the Credential Wallet
-        </h4>
-
-        <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            {
-              title: "View Credentials",
-              text: "Access all your earned credentials and badges in one place.",
-            },
-            {
-              title: "Check Details",
-              text: "View information such as the issuer, skills, and verification status.",
-            },
-            {
-              title: "Share Credentials",
-              text: "Digitally share your verified credentials with employers, institutions, or professional networks.",
-            },
-            {
-              title: "Carry Digital Proof",
-              text: "Keep your verified achievements readily accessible without relying on physical documents.",
-            },
-          ].map((item) => (
-            <div
-              key={item.title}
-              className="rounded-lg border border-[#eee7e2] bg-white p-3.5"
-            >
-              <h5 className="text-sm font-semibold text-[#171412]">
-                {item.title}
-              </h5>
-
-              <p className="mt-1 text-xs leading-5 text-[#6B6560]">
-                {item.text}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Wallet journey */}
-      <div className="mt-7">
-        <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1255FF]">
-              Credential workflow
-            </p>
-
-            <h4 className="mt-1 text-lg font-bold text-[#171412]">
-              How to Access and Share Your Credential
-            </h4>
-          </div>
-
-          <p className="max-w-xl text-xs leading-5 text-[#6B6560] sm:text-right">
-            View your credential, check its details and share it when applying
-            for opportunities.
-          </p>
-        </div>
-
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {walletImages.map((image) => (
-            <ScreenshotCard key={image.src} image={image} />
-          ))}
-        </div>
-      </div>
-
-      {/* Sharing */}
-      <div className="mt-6 rounded-xl border border-[#eee7e2] bg-white px-4 py-4">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h4 className="text-base font-bold text-[#171412]">
-              Where Can You Share Your Credential?
-            </h4>
-
-            <p className="mt-1 text-xs leading-5 text-[#6B6560]">
-              Use your verified credential as digital proof of your learning
-              and achievements.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-2 sm:max-w-[60%] sm:justify-end">
-            {[
-              "Job Applications",
-              "Internships",
-              "LinkedIn",
-              "Resume / CV",
-              "Portfolio",
-              "Employers",
-              "Institutions",
-            ].map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-[#ffd8ce] bg-[#fff7f4] px-3 py-1.5 text-xs font-medium text-[#171412]"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Why it matters */}
-      <div className="mt-6">
-        <h4 className="text-lg font-bold text-[#171412]">
-          Why the Credential Wallet Matters
-        </h4>
-
-        <div className="mt-3 grid gap-3 sm:grid-cols-3">
-          <StoryBox
-            title="One place"
-            text="A single place to manage verified achievements."
-          />
-
-          <StoryBox
-            title="Always accessible"
-            text="Access credentials anytime, anywhere."
-          />
-
-          <StoryBox
-            title="Showcase skills"
-            text="Quickly showcase verified skills and achievements."
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* =========================================================
-   MAIN COMPONENT
-========================================================= */
+const communityCards = [
+  {
+    image: "/community1.png",
+    alt: "SOLO community",
+  },
+  {
+    image: "/community 2.png",
+    alt: "SOLO community learners",
+  },
+  {
+    image: "/community3.png",
+    alt: "SOLO community connection",
+  },
+];
 
 export default function Profile() {
   return (
-    <section
-      id="profile"
-      className="w-full overflow-hidden bg-[#fffcfa] px-3 py-10 sm:px-5 lg:px-6"
-    >
-      <div className="mx-auto w-full max-w-7xl min-w-0">
+    <section className="career-section" id="profile">
+      <div className="career-container">
 
-        {/* =================================================
-            SECTION INTRO
-        ================================================= */}
+        {/* =========================
+            JOURNEY INTRO
+        ========================== */}
 
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex rounded-full bg-[#fff0eb] px-3 py-1 text-xs font-semibold text-[#FD4322]">
-            Your Journey
-          </span>
+        <div className="journey-intro">
+          <div className="journey-intro-top">
+            <p className="section-eyebrow">
+              YOUR JOURNEY WITH SOLO
+            </p>
+          </div>
 
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#171412] sm:text-4xl">
-            From learner to career-ready
+          <h2>
+            Build your story.{" "}
+            <span>Show your skills.</span>{" "}
+            Find what comes next.
           </h2>
 
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-[#6B6560]">
-            Follow your journey on SOLO — build your profile, learn new
-            skills, earn verified credentials and discover opportunities
-            that support your career goals.
+          <p className="career-intro">
+            Your learning journey is more than a list of courses.
+            SOLO brings your profile, skills, credentials, experiences,
+            and opportunities together — helping you move from learning
+            to doing, and from doing to your next opportunity.
           </p>
         </div>
 
-        {/* =================================================
-            JOURNEY MAP
-        ================================================= */}
+        {/* =========================
+            JOURNEY NAVIGATION
+        ========================== */}
 
-        <div className="mx-auto mt-7 max-w-5xl">
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
-            {[
-              "Start with You",
-              "Education",
-              "Resume",
-              "Opportunities",
-              "Build Skills",
-              "Credentials",
-              "Career",
-            ].map((item, index) => (
+        <nav
+          className="journey-nav journey-nav-modern"
+          aria-label="Career journey"
+        >
+          {journeyNav.map((item, index) => (
+            <a
+              href={item.href}
+              key={item.label}
+            >
+              <span className="journey-nav-number">
+                0{index + 1}
+              </span>
+
+              <span className="journey-nav-info">
+                <strong>{item.label}</strong>
+                <small>{item.subtitle}</small>
+              </span>
+
+              <span className="journey-nav-arrow">
+                ↗
+              </span>
+            </a>
+          ))}
+        </nav>
+
+        {/* =========================
+            JOURNEY CARDS
+        ========================== */}
+
+        <div className="journey-cards">
+          {journeyCards.map((card, index) => (
+            <article
+              className={`journey-card ${
+                index % 2 !== 0
+                  ? "journey-card-reverse"
+                  : ""
+              }`}
+              id={card.anchor}
+              key={card.number}
+            >
+
+              {/* Image */}
+
+              <div className="journey-card-image">
+                <Image
+                  src={card.image}
+                  alt={card.imageAlt}
+                  fill
+                  sizes="(max-width: 900px) 100vw, 55vw"
+                  className="journey-image"
+                />
+
+                <div className="journey-image-number">
+                  {card.number}
+                </div>
+              </div>
+
+              {/* Content */}
+
+              <div className="journey-card-content">
+
+                <p className="journey-card-eyebrow">
+                  {card.eyebrow}
+                </p>
+
+                <h3>
+                  {card.title}
+                </h3>
+
+                <p className="journey-card-description">
+                  {card.description}
+                </p>
+
+                {/* Steps */}
+
+                <div className="journey-steps">
+                  {card.steps.map((step) => (
+                    <div
+                      className="journey-step"
+                      key={step.number}
+                    >
+                      <span className="journey-step-number">
+                        {step.number}
+                      </span>
+
+                      <div>
+                        <h4>
+                          {step.title}
+                        </h4>
+
+                        <p>
+                          {step.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Details */}
+
+                <div className="journey-details">
+                  {card.details.map((detail) => (
+                    <span key={detail}>
+                      {detail}
+                    </span>
+                  ))}
+                </div>
+
+                {/* CTA */}
+
+                <Link
+                  className="journey-button"
+                  href={card.href}
+                >
+                  {card.cta}
+
+                  <span>
+                    ↗
+                  </span>
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* =========================
+            CONNECT / COMMUNITY
+        ========================== */}
+
+        <section
+          className="community-section"
+          id="journey-connect"
+        >
+          <div className="community-content">
+
+            <p className="section-eyebrow">
+              CONNECT
+            </p>
+
+            <h2>
+              Your journey
+              <br />
+              <span>doesn’t happen alone.</span>
+            </h2>
+
+            <p>
+              Learning becomes more meaningful when you connect
+              with people, ideas, experiences, and opportunities.
+              SOLO brings learners, mentors, institutions,
+              employers, and communities closer together.
+            </p>
+
+            <div className="community-tags">
+              <span>Learners</span>
+              <span>Mentors</span>
+              <span>Institutions</span>
+              <span>Employers</span>
+            </div>
+
+            <Link
+              href="/community"
+              className="community-button"
+            >
+              Explore the community
+
+              <span>
+                ↗
+              </span>
+            </Link>
+          </div>
+
+          {/* Community Images */}
+
+          <div className="community-visual">
+            {communityCards.map((card, index) => (
               <div
-                key={item}
-                className="relative flex items-center gap-2 rounded-lg border border-[#eee7e2] bg-white px-2.5 py-2.5"
+                key={card.image}
+                className={`community-card community-card-${
+                  index + 1
+                }`}
               >
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#fff0eb] text-[10px] font-bold text-[#FD4322]">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-
-                <span className="text-xs font-medium text-[#171412]">
-                  {item}
-                </span>
+                <div className="community-card-image">
+                  <Image
+                    src={card.image}
+                    alt={card.alt}
+                    fill
+                    sizes="(max-width: 650px) 80vw, 300px"
+                    className="community-image"
+                  />
+                </div>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* =================================================
-            JOURNEY CONTAINER
-        ================================================= */}
-
-        <div className="mt-8 overflow-hidden rounded-2xl border border-[#e8e1dc] bg-white shadow-sm">
-
-          {/* =================================================
-              STEP 01
-          ================================================= */}
-
-          <section className="border-b border-[#eee7e2] px-4 py-8 sm:px-6 lg:px-8">
-            <StepHeader
-              number="01"
-              eyebrow="Start with you"
-              title="Build your profile"
-              description="Every learner starts with their own story. Complete your profile with your personal information, interests and identity details."
-            />
-
-            <ScreenshotGrid images={PROFILE_IMAGES} columns={3} />
-
-            <StoryConnector text="Your story is taking shape" />
-          </section>
-
-          {/* =================================================
-              STEP 02
-          ================================================= */}
-
-          <section className="border-b border-[#eee7e2] px-4 py-8 sm:px-6 lg:px-8">
-            <StepHeader
-              number="02"
-              eyebrow="Add your background"
-              title="Add your education"
-              description="Your education gives context to your knowledge and experience. Add your academic background to complete your learner profile."
-            />
-
-            <ScreenshotGrid images={EDUCATION_IMAGES} columns={2} />
-
-            <StoryConnector text="Now connect your learning with your experience" />
-          </section>
-
-          {/* =================================================
-              STEP 03
-          ================================================= */}
-
-          <section className="border-b border-[#eee7e2] px-4 py-8 sm:px-6 lg:px-8">
-            <StepHeader
-              number="03"
-              eyebrow="Present your experience"
-              title="Import or create your resume"
-              description="Turn your profile, learning and achievements into a professional resume that represents your journey."
-            />
-
-            <div className="mb-5 grid gap-2 sm:grid-cols-4">
-              {[
-                "Import achievements",
-                "Upload resume",
-                "Generate resume",
-                "Save and use it",
-              ].map((item, index) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-2 rounded-lg bg-[#fffcfa] px-3 py-2.5"
-                >
-                  <span className="text-xs font-bold text-[#FD4322]">
-                    0{index + 1}
-                  </span>
-
-                  <span className="text-xs font-medium text-[#6B6560]">
-                    {item}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <ScreenshotGrid images={RESUME_IMAGES} columns={2} />
-
-            <StoryConnector text="Your profile is ready to meet opportunities" />
-          </section>
-
-          {/* =================================================
-              STEP 04
-          ================================================= */}
-
-          <section className="border-b border-[#eee7e2] px-4 py-8 sm:px-6 lg:px-8">
-            <StepHeader
-              number="04"
-              eyebrow="Explore what comes next"
-              title="Discover opportunities"
-              description="With your profile ready, explore courses, career pathways and other opportunities that match your learning and career goals."
-            />
-
-            <div className="mb-5 grid gap-3 sm:grid-cols-3">
-              <StoryBox
-                title="Explore"
-                text="Browse opportunities that match your interests."
-              />
-
-              <StoryBox
-                title="Enroll"
-                text="Choose learning opportunities and start building experience."
-              />
-
-              <StoryBox
-                title="Choose your path"
-                text="Follow a career pathway that supports your goals."
-              />
-            </div>
-
-            <ScreenshotGrid images={OPPORTUNITY_IMAGES} columns={3} />
-
-            <StoryConnector text="Discover → Learn → Build" />
-          </section>
-
-          {/* =================================================
-              STEP 05
-          ================================================= */}
-
-          <section className="border-b border-[#eee7e2] px-4 py-8 sm:px-6 lg:px-8">
-            <StepHeader
-              number="05"
-              eyebrow="Keep moving forward"
-              title="Learn and build skills"
-              description="Learning becomes meaningful when you can track your activities, monitor your progress and manage the opportunities you have joined."
-            />
-
-            <ScreenshotGrid images={LEARNING_IMAGES} columns={3} />
-
-            <StoryConnector text="Learn it. Build it. Track it." />
-          </section>
-
-          {/* =================================================
-              STEP 06
-          ================================================= */}
-
-          <section className="border-b border-[#eee7e2] px-4 py-8 sm:px-6 lg:px-8">
-            <StepHeader
-              number="06"
-              eyebrow="Turn learning into proof"
-              title="Complete and receive credentials"
-              description="Complete eligible opportunities, request completion where required and receive your badge or credential."
-            />
-
-            {/* Completion flow */}
-
-            <div className="mb-6 grid gap-3 sm:grid-cols-2">
-              {COMPLETION_IMAGES.map((image, index) => (
-                <div key={image.src} className="relative">
-                  <ScreenshotCard image={image} />
-
-                  {index === 0 && (
-                    <div className="pointer-events-none absolute -right-2 top-1/2 z-10 hidden -translate-y-1/2 sm:block">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#ffd8ce] bg-white text-sm text-[#FD4322] shadow-sm">
-                        →
-                      </span>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <CredentialWalletSection />
-
-            <StoryConnector text="Your achievements are ready to be shared" />
-          </section>
-
-          {/* =================================================
-              STEP 07
-          ================================================= */}
-
-          <section className="px-4 py-8 sm:px-6 lg:px-8">
-            <StepHeader
-              number="07"
-              eyebrow="Take your next step"
-              title="Grow your career"
-              description="Your profile, skills and credentials can now help you identify skill gaps, explore relevant opportunities and continue your career journey."
-            />
-
-            <div className="mb-5 grid gap-3 sm:grid-cols-3">
-              <StoryBox
-                title="Identify"
-                text="Identify skills that you can develop for your career goals."
-              />
-
-              <StoryBox
-                title="Match"
-                text="Use your skills and profile information to explore relevant jobs."
-              />
-
-              <StoryBox
-                title="Explore"
-                text="Discover available jobs based on your interests and career goals."
-              />
-            </div>
-
-            <ScreenshotGrid images={CAREER_IMAGES} columns={3} />
-
-            {/* =================================================
-                FINAL CTA
-            ================================================= */}
-
-            <div className="mt-8 overflow-hidden rounded-2xl border border-[#ffd8ce] bg-gradient-to-r from-[#fff1ed] via-[#fff7f1] to-[#eef4ff] px-5 py-8 text-center sm:px-8">
-              <span className="inline-flex rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#FD4322]">
-                Your next chapter starts here
-              </span>
-
-              <h3 className="mt-3 text-2xl font-bold tracking-tight text-[#171412]">
-                Keep growing with SOLO
-              </h3>
-
-              <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-[#6B6560]">
-                Keep learning, building skills, earning credentials and
-                discovering new opportunities as you move forward in your
-                career journey.
-              </p>
-
-              <button
-                type="button"
-                className="mt-5 rounded-full bg-[#FD4322] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#EB5038]"
-              >
-                Start Your Journey
-              </button>
-            </div>
-          </section>
-        </div>
       </div>
+
+      <style jsx>{`
+
+        /* =========================
+           MAIN SECTION
+        ========================== */
+
+        .career-section {
+          width: 100%;
+          background: var(--color-solo-bg);
+          color: var(--color-solo-text);
+          font-family: var(--font-body);
+          overflow: hidden;
+        }
+
+        .career-container {
+          width: calc(100% - 80px);
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 110px 0 90px;
+        }
+
+        /* =========================
+           JOURNEY INTRO
+        ========================== */
+
+        .journey-intro {
+          max-width: 900px;
+          margin-bottom: 50px;
+        }
+
+        .journey-intro-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 20px;
+        }
+
+        .section-eyebrow {
+          margin: 0;
+          color: var(--color-solo-orange);
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 0.15em;
+          line-height: 1.2;
+        }
+
+        .journey-intro h2 {
+          max-width: 900px;
+          margin: 0;
+          font-family: var(--font-heading);
+          font-size: clamp(38px, 5vw, 68px);
+          line-height: 1.02;
+          letter-spacing: -0.05em;
+          font-weight: 800;
+        }
+
+        .journey-intro h2 span {
+          color: var(--color-solo-orange);
+        }
+
+        .career-intro {
+          max-width: 620px;
+          margin: 22px 0 0;
+          color: var(--color-solo-muted);
+          font-size: 15px;
+          line-height: 1.65;
+        }
+
+        /* =========================
+           COMPACT JOURNEY NAV
+        ========================== */
+
+        .journey-nav-modern {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 0;
+          margin-bottom: 85px;
+          border-top: 1px solid var(--color-solo-muted);
+          border-bottom: 1px solid var(--color-solo-muted);
+        }
+
+        .journey-nav-modern a {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          min-height: 82px;
+          padding: 16px 20px 16px 0;
+          color: var(--color-solo-text);
+          text-decoration: none;
+          transition:
+            color 0.25s ease,
+            padding-left 0.25s ease;
+        }
+
+        .journey-nav-modern a:not(:last-child) {
+          border-right: 1px solid var(--color-solo-muted);
+          margin-right: 20px;
+        }
+
+        .journey-nav-modern a:hover {
+          color: var(--color-solo-orange);
+          padding-left: 5px;
+        }
+
+        .journey-nav-number {
+          flex-shrink: 0;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid var(--color-solo-muted);
+          border-radius: 50%;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 0.05em;
+          transition:
+            background 0.25s ease,
+            color 0.25s ease,
+            border-color 0.25s ease;
+        }
+
+        .journey-nav-modern a:hover .journey-nav-number {
+          background: var(--color-solo-orange);
+          color: var(--color-solo-bg);
+          border-color: var(--color-solo-orange);
+        }
+
+        .journey-nav-info {
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+        }
+
+        .journey-nav-info strong {
+          font-size: 12px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.07em;
+        }
+
+        .journey-nav-info small {
+          color: var(--color-solo-muted);
+          font-size: 10px;
+          line-height: 1.3;
+        }
+
+        .journey-nav-arrow {
+          margin-left: auto;
+          color: var(--color-solo-muted);
+          font-size: 15px;
+          opacity: 0;
+          transform: translate(-5px, 5px);
+          transition:
+            opacity 0.25s ease,
+            transform 0.25s ease;
+        }
+
+        .journey-nav-modern a:hover .journey-nav-arrow {
+          opacity: 1;
+          transform: translate(0, 0);
+        }
+
+        /* =========================
+           JOURNEY CARDS
+        ========================== */
+
+        .journey-cards {
+          display: flex;
+          flex-direction: column;
+          gap: 110px;
+        }
+
+        .journey-card {
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
+          align-items: center;
+          gap: 70px;
+        }
+
+        .journey-card-reverse {
+          grid-template-columns: 0.85fr 1.15fr;
+        }
+
+        .journey-card-reverse .journey-card-image {
+          order: 2;
+        }
+
+        .journey-card-reverse .journey-card-content {
+          order: 1;
+        }
+
+        .journey-card-image {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 4 / 3;
+          overflow: hidden;
+          border-radius: 24px;
+          background: var(--color-solo-gold);
+        }
+
+        .journey-image {
+          object-fit: cover;
+          transition: transform 0.6s ease;
+        }
+
+        .journey-card:hover .journey-image {
+          transform: scale(1.035);
+        }
+
+        .journey-image-number {
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          z-index: 2;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          background: var(--color-solo-bg);
+          color: var(--color-solo-text);
+          font-size: 12px;
+          font-weight: 800;
+        }
+
+        .journey-card-content {
+          max-width: 570px;
+        }
+
+        .journey-card-eyebrow {
+          margin: 0 0 18px;
+          color: var(--color-solo-orange);
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.15em;
+        }
+
+        .journey-card-content h3 {
+          margin: 0;
+          font-family: var(--font-heading);
+          font-size: clamp(34px, 4vw, 56px);
+          line-height: 1;
+          letter-spacing: -0.045em;
+          font-weight: 800;
+        }
+
+        .journey-card-description {
+          margin: 22px 0 34px;
+          color: var(--color-solo-muted);
+          font-size: 16px;
+          line-height: 1.7;
+        }
+
+        /* =========================
+           STEPS
+        ========================== */
+
+        .journey-steps {
+          display: flex;
+          flex-direction: column;
+          border-top: 1px solid var(--color-solo-muted);
+        }
+
+        .journey-step {
+          display: grid;
+          grid-template-columns: 42px 1fr;
+          gap: 15px;
+          padding: 18px 0;
+          border-bottom: 1px solid var(--color-solo-muted);
+        }
+
+        .journey-step-number {
+          color: var(--color-solo-orange);
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+        }
+
+        .journey-step h4 {
+          margin: 0 0 5px;
+          font-size: 14px;
+          font-weight: 800;
+        }
+
+        .journey-step p {
+          margin: 0;
+          color: var(--color-solo-muted);
+          font-size: 13px;
+          line-height: 1.6;
+        }
+
+        /* =========================
+           DETAILS
+        ========================== */
+
+        .journey-details {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin: 24px 0 28px;
+        }
+
+        .journey-details span {
+          padding: 8px 11px;
+          border: 1px solid var(--color-solo-muted);
+          border-radius: 100px;
+          color: var(--color-solo-muted);
+          font-size: 10px;
+          font-weight: 700;
+        }
+
+        /* =========================
+           CTA BUTTONS
+        ========================== */
+
+        .journey-button,
+        .community-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 18px;
+          min-width: 205px;
+          padding: 7px 8px 7px 20px;
+          border: 1px solid var(--color-solo-text);
+          border-radius: 100px;
+          background: var(--color-solo-text);
+          color: var(--color-solo-bg);
+          text-decoration: none;
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 0.02em;
+          transition:
+            transform 0.3s ease,
+            background 0.3s ease,
+            border-color 0.3s ease,
+            box-shadow 0.3s ease;
+        }
+
+        .journey-button span,
+        .community-button span {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          background: var(--color-solo-bg);
+          color: var(--color-solo-text);
+          font-size: 17px;
+          transition:
+            transform 0.35s ease,
+            background 0.3s ease,
+            color 0.3s ease;
+        }
+
+        .journey-button:hover,
+        .community-button:hover {
+          background: var(--color-solo-orange);
+          border-color: var(--color-solo-orange);
+          color: var(--color-solo-bg);
+          transform: translateY(-4px);
+          box-shadow: 0 12px 30px var(--color-solo-coral);
+        }
+
+        .journey-button:hover span,
+        .community-button:hover span {
+          background: var(--color-solo-bg);
+          color: var(--color-solo-orange);
+          transform: translate(3px, -3px) rotate(2deg);
+        }
+
+        .journey-button:active,
+        .community-button:active {
+          transform: translateY(-1px);
+        }
+
+        .journey-button:focus-visible,
+        .community-button:focus-visible {
+          outline: 3px solid var(--color-solo-gold);
+          outline-offset: 4px;
+        }
+
+        /* =========================
+           COMMUNITY
+           LIGHT BACKGROUND
+        ========================== */
+
+        .community-section {
+          position: relative;
+          display: grid;
+          grid-template-columns: 0.8fr 1.2fr;
+          align-items: center;
+          gap: 80px;
+          min-height: 650px;
+          margin-top: 130px;
+          padding: 100px;
+          overflow: hidden;
+
+          border: 1px solid var(--color-solo-muted);
+          border-radius: 30px;
+
+          background: var(--color-solo-bg);
+
+          scroll-margin-top: 100px;
+        }
+
+        .community-content {
+          position: relative;
+          z-index: 5;
+          max-width: 520px;
+        }
+
+        .community-content h2 {
+          margin: 18px 0 22px;
+          font-family: var(--font-heading);
+          font-size: clamp(40px, 5vw, 70px);
+          line-height: 0.98;
+          letter-spacing: -0.055em;
+          font-weight: 800;
+        }
+
+        .community-content h2 span {
+          color: var(--color-solo-orange);
+        }
+
+        .community-content > p:not(.section-eyebrow) {
+          max-width: 480px;
+          margin: 0;
+          color: var(--color-solo-text);
+          font-size: 16px;
+          line-height: 1.7;
+        }
+
+        .community-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin: 28px 0;
+        }
+
+        .community-tags span {
+          padding: 8px 11px;
+          border: 1px solid var(--color-solo-text);
+          border-radius: 100px;
+          color: var(--color-solo-text);
+          font-size: 10px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.06em;
+        }
+
+        /* =========================
+           COMMUNITY IMAGES
+        ========================== */
+
+        .community-visual {
+          position: relative;
+          min-height: 470px;
+          width: 100%;
+        }
+
+        .community-card {
+          position: absolute;
+          width: 300px;
+          padding: 10px;
+          background: var(--color-solo-bg);
+          box-shadow: 0 20px 55px var(--color-solo-muted);
+          transition:
+            transform 0.4s ease,
+            box-shadow 0.4s ease;
+        }
+
+        .community-card:hover {
+          z-index: 10;
+          box-shadow: 0 25px 65px var(--color-solo-muted);
+        }
+
+        .community-card-image {
+          position: relative;
+          width: 100%;
+          height: 300px;
+          overflow: hidden;
+        }
+
+        .community-image {
+          object-fit: cover;
+        }
+
+        .community-card-1 {
+          top: 15px;
+          left: 4%;
+          transform: rotate(-4deg);
+          z-index: 2;
+        }
+
+        .community-card-1:hover {
+          transform: rotate(-2deg) translateY(-8px);
+        }
+
+        .community-card-2 {
+          top: 150px;
+          right: 4%;
+          transform: rotate(4deg);
+          z-index: 3;
+        }
+
+        .community-card-2:hover {
+          transform: rotate(2deg) translateY(-8px);
+        }
+
+        .community-card-3 {
+          bottom: 10px;
+          left: 18%;
+          transform: rotate(-2deg);
+          z-index: 4;
+        }
+
+        .community-card-3:hover {
+          transform: rotate(0deg) translateY(-8px);
+        }
+
+        /* =========================
+           TABLET
+        ========================== */
+
+        @media (max-width: 1000px) {
+          .career-container {
+            width: calc(100% - 48px);
+            padding: 90px 0 80px;
+          }
+
+          .journey-card,
+          .journey-card-reverse {
+            grid-template-columns: 1fr;
+            gap: 45px;
+          }
+
+          .journey-card-reverse .journey-card-image,
+          .journey-card-reverse .journey-card-content {
+            order: initial;
+          }
+
+          .journey-card-content {
+            max-width: 700px;
+          }
+
+          .community-section {
+            grid-template-columns: 1fr;
+            gap: 40px;
+            padding: 70px;
+          }
+
+          .community-content {
+            max-width: 650px;
+          }
+
+          .community-visual {
+            min-height: 500px;
+          }
+        }
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 650px) {
+          .career-container {
+            width: calc(100% - 32px);
+            padding: 70px 0 60px;
+          }
+
+          .journey-intro {
+            margin-bottom: 38px;
+          }
+
+          .journey-intro-top {
+            margin-bottom: 16px;
+          }
+
+          .journey-intro h2 {
+            font-size: clamp(34px, 10vw, 48px);
+            line-height: 1.02;
+          }
+
+          .career-intro {
+            margin-top: 18px;
+            font-size: 14px;
+            line-height: 1.65;
+          }
+
+          /* 2 × 2 Journey layout */
+
+          .journey-nav-modern {
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 65px;
+          }
+
+          .journey-nav-modern a {
+            min-height: 78px;
+            padding: 14px 12px 14px 0;
+            gap: 9px;
+          }
+
+          .journey-nav-modern a:not(:last-child) {
+            margin-right: 0;
+          }
+
+          .journey-nav-modern a:nth-child(1),
+          .journey-nav-modern a:nth-child(3) {
+            border-right: 1px solid var(--color-solo-muted);
+            padding-right: 12px;
+          }
+
+          .journey-nav-modern a:nth-child(2),
+          .journey-nav-modern a:nth-child(4) {
+            padding-left: 12px;
+          }
+
+          .journey-nav-modern a:nth-child(1),
+          .journey-nav-modern a:nth-child(2) {
+            border-bottom: 1px solid var(--color-solo-muted);
+          }
+
+          .journey-nav-number {
+            width: 26px;
+            height: 26px;
+            font-size: 8px;
+          }
+
+          .journey-nav-info strong {
+            font-size: 10px;
+          }
+
+          .journey-nav-info small {
+            font-size: 9px;
+          }
+
+          .journey-nav-arrow {
+            display: none;
+          }
+
+          /* Journey cards */
+
+          .journey-cards {
+            gap: 80px;
+          }
+
+          .journey-card {
+            gap: 35px;
+          }
+
+          .journey-card-image {
+            aspect-ratio: 1 / 0.82;
+            border-radius: 18px;
+          }
+
+          .journey-image-number {
+            top: 14px;
+            left: 14px;
+            width: 40px;
+            height: 40px;
+            font-size: 10px;
+          }
+
+          .journey-card-eyebrow {
+            margin-bottom: 14px;
+            font-size: 10px;
+          }
+
+          .journey-card-content h3 {
+            font-size: 36px;
+            line-height: 1;
+          }
+
+          .journey-card-description {
+            margin: 18px 0 25px;
+            font-size: 14px;
+          }
+
+          .journey-step {
+            grid-template-columns: 34px 1fr;
+            gap: 10px;
+            padding: 15px 0;
+          }
+
+          .journey-step h4 {
+            font-size: 13px;
+          }
+
+          .journey-step p {
+            font-size: 12px;
+          }
+
+          .journey-details {
+            margin: 20px 0 24px;
+          }
+
+          .journey-details span {
+            padding: 7px 9px;
+            font-size: 9px;
+          }
+
+          .journey-button {
+            min-width: 170px;
+            padding: 13px 17px;
+            font-size: 11px;
+          }
+
+          .journey-button span,
+          .community-button span {
+            width: 23px;
+            height: 23px;
+            font-size: 14px;
+          }
+
+          /* Community */
+
+          .community-section {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 30px;
+            min-height: auto;
+            margin-top: 90px;
+            padding: 45px 24px 35px;
+            border-radius: 22px;
+            background: var(--color-solo-bg);
+          }
+
+          .community-content h2 {
+            margin: 15px 0 18px;
+            font-size: 42px;
+          }
+
+          .community-content > p:not(.section-eyebrow) {
+            font-size: 14px;
+          }
+
+          .community-visual {
+            min-height: 430px;
+            margin-top: 10px;
+          }
+
+          .community-card {
+            width: 245px;
+            padding: 8px;
+          }
+
+          .community-card-image {
+            height: 220px;
+          }
+
+          .community-card-1 {
+            top: 0;
+            left: 0;
+          }
+
+          .community-card-2 {
+            top: 145px;
+            right: 0;
+          }
+
+          .community-card-3 {
+            bottom: 0;
+            left: 12%;
+          }
+        }
+
+        /* =========================
+           SMALL MOBILE
+        ========================== */
+
+        @media (max-width: 400px) {
+          .journey-intro h2 {
+            font-size: 40px;
+          }
+
+          .journey-nav-modern {
+            grid-template-columns: 1fr;
+          }
+
+          .journey-nav-modern a:nth-child(1),
+          .journey-nav-modern a:nth-child(2),
+          .journey-nav-modern a:nth-child(3),
+          .journey-nav-modern a:nth-child(4) {
+            border-right: none;
+            padding-left: 0;
+            padding-right: 0;
+          }
+
+          .journey-nav-modern a:not(:last-child) {
+            border-bottom: 1px solid var(--color-solo-muted);
+          }
+
+          .community-section {
+            padding-left: 18px;
+            padding-right: 18px;
+            background: var(--color-solo-bg);
+          }
+
+          .community-card {
+            width: 215px;
+          }
+
+          .community-card-image {
+            height: 195px;
+          }
+
+          .community-visual {
+            min-height: 380px;
+          }
+        }
+      `}</style>
     </section>
   );
 }
