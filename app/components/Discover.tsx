@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useMemo, useState } from "react";
@@ -24,8 +23,6 @@ import {
     IN_DEMAND_SKILLS,
     type Course,
 } from "../data/courses";
-
-import PathwayTree from "./PathwayTree";
 
 /* =========================================================
    CATEGORY ACCENTS
@@ -129,6 +126,37 @@ const OPPORTUNITY_FILTERS = [
     { label: "Internships", value: "Internship" },
 ] as const;
 
+const CAREER_PATHWAYS = [
+    {
+        id: "frontend",
+        title: "Frontend Developer",
+        standardImage:
+            "/images/discover/pathways/frontend/standard.png",
+        pathwayImage:
+            "/images/discover/pathways/frontend/pathway.png",
+    },
+
+    {
+        id: "data-analyst",
+        title: "Data Analyst",
+        standardImage:
+            "/images/discover/pathways/data-analyst/standard.png",
+        pathwayImage:
+            "/images/discover/pathways/data-analyst/pathway.png",
+    },
+
+    {
+        id: "ui-ux",
+        title: "UI/UX Designer",
+        standardImage:
+            "/images/discover/pathways/ui-ux/standard.png",
+        pathwayImage:
+            "/images/discover/pathways/ui-ux/pathway.png",
+    },
+
+    // Add more careers here when you have their screenshots
+];
+
 export default function Discover() {
     const [query, setQuery] = useState("");
 
@@ -142,6 +170,22 @@ export default function Discover() {
 
     const [selectedInterest, setSelectedInterest] =
         useState<(typeof INTERESTS)[number] | null>(null);
+
+    const [selectedCareer, setSelectedCareer] = useState("frontend");
+
+    const [pathwayView, setPathwayView] = useState<
+        "standard" | "pathway"
+    >("standard");
+
+    const selectedPathway = CAREER_PATHWAYS.find(
+        (career) => career.id === selectedCareer
+    );
+
+    const currentScreenshot =
+        pathwayView === "standard"
+            ? selectedPathway?.standardImage
+            : selectedPathway?.pathwayImage;
+
 
     /* =====================================================
        FILTER OPPORTUNITIES
@@ -286,9 +330,7 @@ export default function Discover() {
                 >
                     <div>
                         <div className="mb-5 flex items-center gap-3">
-                            <span className="h-px w-9 bg-solo-orange" />
-
-                            <span className="font-body text-xs font-bold uppercase tracking-[0.18em] text-solo-orange">
+                            <span className="inline-flex rounded-full border border-solo-orange/15 bg-white px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.16em] text-solo-orange shadow-sm sm:text-[9px]">
                                 Discover
                             </span>
                         </div>
@@ -300,10 +342,7 @@ export default function Discover() {
                             <span className="relative inline-block text-solo-orange">
                                 Discover where it can take you.
 
-                                <span
-                                    aria-hidden="true"
-                                    className="absolute -bottom-1 left-0 h-1 w-full rounded-full bg-solo-gold/60"
-                                />
+                                
                             </span>
                         </h2>
 
@@ -500,17 +539,20 @@ export default function Discover() {
                 >
                     <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                         <div>
-                            <div className="flex items-center gap-3">
-                                <span className="h-px w-8 bg-solo-orange" />
+                            <div className="mb-6 max-w-2xl">
+                                <div className="flex items-center gap-3">
+                                    <span className="h-px w-8 bg-solo-orange" />
 
-                                <p className="text-xs font-bold uppercase tracking-[0.14em] text-solo-orange">
-                                    Learning opportunities
-                                </p>
+                                    <p className="text-xs font-bold uppercase tracking-[0.15em] text-solo-orange">
+                                        Learning opportunities
+                                    </p>
+                                </div>
+
+                                <h3 className="mt-3 font-heading text-2xl font-extrabold tracking-tight text-solo-text md:text-3xl">
+                                    Explore your next step
+                                </h3>
                             </div>
 
-                            <h3 className="mt-2 font-heading text-2xl font-bold text-solo-text md:text-3xl">
-                                Explore your next step
-                            </h3>
 
                             {/* Opportunity Type Filters */}
 
@@ -813,9 +855,194 @@ export default function Discover() {
                     CAREER PATH
                 ================================================= */}
 
-                <div className="mt-16 md:mt-20">
-                    <PathwayTree />
-                </div>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.5 }}
+                    className="mt-16 md:mt-20"
+                >
+                    {/* Section Header */}
+                    <div className="mb-6 max-w-2xl">
+                        <div className="flex items-center gap-3">
+                            <span className="h-px w-8 bg-solo-orange" />
+
+                            <p className="text-xs font-bold uppercase tracking-[0.15em] text-solo-orange">
+                                Explore Career Pathways
+                            </p>
+                        </div>
+
+                        <h3 className="mt-3 font-heading text-2xl font-extrabold tracking-tight text-solo-text md:text-3xl">
+                            Follow a structured path toward your career goal.
+                        </h3>
+
+                        <p className="mt-2 text-sm leading-6 text-solo-muted">
+                            Explore how SOLO connects skills, credentials, and learning
+                            opportunities into a structured career pathway.
+                        </p>
+                    </div>
+
+                    {/* Career Selection */}
+                    <div className="mb-6 overflow-x-auto pb-2">
+                        <div className="flex min-w-max gap-2">
+                            {CAREER_PATHWAYS.map((career) => {
+                                const isActive = selectedCareer === career.id;
+
+                                return (
+                                    <button
+                                        key={career.id}
+                                        type="button"
+                                        onClick={() => {
+                                            setSelectedCareer(career.id);
+
+                                            // Reset to Standard View whenever a new
+                                            // career is selected.
+                                            setPathwayView("standard");
+                                        }}
+                                        className={`rounded-xl border px-4 py-3 text-left transition-all duration-200 ${isActive
+                                            ? "border-solo-orange bg-solo-orange text-white shadow-[0_8px_20px_rgba(253,67,34,0.18)]"
+                                            : "border-neutral-200 bg-white text-neutral-700 hover:border-solo-orange/40 hover:bg-[#FFF8F5]"
+                                            }`}
+                                    >
+                                        <span className="block text-sm font-bold whitespace-nowrap">
+                                            {career.title}
+                                        </span>
+
+                                        {isActive && (
+                                            <span className="mt-1 block text-[11px] font-medium text-white/80">
+                                                Selected pathway
+                                            </span>
+                                        )}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    {/* Main Pathway Showcase */}
+                    <div className="overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-[0_10px_40px_rgba(23,20,18,0.06)]">
+
+                        {/* Top Toolbar */}
+                        <div className="flex flex-col gap-4 border-b border-neutral-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between md:px-6">
+
+                            {/* Selected Career */}
+                            <div>
+                                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-neutral-400">
+                                    Career Pathway
+                                </p>
+
+                                <h4 className="mt-1 text-lg font-bold text-neutral-900">
+                                    {selectedPathway?.title}
+                                </h4>
+                            </div>
+
+                            {/* View Switcher */}
+                            <div className="inline-flex w-fit rounded-xl border border-neutral-200 bg-neutral-50 p-1">
+                                <button
+                                    type="button"
+                                    onClick={() => setPathwayView("standard")}
+                                    className={`rounded-lg px-4 py-2 text-xs font-semibold transition-all duration-200 md:px-5 md:text-sm ${pathwayView === "standard"
+                                        ? "bg-[#FFF0EB] text-solo-orange shadow-sm"
+                                        : "text-neutral-600 hover:text-neutral-900"
+                                        }`}
+                                >
+                                    Standard View
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={() => setPathwayView("pathway")}
+                                    className={`rounded-lg px-4 py-2 text-xs font-semibold transition-all duration-200 md:px-5 md:text-sm ${pathwayView === "pathway"
+                                        ? "bg-[#FFF0EB] text-solo-orange shadow-sm"
+                                        : "text-neutral-600 hover:text-neutral-900"
+                                        }`}
+                                >
+                                    Pathway View
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Screenshot */}
+                        <div className="bg-neutral-50 p-3 md:p-5">
+                            <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white ">
+
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={`${selectedCareer}-${pathwayView}`}
+                                        initial={{ opacity: 0, y: 8 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -8 }}
+                                        transition={{ duration: 0.25 }}
+                                    >
+                                        {currentScreenshot ? (
+                                            <div
+                                                className={
+                                                    pathwayView === "pathway"
+                                                        ? "overflow-x-auto"
+                                                        : "overflow-hidden"
+                                                }
+                                            >
+                                                <img
+                                                    src={currentScreenshot}
+                                                    alt={`${selectedPathway?.title} ${pathwayView === "standard"
+                                                        ? "Standard View"
+                                                        : "Pathway View"
+                                                        }`}
+                                                    className={
+                                                        pathwayView === "pathway"
+                                                            ? "block h-auto min-w-[900px] w-full object-contain"
+                                                            : "block h-auto w-full object-contain"
+                                                    }
+                                                />
+                                            </div>
+                                        ) : (
+                                            <div className="flex min-h-[300px] items-center justify-center px-6 text-center">
+                                                <div>
+                                                    <p className="text-sm font-semibold text-neutral-800">
+                                                        Screenshot coming soon
+                                                    </p>
+
+                                                    <p className="mt-1 text-xs text-neutral-500">
+                                                        Add the {pathwayView} view screenshot for this career
+                                                        pathway.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </motion.div>
+                                </AnimatePresence>
+
+                            </div>
+                        </div>
+
+                        {/* Bottom Information */}
+                        <div className="border-t border-neutral-100 px-5 py-4 md:px-6">
+                            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+
+                                <div>
+                                    <p className="text-sm font-semibold text-neutral-900">
+                                        {pathwayView === "standard"
+                                            ? "Standard View"
+                                            : "Pathway View"}
+                                    </p>
+
+                                    <p className="mt-1 text-xs leading-5 text-neutral-500">
+                                        {pathwayView === "standard"
+                                            ? "Explore the pathway as a structured sequence of learning opportunities and credentials."
+                                            : "Visualize how learning opportunities and credentials connect throughout the career pathway."}
+                                    </p>
+                                </div>
+
+                                <span className="w-fit rounded-full bg-[#FFF0EB] px-3 py-1.5 text-[11px] font-semibold text-solo-orange">
+                                    {pathwayView === "standard"
+                                        ? "Standard View"
+                                        : "Pathway View"}
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
             </div>
         </section>
     );
