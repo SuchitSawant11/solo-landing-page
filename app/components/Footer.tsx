@@ -40,7 +40,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative mt-16 border-t border-white/10 bg-[#171412] px-6 py-10 text-white">
+    <footer className="relative border-t border-white/10 bg-[#171412] px-6 py-10 text-white">
       <div className="mx-auto grid max-w-[1180px] gap-8 sm:grid-cols-2 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
         {/* Brand */}
         <div>
@@ -51,7 +51,7 @@ export default function Footer() {
           >
 
             <Image
-              src="/solo-logo-transparent.png"
+              src="/images/logo/solo-logo-transparent.png"
               alt="SOLO"
               width={100}
               height={100}

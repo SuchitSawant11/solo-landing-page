@@ -23,37 +23,37 @@ const learnSteps = [
     number: "01",
     title: "Find a course",
     text: "Browse courses from your dashboard.",
-    image: "/courses.png",
+    image: "/images/learn-and-build/learnSteps/courses.png",
   },
   {
     number: "02",
     title: "Enroll",
     text: "Click Enroll to add it to your journey.",
-    image: "/enroll .png",
+    image: "/images/learn-and-build/learnSteps/opportunities-course.png",
   },
   {
     number: "03",
     title: "Start learning",
     text: "Go to My Enrollments and begin lessons.",
-    image: "/my enrollment.png",
+    image: "/images/learn-and-build/learnSteps/my-enrollment.png",
   },
   {
     number: "04",
     title: "Complete the course",
     text: "Finish lessons, activities and assessments.",
-    image: "/course page.png",
+    image: "/images/learn-and-build/learnSteps/course-page.png",
   },
   {
     number: "05",
     title: "Request completion",
     text: "Fill the form, add badge/certificate, submit.",
-    image: "/request completion.png",
+    image: "/images/learn-and-build/learnSteps/request-completion.png",
   },
   {
     number: "06",
     title: "Done!",
     text: "See your learning achievement on your profile.",
-    image: "/enrollsuccess.png",
+    image: "/images/learn-and-build/learnSteps/enroll-success.png",
   },
 ];
 
@@ -61,19 +61,19 @@ const learningFeatures = [
   {
     title: "Learning activities",
     text: "Open your dashboard to access your learning activities, courses and other available opportunities.",
-    image: "/dashboard.png",
+    image: "/images/learn-and-build/learningFeatures/dashboard.png",
     icon: GraduationCap,
   },
   {
     title: "Track your progress",
     text: "Open your dashboard or Career Pathway to view your enrollment, learning progress and completed activities.",
-    image: "/Your Enrollment Progress.png",
+    image: "/images/learn-and-build/learningFeatures/your-enrollment-progress.png",
     icon: PlayCircle,
   },
   {
     title: "Discover opportunities",
     text: "Explore your dashboard and Career Pathways to find opportunities that match your skills and career interests.",
-    image: "/Top Matching Jobs.png",
+    image: "/images/learn-and-build/learningFeatures/top-matching-jobs.png",
     icon: CheckCircle2,
   },
 ];
@@ -92,25 +92,25 @@ const careerPathwaySteps = [
     number: "01",
     title: "Explore a Pathway",
     text: "Find a Career Pathway that matches your interests and career goals.",
-    image: "/career-pathway-explore.png",
+    image: "/images/learn-and-build/careerPathwaySteps/career-pathway-explore.png",
   },
   {
     number: "02",
     title: "Take the Pathway",
     text: "Review the pathway details and start your selected learning path.",
-    image: "/career-pathway-take.png",
+    image: "/images/learn-and-build/careerPathwaySteps/career-pathway-take.png",
   },
   {
     number: "03",
     title: "Follow Your Learning Path",
     text: "Work through the connected courses and learning opportunities in your pathway.",
-    image: "/career-pathway-learning.png",
+    image: "/images/learn-and-build/careerPathwaySteps/career-pathway-learning.png",
   },
   {
     number: "04",
     title: "Track Your Progress",
     text: "Complete courses, earn credentials, and monitor your progress as you move through the pathway.",
-    image: "/Your Enrollment Progress.png",
+    image: "/images/learn-and-build/careerPathwaySteps/career-pathway-progress.png",
   },
 ];
 
@@ -229,11 +229,11 @@ function LearnStep({
               group-hover:scale-100
               group-hover:opacity-100
               ${index === 0
-                          ? "left-0 origin-bottom-left"
-                          : index === learnSteps.length - 1
-                            ? "right-0 origin-bottom-right"
-                            : "left-1/2 -translate-x-1/2 origin-bottom"
-                        }
+                ? "left-0 origin-bottom-left"
+                : index === learnSteps.length - 1
+                  ? "right-0 origin-bottom-right"
+                  : "left-1/2 -translate-x-1/2 origin-bottom"
+              }
             `}
           >
             {/* Preview Header */}
@@ -448,7 +448,7 @@ function LearningFlow() {
 
 function CareerFlow() {
   return (
-    <div className="mt-8 rounded-2xl border border-blue-100 bg-[#f3f6ff] px-4 py-5 sm:px-6">
+    <div className="mt-6 rounded-2xl border border-blue-100 bg-[#f3f6ff] px-4 py-5 sm:px-6">
 
       <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.14em] text-solo-blue">
         SOLO Career Flow
@@ -771,7 +771,7 @@ export default function LearnBuildSkills() {
 
               <div className="overflow-hidden">
                 <img
-                  src="/frontend-career-pathway.png"
+                  src="/images/learn-and-build/example/frontend-career-pathway.png"
                   alt="Frontend Developer Career Pathway in SOLO showing connected courses and earned credentials"
                   className="block h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                 />
@@ -837,7 +837,7 @@ export default function LearnBuildSkills() {
                     FINAL CTA
                 ================================================== */}
 
-        <div className="mt-8 rounded-2xl border border-solo-orange/10 bg-[#fff5f1] px-6 py-7 sm:px-8">
+        <div className="mt-10 rounded-2xl border border-solo-orange/10 bg-[#fff5f1] px-6 py-7 sm:px-8">
 
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
 

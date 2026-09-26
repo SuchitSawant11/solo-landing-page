@@ -342,7 +342,7 @@ export default function Discover() {
                             <span className="relative inline-block text-solo-orange">
                                 Discover where it can take you.
 
-                                
+
                             </span>
                         </h2>
 

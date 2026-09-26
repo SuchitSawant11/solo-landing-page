@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const SOLO_SCREENSHOTS = {
   enrollInOpportunity:
-    "/opportunities.png",
+    "/images/prove-skills/opportunities.png",
 
   credentialWallet:
     "/images/prove-skills/credential-wallet.png",
@@ -308,7 +308,7 @@ export default function ProveSkills() {
 
           <div className="mb-5 flex items-center gap-3">
             <span className="inline-flex rounded-full border border-solo-orange/15 bg-white px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.16em] text-solo-orange shadow-sm sm:text-[9px]">
-              Prove Your SKills
+              Prove Your Skills
             </span>
           </div>
 
@@ -1372,8 +1372,50 @@ export default function ProveSkills() {
         </div>
 
         {/* ===================================================
-    04 — SHARE YOUR CREDENTIALS
-    =================================================== */}
+            COMBINED INTERNSHIP CREDENTIAL (CLR)
+            =================================================== */}
+
+        <div className="mt-10 overflow-hidden rounded-2xl border border-solo-blue/15 bg-solo-blue/5 p-5 md:p-6">
+
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+
+            <div className="flex items-start gap-4">
+
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-solo-blue shadow-sm">
+                <span className="text-sm font-extrabold">CLR</span>
+              </div>
+
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-blue">
+                  One credential, your whole journey
+                </p>
+
+                <h4 className="mt-1 font-heading text-base font-bold text-solo-text">
+                  Combined Internship Credential
+                </h4>
+
+                <p className="mt-1 max-w-2xl text-xs leading-5 text-solo-muted">
+                  Built on Comprehensive Learner Record (CLR) / Skill Transcript
+                  standards, this single verified credential brings together every
+                  course you have completed, your internship experience, and all
+                  the badges you have earned — so you don&apos;t have to manage
+                  multiple certificates.
+                </p>
+              </div>
+
+            </div>
+
+            <span className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full border border-solo-blue/20 bg-white px-4 py-2 text-[10px] font-bold text-solo-blue">
+              Issue CLR from your Credential Wallet
+            </span>
+
+          </div>
+
+        </div>
+
+        {/* ===================================================
+            04 — SHARE YOUR CREDENTIALS
+            =================================================== */}
 
         <div className="mt-24">
 
@@ -1435,9 +1477,9 @@ export default function ProveSkills() {
                   <div className="mt-7 overflow-hidden rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
 
                     <img
-                      src="/credential-sharing.png"
+                      src="/images/prove-skills/credential-sharing.png"
                       alt="Preview of the credential sharing options"
-                      className="h-full w-full object-contain"
+                      className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                     />
 
                   </div>
@@ -1584,7 +1626,7 @@ export default function ProveSkills() {
 
           {/* Endorsement bridge */}
 
-          <div className="mt-5 rounded-2xl border border-solo-gold/20 bg-solo-gold/5 p-5 md:p-6">
+          <div className="mt-10 rounded-2xl border border-solo-gold/20 bg-solo-gold/5 p-5 md:p-6">
 
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 

@@ -107,7 +107,7 @@ export default function Nav() {
                         className="flex items-center"
                     >
                         <Image
-                            src="/solo-logo.png"
+                            src="/images/logo/solo-logo.png"
                             alt="SOLO"
                             width={115}
                             height={46}

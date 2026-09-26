@@ -1,9 +1,24 @@
 export default function FinalCTA() {
   return (
     <section id="start" className="relative overflow-hidden bg-solo-bg px-5 py-16 md:px-6 md:py-15">
-      {/* Soft background decoration */}
-      <div className="absolute -left-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-solo-orange/10 blur-3xl" />
-      <div className="absolute -right-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-solo-blue/10 blur-3xl" />
+      {/* BACKGROUND ATMOSPHERE */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-40 top-24 h-[420px] w-[420px] rounded-full bg-solo-orange/10 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-40 top-[35%] h-[420px] w-[420px] rounded-full bg-solo-blue/8 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #171412 1px, transparent 1px), linear-gradient(to bottom, #171412 1px, transparent 1px)",
+          backgroundSize: "42px 42px",
+        }}
+      />
 
       <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[2rem] border border-solo-orange/20 bg-white shadow-[0_24px_80px_rgba(23,20,18,0.08)]">
         {/* Decorative top colors */}
