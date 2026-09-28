@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const COLUMNS = [
   {
@@ -41,7 +42,13 @@ export default function Footer() {
 
   return (
     <footer className="relative border-t border-white/10 bg-[#171412] px-6 py-10 text-white">
-      <div className="mx-auto grid max-w-[1180px] gap-8 sm:grid-cols-2 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.5 }}
+        className="mx-auto grid max-w-[1180px] gap-8 sm:grid-cols-2 md:grid-cols-[1.2fr_1fr_1fr_1fr]"
+      >
         {/* Brand */}
         <div>
           <a
@@ -66,8 +73,14 @@ export default function Footer() {
         </div>
 
         {/* Footer Columns */}
-        {COLUMNS.map((column) => (
-          <div key={column.title}>
+        {COLUMNS.map((column, index) => (
+          <motion.div
+            key={column.title}
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.4, delay: 0.1 + index * 0.08 }}
+          >
             <h2 className="font-heading text-sm font-bold text-[#FD4322]">
               {column.title}
             </h2>
@@ -84,28 +97,38 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Bottom Divider + Copyright */}
-      <div className="mt-8 border-t border-white/10 pt-5">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="mt-8 border-t border-white/10 pt-5"
+      >
         <p className="pr-12 text-center text-[10px] leading-4 text-[#8F8884]">
           © {new Date().getFullYear()} SOLO. Skills-First Infrastructure
           Powering Learning, Employment & Workforce Readiness.
         </p>
-      </div>
+      </motion.div>
 
       {/* Back to Top */}
-      <button
+      <motion.button
         type="button"
         onClick={scrollToTop}
         aria-label="Scroll to top"
         title="Back to top"
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.4, delay: 0.25 }}
         className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-[#FD4322] text-sm font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FD4322]"
       >
         ↑
-      </button>
+      </motion.button>
     </footer>
   );
 }

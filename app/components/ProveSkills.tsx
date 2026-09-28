@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const SOLO_SCREENSHOTS = {
   enrollInOpportunity:
@@ -304,7 +305,13 @@ export default function ProveSkills() {
             SECTION INTRO
             =================================================== */}
 
-        <div className="max-w-[760px]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.55 }}
+          className="max-w-[760px]"
+        >
 
           <div className="mb-5 flex items-center gap-3">
             <span className="inline-flex rounded-full border border-solo-orange/15 bg-white px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.16em] text-solo-orange shadow-sm sm:text-[9px]">
@@ -326,13 +333,19 @@ export default function ProveSkills() {
             projects, achievements, credentials, and real evidence of your
             capabilities.
           </p>
-        </div>
+        </motion.div>
 
         {/* ===================================================
             01 — PROOF SYSTEM
             =================================================== */}
 
-        <div className="mt-12 overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_rgba(23,20,18,0.08)]">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6 }}
+          className="mt-12 overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_rgba(23,20,18,0.08)]"
+        >
 
           {/* Top information bar */}
 
@@ -471,8 +484,12 @@ export default function ProveSkills() {
 
                 {PROOF_FEATURES.map((feature, index) => (
 
-                  <article
+                  <motion.article
                     key={feature.title}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.45, delay: index * 0.08 }}
                     className={`group relative overflow-hidden rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${feature.accent
                       } ${index === 4
                         ? "sm:col-span-2"
@@ -511,7 +528,7 @@ export default function ProveSkills() {
                         }`}
                     />
 
-                  </article>
+                  </motion.article>
 
                 ))}
 
@@ -519,7 +536,7 @@ export default function ProveSkills() {
 
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* ===================================================
             02 — HOW DO YOU RECEIVE CREDENTIALS?
@@ -529,7 +546,13 @@ export default function ProveSkills() {
 
           {/* Heading */}
 
-          <div className="mb-6 max-w-2xl">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+            className="mb-6 max-w-2xl"
+          >
             <div className="flex items-center gap-3">
               <span className="h-px w-8 bg-solo-orange" />
 
@@ -547,7 +570,7 @@ export default function ProveSkills() {
               through a simple, verifiable pipeline: enroll, complete, get
               assessed, and get issued.
             </p>
-          </div>
+          </motion.div>
 
 
 
@@ -555,7 +578,13 @@ export default function ProveSkills() {
               DESKTOP STEP NAVIGATION
               ================================================= */}
 
-          <div className="mt-10 hidden items-center md:flex">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-10 hidden items-center md:flex"
+          >
 
             {CREDENTIAL_STEPS.map((step, index) => (
 
@@ -596,13 +625,19 @@ export default function ProveSkills() {
 
             ))}
 
-          </div>
+          </motion.div>
 
           {/* =================================================
               MOBILE STEP CARDS
               ================================================= */}
 
-          <div className="mt-8 space-y-3 md:hidden">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-8 space-y-3 md:hidden"
+          >
 
             {CREDENTIAL_STEPS.map((step, index) => (
 
@@ -667,7 +702,7 @@ export default function ProveSkills() {
 
             ))}
 
-          </div>
+          </motion.div>
 
           {/* =================================================
               ACTIVE STEP — DESKTOP
@@ -679,7 +714,13 @@ export default function ProveSkills() {
 
               {/* Step information */}
 
-              <div className="flex flex-col justify-center p-7 md:p-9">
+              <motion.div
+                key={`info-${activeStep}`}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35 }}
+                className="flex flex-col justify-center p-7 md:p-9"
+              >
 
                 <div
                   className={`flex h-12 w-12 items-center justify-center rounded-2xl ${CREDENTIAL_STEPS[activeStep].bg} ${CREDENTIAL_STEPS[activeStep].color}`}
@@ -724,11 +765,17 @@ export default function ProveSkills() {
 
                 </div>
 
-              </div>
+              </motion.div>
 
               {/* Step visual */}
 
-              <div className="border-t border-neutral-100 bg-neutral-50 p-5 lg:border-l lg:border-t-0 md:p-7">
+              <motion.div
+                key={`visual-${activeStep}`}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35 }}
+                className="border-t border-neutral-100 bg-neutral-50 p-5 lg:border-l lg:border-t-0 md:p-7"
+              >
 
                 {/* STEP 1 */}
 
@@ -909,7 +956,7 @@ export default function ProveSkills() {
 
                 )}
 
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -946,7 +993,13 @@ export default function ProveSkills() {
         {/* What Counts as Proof */}
         <section className="mt-24">
 
-          <div className="mb-6 max-w-2xl">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+            className="mb-6 max-w-2xl"
+          >
             <div className="flex items-center gap-3">
               <span className="h-px w-8 bg-solo-orange" />
 
@@ -964,7 +1017,7 @@ export default function ProveSkills() {
               evidence of your work and completed requirements to verify your
               achievement
             </p>
-          </div>
+          </motion.div>
 
 
           <div className="flex flex-col gap-4 lg:flex-row">
@@ -1004,9 +1057,13 @@ export default function ProveSkills() {
                   "Assignments, quizzes, assessments, and other required evaluations.",
                 icon: "✓",
               },
-            ].map((item) => (
-              <div
+            ].map((item, index) => (
+              <motion.div
                 key={item.number}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.45, delay: index * 0.07 }}
                 className="group min-w-0 flex-1 rounded-2xl border border-neutral-200 bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-[0_10px_25px_rgba(23,20,18,0.07)]"
               >
                 {/* Icon */}
@@ -1028,7 +1085,7 @@ export default function ProveSkills() {
                 <p className="mt-2 text-sm leading-5 text-neutral-600">
                   {item.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>
@@ -1041,7 +1098,13 @@ export default function ProveSkills() {
 
           {/* Heading */}
 
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+          >
 
             <div className="mb-6 max-w-2xl">
               <div className="flex items-center gap-3">
@@ -1063,11 +1126,17 @@ export default function ProveSkills() {
               </p>
             </div>
 
-          </div>
+          </motion.div>
 
           {/* Wallet container */}
 
-          <div className="mt-3 overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_rgba(23,20,18,0.08)]">
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55 }}
+            className="mt-3 overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_rgba(23,20,18,0.08)]"
+          >
 
             {/* Wallet header */}
 
@@ -1103,14 +1172,18 @@ export default function ProveSkills() {
 
             <div className="grid gap-5 p-5 md:grid-cols-3 md:p-7">
 
-              {CREDENTIALS.map((credential) => {
+              {CREDENTIALS.map((credential, credentialIndex) => {
 
                 const isActive =
                   activeCredential === credential.id;
 
                 return (
-                  <button
+                  <motion.button
                     key={credential.id}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.45, delay: credentialIndex * 0.08 }}
                     type="button"
                     onClick={() =>
                       setActiveCredential(
@@ -1188,7 +1261,7 @@ export default function ProveSkills() {
 
                     </div>
 
-                  </button>
+                  </motion.button>
                 );
 
               })}
@@ -1199,175 +1272,185 @@ export default function ProveSkills() {
                 SELECTED CREDENTIAL DETAILS
                 ================================================= */}
 
-            {activeCredential && (
+            <AnimatePresence>
+              {activeCredential && (
 
-              <div className="border-t border-neutral-100 bg-solo-orange/5 p-5 md:p-7">
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  className="overflow-hidden border-t border-neutral-100 bg-solo-orange/5"
+                >
+                  <div className="p-5 md:p-7">
 
-                {(() => {
+                    {(() => {
 
-                  const credential =
-                    CREDENTIALS.find(
-                      (item) =>
-                        item.id === activeCredential
-                    );
+                      const credential =
+                        CREDENTIALS.find(
+                          (item) =>
+                            item.id === activeCredential
+                        );
 
-                  if (!credential) {
-                    return null;
-                  }
+                      if (!credential) {
+                        return null;
+                      }
 
-                  return (
+                      return (
 
-                    <div className="grid gap-7 lg:grid-cols-[1fr_280px] lg:items-center">
+                        <div className="grid gap-7 lg:grid-cols-[1fr_280px] lg:items-center">
 
-                      {/* Details */}
+                          {/* Details */}
 
-                      <div>
+                          <div>
 
-                        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-orange">
-                          Verified Credential
-                        </p>
-
-                        <h4 className="mt-2 font-heading text-xl font-extrabold text-solo-text md:text-2xl">
-                          {credential.title}
-                        </h4>
-
-                        <p className="mt-1 text-xs font-medium text-solo-muted">
-                          Issued by {credential.issuer}
-                        </p>
-
-                        <p className="mt-4 max-w-2xl text-xs leading-5 text-solo-muted md:text-sm">
-                          This credential represents completed learning and
-                          verified achievement within the SOLO learning journey.
-                        </p>
-
-                        {/* Metadata */}
-
-                        <div className="mt-5 grid max-w-xl grid-cols-2 gap-3 sm:grid-cols-3">
-
-                          <div className="rounded-xl border border-white bg-white p-3">
-
-                            <p className="text-[8px] font-bold uppercase tracking-[0.1em] text-solo-muted">
-                              Skills
+                            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-solo-orange">
+                              Verified Credential
                             </p>
 
-                            <p className="mt-1 text-xs font-bold text-solo-text">
-                              {credential.skills}
+                            <h4 className="mt-2 font-heading text-xl font-extrabold text-solo-text md:text-2xl">
+                              {credential.title}
+                            </h4>
+
+                            <p className="mt-1 text-xs font-medium text-solo-muted">
+                              Issued by {credential.issuer}
                             </p>
+
+                            <p className="mt-4 max-w-2xl text-xs leading-5 text-solo-muted md:text-sm">
+                              This credential represents completed learning and
+                              verified achievement within the SOLO learning journey.
+                            </p>
+
+                            {/* Metadata */}
+
+                            <div className="mt-5 grid max-w-xl grid-cols-2 gap-3 sm:grid-cols-3">
+
+                              <div className="rounded-xl border border-white bg-white p-3">
+
+                                <p className="text-[8px] font-bold uppercase tracking-[0.1em] text-solo-muted">
+                                  Skills
+                                </p>
+
+                                <p className="mt-1 text-xs font-bold text-solo-text">
+                                  {credential.skills}
+                                </p>
+
+                              </div>
+
+                              <div className="rounded-xl border border-white bg-white p-3">
+
+                                <p className="text-[8px] font-bold uppercase tracking-[0.1em] text-solo-muted">
+                                  Issued
+                                </p>
+
+                                <p className="mt-1 text-xs font-bold text-solo-text">
+                                  {credential.issued}
+                                </p>
+
+                              </div>
+
+                              <div className="rounded-xl border border-white bg-white p-3">
+
+                                <p className="text-[8px] font-bold uppercase tracking-[0.1em] text-solo-muted">
+                                  Expires
+                                </p>
+
+                                <p className="mt-1 text-xs font-bold text-solo-text">
+                                  {credential.expires}
+                                </p>
+
+                              </div>
+
+                            </div>
+
+                            {/* Status */}
+
+                            <div className="mt-5 flex flex-wrap gap-2">
+
+                              <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[9px] font-bold text-green-600 shadow-sm">
+
+                                <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-green-500 text-[8px] text-white">
+                                  ✓
+                                </span>
+
+                                Verified
+
+                              </span>
+
+                              <span className="rounded-full bg-white px-3 py-1.5 text-[9px] font-bold text-solo-muted shadow-sm">
+                                SOLO Credential
+                              </span>
+
+                              <span className="rounded-full bg-white px-3 py-1.5 text-[9px] font-bold text-solo-muted shadow-sm">
+                                Shareable
+                              </span>
+
+                            </div>
 
                           </div>
 
-                          <div className="rounded-xl border border-white bg-white p-3">
+                          {/* Share credential */}
 
-                            <p className="text-[8px] font-bold uppercase tracking-[0.1em] text-solo-muted">
-                              Issued
-                            </p>
+                          <div className="mt-6 flex flex-wrap gap-3">
+                            <button
+                              type="button"
+                              onClick={() => setShowSharePanel(true)}
+                              className="group inline-flex items-center gap-2 rounded-xl bg-solo-orange px-4 py-2.5 text-xs font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                            >
+                              Share Credential
 
-                            <p className="mt-1 text-xs font-bold text-solo-text">
-                              {credential.issued}
-                            </p>
+                              <span className="transition-transform duration-300 group-hover:translate-x-1">
+                                →
+                              </span>
+                            </button>
 
+                            <button
+                              type="button"
+                              onClick={() => setActiveCredential(null)}
+                              className="rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-xs font-bold text-solo-muted transition-all duration-300 hover:border-neutral-300 hover:text-solo-text"
+                            >
+                              Close
+                            </button>
                           </div>
 
-                          <div className="rounded-xl border border-white bg-white p-3">
+                          {/* Actual credential preview */}
 
-                            <p className="text-[8px] font-bold uppercase tracking-[0.1em] text-solo-muted">
-                              Expires
+                          <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
+
+                            <p className="mb-3 text-center text-[9px] font-bold uppercase tracking-[0.12em] text-solo-muted">
+                              Credential Preview
                             </p>
 
-                            <p className="mt-1 text-xs font-bold text-solo-text">
-                              {credential.expires}
+                            <div className="flex h-[170px] items-center justify-center overflow-hidden rounded-xl bg-neutral-50 p-3">
+
+                              <img
+                                src={credential.image}
+                                alt={`Preview of ${credential.title}`}
+                                className="h-full w-full object-contain"
+                              />
+
+                            </div>
+
+                            <p className="mt-3 text-center text-[9px] leading-4 text-solo-muted">
+                              View the credential and its verification details
+                              through the SOLO platform.
                             </p>
 
                           </div>
 
                         </div>
 
-                        {/* Status */}
+                      );
 
-                        <div className="mt-5 flex flex-wrap gap-2">
+                    })()}
 
-                          <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[9px] font-bold text-green-600 shadow-sm">
+                  </div>
+                </motion.div>
 
-                            <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-green-500 text-[8px] text-white">
-                              ✓
-                            </span>
+              )}
+            </AnimatePresence>
 
-                            Verified
-
-                          </span>
-
-                          <span className="rounded-full bg-white px-3 py-1.5 text-[9px] font-bold text-solo-muted shadow-sm">
-                            SOLO Credential
-                          </span>
-
-                          <span className="rounded-full bg-white px-3 py-1.5 text-[9px] font-bold text-solo-muted shadow-sm">
-                            Shareable
-                          </span>
-
-                        </div>
-
-                      </div>
-
-                      {/* Share credential */}
-
-                      <div className="mt-6 flex flex-wrap gap-3">
-                        <button
-                          type="button"
-                          onClick={() => setShowSharePanel(true)}
-                          className="group inline-flex items-center gap-2 rounded-xl bg-solo-orange px-4 py-2.5 text-xs font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
-                        >
-                          Share Credential
-
-                          <span className="transition-transform duration-300 group-hover:translate-x-1">
-                            →
-                          </span>
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => setActiveCredential(null)}
-                          className="rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-xs font-bold text-solo-muted transition-all duration-300 hover:border-neutral-300 hover:text-solo-text"
-                        >
-                          Close
-                        </button>
-                      </div>
-
-                      {/* Actual credential preview */}
-
-                      <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
-
-                        <p className="mb-3 text-center text-[9px] font-bold uppercase tracking-[0.12em] text-solo-muted">
-                          Credential Preview
-                        </p>
-
-                        <div className="flex h-[170px] items-center justify-center overflow-hidden rounded-xl bg-neutral-50 p-3">
-
-                          <img
-                            src={credential.image}
-                            alt={`Preview of ${credential.title}`}
-                            className="h-full w-full object-contain"
-                          />
-
-                        </div>
-
-                        <p className="mt-3 text-center text-[9px] leading-4 text-solo-muted">
-                          View the credential and its verification details
-                          through the SOLO platform.
-                        </p>
-
-                      </div>
-
-                    </div>
-
-                  );
-
-                })()}
-
-              </div>
-
-            )}
-
-          </div>
+          </motion.div>
 
         </div>
 
@@ -1375,7 +1458,13 @@ export default function ProveSkills() {
             COMBINED INTERNSHIP CREDENTIAL (CLR)
             =================================================== */}
 
-        <div className="mt-10 overflow-hidden rounded-2xl border border-solo-blue/15 bg-solo-blue/5 p-5 md:p-6">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+          className="mt-6 overflow-hidden rounded-2xl border border-solo-blue/15 bg-solo-blue/5 p-5 md:p-6"
+        >
 
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
@@ -1411,17 +1500,23 @@ export default function ProveSkills() {
 
           </div>
 
-        </div>
+        </motion.div>
 
         {/* ===================================================
-            04 — SHARE YOUR CREDENTIALS
-            =================================================== */}
+    04 — SHARE YOUR CREDENTIALS
+    =================================================== */}
 
         <div className="mt-24">
 
           {/* Section heading */}
 
-          <div className="mb-6 max-w-2xl">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+            className="mb-6 max-w-2xl"
+          >
             <div className="flex items-center gap-3">
               <span className="h-px w-8 bg-solo-orange" />
 
@@ -1439,11 +1534,17 @@ export default function ProveSkills() {
               the work you completed, and the learning experiences you achieved
               through SOLO.
             </p>
-          </div>
+          </motion.div>
 
           {/* Share experience */}
 
-          <div className="mt-10 overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_rgba(23,20,18,0.08)]">
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55 }}
+            className="mt-10 overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_rgba(23,20,18,0.08)]"
+          >
 
             <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
 
@@ -1622,11 +1723,17 @@ export default function ProveSkills() {
 
             </div>
 
-          </div>
+          </motion.div>
 
           {/* Endorsement bridge */}
 
-          <div className="mt-10 rounded-2xl border border-solo-gold/20 bg-solo-gold/5 p-5 md:p-6">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+            className="mt-10 rounded-2xl border border-solo-gold/20 bg-solo-gold/5 p-5 md:p-6"
+          >
 
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
@@ -1661,7 +1768,7 @@ export default function ProveSkills() {
 
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
 
@@ -1671,7 +1778,13 @@ export default function ProveSkills() {
 
         <div className="mt-15">
 
-          <div className="overflow-hidden rounded-[2rem] border border-solo-blue/15 bg-solo-blue/5">
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55 }}
+            className="overflow-hidden rounded-[2rem] border border-solo-blue/15 bg-solo-blue/5"
+          >
 
             <div className="grid lg:grid-cols-[1fr_0.9fr]">
 
@@ -1723,8 +1836,12 @@ export default function ProveSkills() {
                     "Showcase",
                   ].map((item, index) => (
 
-                    <div
+                    <motion.div
                       key={item}
+                      initial={{ opacity: 0, x: 12 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, amount: 0.5 }}
+                      transition={{ duration: 0.4, delay: index * 0.08 }}
                       className="flex items-center gap-3"
                     >
 
@@ -1742,7 +1859,7 @@ export default function ProveSkills() {
                         </span>
                       )}
 
-                    </div>
+                    </motion.div>
 
                   ))}
 
@@ -1752,7 +1869,7 @@ export default function ProveSkills() {
 
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
 

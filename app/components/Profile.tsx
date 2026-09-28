@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   UserRound,
   FileText,
@@ -277,7 +278,13 @@ export default function Profile() {
             INTRO
         ================================================= */}
 
-        <div className="max-w-[760px]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.55 }}
+          className="max-w-[760px]"
+        >
           <div className="mb-5 flex items-center gap-3">
             <span className="inline-flex rounded-full border border-solo-orange/15 bg-white px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.16em] text-solo-orange shadow-sm sm:text-[9px]">
               Grow &amp; Showcase
@@ -298,7 +305,7 @@ export default function Profile() {
             together — helping you move from learning, to doing, to your
             next opportunity.
           </p>
-        </div>
+        </motion.div>
 
         {/* =================================================
             JOURNEY NAV
@@ -306,12 +313,16 @@ export default function Profile() {
 
         <div className="mt-10 overflow-x-auto pb-2">
           <div className="flex min-w-max gap-2 sm:min-w-0 sm:flex-wrap">
-            {journeyNav.map((item) => {
+            {journeyNav.map((item, index) => {
               const Icon = item.icon;
               return (
-                <a
+                <motion.a
                   key={item.label}
                   href={item.href}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.4, delay: index * 0.06 }}
                   className="group flex items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-4 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-solo-orange/30 hover:shadow-[0_10px_25px_rgba(23,20,18,0.07)]"
                 >
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-solo-orange/10 text-solo-orange transition-transform duration-300 group-hover:scale-105">
@@ -321,7 +332,7 @@ export default function Profile() {
                     <span className="block text-xs font-bold text-solo-text">{item.label}</span>
                     <span className="block text-[10px] text-solo-muted">{item.subtitle}</span>
                   </span>
-                </a>
+                </motion.a>
               );
             })}
           </div>
@@ -337,9 +348,13 @@ export default function Profile() {
             const reversed = index % 2 !== 0;
 
             return (
-              <div
+              <motion.div
                 key={card.number}
                 id={card.anchor}
+                initial={{ opacity: 0, y: 26 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6 }}
                 className="scroll-mt-28"
               >
                 <div
@@ -347,7 +362,13 @@ export default function Profile() {
                     }`}
                 >
                   {/* Image */}
-                  <div className="relative">
+                  <motion.div
+                    initial={{ opacity: 0, x: reversed ? 24 : -24 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    className="relative"
+                  >
                     <div className={`absolute -inset-3 rounded-[2rem] ${a.chipBg}`} aria-hidden="true" />
                     <div className="relative overflow-hidden rounded-[1.75rem] border border-neutral-200 bg-white shadow-[0_20px_60px_rgba(23,20,18,0.08)]">
                       <div className="flex items-center gap-2 border-b border-neutral-100 px-4 py-2.5">
@@ -366,10 +387,15 @@ export default function Profile() {
                         />
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* Content */}
-                  <div>
+                  <motion.div
+                    initial={{ opacity: 0, x: reversed ? -24 : 24 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.6, delay: 0.15 }}
+                  >
                     <Eyebrow color={card.accent}>{card.eyebrow}</Eyebrow>
 
                     <h3 className="mt-3 font-heading text-2xl font-extrabold leading-tight tracking-tight text-solo-text md:text-3xl">
@@ -381,8 +407,15 @@ export default function Profile() {
                     </p>
 
                     <div className="mt-6 space-y-4">
-                      {card.steps.map((step) => (
-                        <div key={step.number} className="flex items-start gap-3">
+                      {card.steps.map((step, stepIndex) => (
+                        <motion.div
+                          key={step.number}
+                          initial={{ opacity: 0, y: 12 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true, amount: 0.4 }}
+                          transition={{ duration: 0.4, delay: 0.2 + stepIndex * 0.08 }}
+                          className="flex items-start gap-3"
+                        >
                           <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[10px] font-extrabold ${a.bg} ${a.text}`}>
                             {step.number}
                           </span>
@@ -390,7 +423,7 @@ export default function Profile() {
                             <h4 className="text-sm font-bold text-solo-text">{step.title}</h4>
                             <p className="mt-0.5 text-xs leading-5 text-solo-muted">{step.description}</p>
                           </div>
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
 
@@ -413,9 +446,9 @@ export default function Profile() {
                       {card.cta}
                       <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
-                  </div>
+                  </motion.div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
@@ -425,7 +458,13 @@ export default function Profile() {
         ================================================= */}
 
         <div id="journey-opportunities" className="mt-20 scroll-mt-28 md:mt-24">
-          <div className="mb-8 max-w-2xl">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+            className="mb-8 max-w-2xl"
+          >
             <Eyebrow color="blue">Job search &amp; skill gap identification</Eyebrow>
             <h3 className="mt-3 font-heading text-2xl font-extrabold tracking-tight text-solo-text md:text-3xl">
               Find your next opportunity — and see exactly what it takes.
@@ -436,9 +475,15 @@ export default function Profile() {
               SOLO&apos;s Skill Match Analysis compares the role&apos;s requirements
               with your profile.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_rgba(23,20,18,0.08)]">
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55 }}
+            className="overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_rgba(23,20,18,0.08)]"
+          >
             <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
 
               {/* Screenshot */}
@@ -474,9 +519,13 @@ export default function Profile() {
                 </p>
 
                 <div className="mt-5 space-y-3">
-                  {SKILL_MATCH.map((item) => (
-                    <div
+                  {SKILL_MATCH.map((item, itemIndex) => (
+                    <motion.div
                       key={item.label}
+                      initial={{ opacity: 0, x: 16 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, amount: 0.4 }}
+                      transition={{ duration: 0.4, delay: itemIndex * 0.1 }}
                       className={`flex items-start gap-3 rounded-xl border p-3 ${item.chip}`}
                     >
                       <span className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${item.color}`} />
@@ -484,7 +533,7 @@ export default function Profile() {
                         <p className="text-xs font-bold">{item.label}</p>
                         <p className="mt-0.5 text-[11px] leading-4 opacity-80">{item.description}</p>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
 
@@ -503,7 +552,7 @@ export default function Profile() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* =================================================
@@ -511,11 +560,22 @@ export default function Profile() {
         ================================================= */}
 
         <div id="journey-wallet" className="mt-20 scroll-mt-28 md:mt-24">
-          <div className="overflow-hidden rounded-[2rem] border border-solo-orange/15 bg-gradient-to-br from-[#fff5f1] to-white">
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55 }}
+            className="overflow-hidden rounded-[2rem] border border-solo-orange/15 bg-gradient-to-br from-[#fff5f1] to-white"
+          >
             <div className="grid gap-10 p-7 md:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
 
               {/* Copy */}
-              <div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.55 }}
+              >
                 <Eyebrow color="orange">Credential Wallet App</Eyebrow>
                 <h3 className="mt-3 font-heading text-2xl font-extrabold leading-tight tracking-tight text-solo-text md:text-3xl">
                   Your credentials, in your pocket.
@@ -531,15 +591,19 @@ export default function Profile() {
                   <Smartphone size={14} />
                   Available on Google Play
                 </div>
-              </div>
+              </motion.div>
 
               {/* Feature grid */}
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {WALLET_FEATURES.map((feature) => {
+                {WALLET_FEATURES.map((feature, featureIndex) => {
                   const Icon = feature.icon;
                   return (
-                    <div
+                    <motion.div
                       key={feature.title}
+                      initial={{ opacity: 0, y: 18 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.3 }}
+                      transition={{ duration: 0.45, delay: featureIndex * 0.08 }}
                       className="group rounded-2xl border border-neutral-200 bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(23,20,18,0.08)]"
                     >
                       <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-solo-orange/10 text-solo-orange">
@@ -547,12 +611,12 @@ export default function Profile() {
                       </div>
                       <h4 className="mt-3 text-sm font-bold text-solo-text">{feature.title}</h4>
                       <p className="mt-1 text-xs leading-5 text-solo-muted">{feature.description}</p>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* =================================================
@@ -560,7 +624,13 @@ export default function Profile() {
         ================================================= */}
 
         <div id="journey-connect" className="mt-20 scroll-mt-28 md:mt-24">
-          <div className="overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_rgba(23,20,18,0.08)]">
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55 }}
+            className="overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_rgba(23,20,18,0.08)]"
+          >
             <div className="grid lg:grid-cols-[1fr_0.9fr]">
 
               {/* Copy */}
@@ -589,18 +659,22 @@ export default function Profile() {
                 </div>
 
                 <div className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-                  {socialActions.map((action) => {
+                  {socialActions.map((action, actionIndex) => {
                     const Icon = action.icon;
                     return (
-                      <div
+                      <motion.div
                         key={action.label}
+                        initial={{ opacity: 0, y: 14 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.4 }}
+                        transition={{ duration: 0.4, delay: actionIndex * 0.07 }}
                         className="flex flex-col items-center gap-1.5 rounded-xl border border-neutral-200 bg-neutral-50 px-2 py-3 text-center"
                       >
                         <Icon size={15} className="text-solo-blue" />
                         <span className="text-[10px] font-semibold leading-tight text-solo-muted">
                           {action.label}
                         </span>
-                      </div>
+                      </motion.div>
                     );
                   })}
                 </div>
@@ -618,9 +692,13 @@ export default function Profile() {
 
               {/* Community feed preview */}
               <div className="flex flex-col justify-center gap-3 border-t border-neutral-100 bg-neutral-50/70 p-6 lg:border-l lg:border-t-0 md:p-7">
-                {communityPosts.map((post) => (
-                  <div
+                {communityPosts.map((post, postIndex) => (
+                  <motion.div
                     key={post.image}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.45, delay: postIndex * 0.1 }}
                     className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition-transform duration-300 hover:-translate-y-0.5"
                   >
                     <img
@@ -628,11 +706,11 @@ export default function Profile() {
                       alt={post.alt}
                       className="block h-auto w-full object-contain"
                     />
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
       </div>

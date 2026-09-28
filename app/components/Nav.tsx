@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
     Home,
     Compass,
@@ -87,7 +88,10 @@ export default function Nav() {
 
     return (
         <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
-            <nav
+            <motion.nav
+                initial={{ opacity: 0, y: -18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
                 className="
           mx-auto flex max-w-[1530px] items-center
           rounded-full
@@ -217,13 +221,19 @@ export default function Nav() {
                 >
                     {mobileOpen ? <X size={21} /> : <Menu size={21} />}
                 </button>
-            </nav>
+            </motion.nav>
 
             {/* ================= MOBILE MENU ================= */}
-            {mobileOpen && (
-                <div
-                    className="
+            <AnimatePresence>
+                {mobileOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -10, height: 0 }}
+                        animate={{ opacity: 1, y: 0, height: "auto" }}
+                        exit={{ opacity: 0, y: -10, height: 0 }}
+                        transition={{ duration: 0.25, ease: "easeInOut" }}
+                        className="
             mx-3 mt-2
+            overflow-hidden
             rounded-3xl
             border border-white/80
             bg-white/95
@@ -233,42 +243,42 @@ export default function Nav() {
             sm:mx-5
             lg:hidden
           "
-                >
-                    <div className="flex flex-col gap-1">
-                        {NAV_ITEMS.map((item) => {
-                            const Icon = item.icon;
-                            const isActive = activeSection === item.id;
+                    >
+                        <div className="flex flex-col gap-1">
+                            {NAV_ITEMS.map((item) => {
+                                const Icon = item.icon;
+                                const isActive = activeSection === item.id;
 
-                            return (
-                                <a
-                                    key={item.id}
-                                    href={item.href}
-                                    onClick={() => handleNavClick(item.id)}
-                                    className={`
+                                return (
+                                    <a
+                                        key={item.id}
+                                        href={item.href}
+                                        onClick={() => handleNavClick(item.id)}
+                                        className={`
                     flex items-center gap-3
                     rounded-2xl
                     px-4 py-3
                     text-sm font-medium
                     transition
                     ${isActive
-                                            ? "bg-solo-orange/10 text-solo-orange"
-                                            : "text-gray-600 hover:bg-black/[0.04]"
-                                        }
+                                                ? "bg-solo-orange/10 text-solo-orange"
+                                                : "text-gray-600 hover:bg-black/[0.04]"
+                                            }
                   `}
-                                >
-                                    <Icon size={18} />
+                                    >
+                                        <Icon size={18} />
 
-                                    <span>{item.label}</span>
-                                </a>
-                            );
-                        })}
-                    </div>
+                                        <span>{item.label}</span>
+                                    </a>
+                                );
+                            })}
+                        </div>
 
-                    <a
-                        href="https://app.thesolo.network/signup"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="
+                        <a
+                            href="https://app.thesolo.network/signup"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="
               mt-2 flex items-center justify-center gap-2
               rounded-2xl
               bg-solo-orange
@@ -276,12 +286,13 @@ export default function Nav() {
               text-sm font-bold text-white
               shadow-[0_8px_20px_rgba(253,67,34,0.2)]
             "
-                    >
-                        Join SOLO
-                        <ArrowRight size={17} />
-                    </a>
-                </div>
-            )}
+                        >
+                            Join SOLO
+                            <ArrowRight size={17} />
+                        </a>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </header>
     );
 }
