@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 const JOURNEY_STEPS = [
   {
     number: "01",
@@ -86,13 +90,23 @@ export default function Hero() {
           {/* Hero content */}
           <div className="text-center lg:text-left">
             {/* Badge */}
-            <span className="inline-flex items-center gap-2 rounded-full border border-solo-orange/20 bg-solo-orange/5 px-4 py-1.5 text-xs font-semibold text-solo-orange">
+            <motion.span
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 rounded-full border border-solo-orange/20 bg-solo-orange/5 px-4 py-1.5 text-xs font-semibold text-solo-orange"
+            >
               <span className="h-1.5 w-1.5 rounded-full bg-solo-orange" />
               Your learning journey starts here
-            </span>
+            </motion.span>
 
             {/* Main heading */}
-            <h1 className="mt-6 font-heading text-4xl font-extrabold leading-[1.04] tracking-tight text-solo-text sm:text-5xl md:text-6xl">
+            <motion.h1
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.08 }}
+              className="mt-6 font-heading text-4xl font-extrabold leading-[1.04] tracking-tight text-solo-text sm:text-5xl md:text-6xl"
+            >
               Build Skills.
               <br />
 
@@ -103,19 +117,29 @@ export default function Hero() {
 
               <br />
               Learn Your Way.
-            </h1>
+            </motion.h1>
 
             {/* Description */}
-            <p className="mx-auto mt-6 max-w-xl text-sm leading-6 text-solo-muted md:text-base md:leading-7 lg:mx-0">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.16 }}
+              className="mx-auto mt-6 max-w-xl text-sm leading-6 text-solo-muted md:text-base md:leading-7 lg:mx-0"
+            >
               SOLO is a career learning platform for students and aspiring
               professionals figuring out what to learn next - from your first course to your first job.
               Discover career pathways, develop practical
               skills, work on real projects, and showcase your achievements as
               you progress toward your career goals.
-            </p>
+            </motion.p>
 
             {/* Platform statistics */}
-            <div className="mx-auto mt-8 grid max-w-lg grid-cols-3 gap-5 text-center lg:mx-0 lg:text-left">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.24 }}
+              className="mx-auto mt-8 grid max-w-lg grid-cols-3 gap-5 text-center lg:mx-0 lg:text-left"
+            >
               <div>
                 <div className="font-heading text-2xl font-extrabold text-solo-text sm:text-3xl">
                   120+
@@ -145,10 +169,15 @@ export default function Hero() {
                   Roles Mapped
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Main actions */}
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:justify-start">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.32 }}
+              className="mt-8 flex flex-col gap-3 sm:flex-row lg:justify-start"
+            >
               <a
                 href="#discover"
                 className="inline-flex items-center justify-center rounded-xl bg-solo-orange px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-solo-orange/20 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:shadow-xl motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange"
@@ -162,7 +191,7 @@ export default function Hero() {
               >
                 Start Learning
               </a>
-            </div>
+            </motion.div>
 
             {/* Mobile journey list */}
             <div className="mt-10 lg:hidden">
@@ -171,11 +200,14 @@ export default function Hero() {
               </p>
 
               <div className="mt-4 grid grid-cols-2 gap-3 text-left sm:grid-cols-3">
-                {JOURNEY_STEPS.map((step) => (
-                  <a
+                {JOURNEY_STEPS.map((step, index) => (
+                  <motion.a
                     key={step.number}
                     href={step.href}
                     aria-label={`${step.title}: ${step.description}`}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.4 + index * 0.06 }}
                     className={`rounded-2xl border ${step.color} bg-white/85 p-4 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-md motion-reduce:transform-none`}
                   >
                     <span
@@ -191,7 +223,7 @@ export default function Hero() {
                     <p className="mt-1 text-[11px] leading-4 text-solo-muted">
                       {step.description}
                     </p>
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             </div>
@@ -200,22 +232,57 @@ export default function Hero() {
           {/* Desktop journey map */}
           <div className="relative mx-auto hidden h-[560px] w-full max-w-[600px] lg:block">
             {/* Outer circle */}
-            <div className="absolute left-1/2 top-1/2 h-[470px] w-[470px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-solo-orange/30" />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7 }}
+              className="absolute left-1/2 top-1/2 h-[470px] w-[470px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-solo-orange/30"
+            />
 
             {/* Inner circle */}
-            <div className="absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-solo-blue/20" />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.08 }}
+              className="absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-solo-blue/20"
+            />
 
             {/* Decorative orbit dots */}
-            <div className="absolute left-1/2 top-[45px] h-3 w-3 -translate-x-1/2 rounded-full bg-solo-orange shadow-[0_0_0_10px_rgba(253,67,34,0.12)]" />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="absolute left-1/2 top-[45px] h-3 w-3 -translate-x-1/2 rounded-full bg-solo-orange shadow-[0_0_0_10px_rgba(253,67,34,0.12)]"
+            />
 
-            <div className="absolute bottom-[45px] left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-solo-blue shadow-[0_0_0_10px_rgba(61,126,184,0.12)]" />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.36 }}
+              className="absolute bottom-[45px] left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-solo-blue shadow-[0_0_0_10px_rgba(61,126,184,0.12)]"
+            />
 
-            <div className="absolute left-[45px] top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-solo-gold shadow-[0_0_0_10px_rgba(244,181,64,0.12)]" />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.42 }}
+              className="absolute left-[45px] top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-solo-gold shadow-[0_0_0_10px_rgba(244,181,64,0.12)]"
+            />
 
-            <div className="absolute right-[45px] top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-solo-orange shadow-[0_0_0_10px_rgba(253,67,34,0.12)]" />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.48 }}
+              className="absolute right-[45px] top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-solo-orange shadow-[0_0_0_10px_rgba(253,67,34,0.12)]"
+            />
 
             {/* Center content */}
-            <div className="absolute left-1/2 top-1/2 flex h-32 w-32 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border border-white/80 bg-white/80 text-center shadow-xl backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.55, delay: 0.15 }}
+              className="absolute left-1/2 top-1/2 flex h-32 w-32 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border border-white/80 bg-white/80 text-center shadow-xl backdrop-blur-md"
+            >
               <span className="font-heading text-sm font-extrabold tracking-[0.2em] text-solo-orange">
                 SOLO
               </span>
@@ -223,14 +290,17 @@ export default function Hero() {
               <span className="mt-2 max-w-[80px] text-[10px] leading-4 text-solo-muted">
                 Your Career Journey
               </span>
-            </div>
+            </motion.div>
 
             {/* Journey cards */}
             {JOURNEY_STEPS.map((step, index) => (
-              <a
+              <motion.a
                 key={step.number}
                 href={step.href}
                 aria-label={`${step.title}: ${step.description}`}
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.45, delay: 0.5 + index * 0.08 }}
                 className={`group absolute z-20 w-44 rounded-2xl border ${step.color} ${JOURNEY_POSITIONS[index]} bg-white/90 p-4 shadow-[0_12px_34px_rgba(23,20,18,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:border-solo-orange/50 hover:shadow-[0_18px_45px_rgba(23,20,18,0.16)] motion-reduce:transform-none motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-solo-orange`}
               >
                 <span
@@ -248,7 +318,7 @@ export default function Hero() {
                 </p>
 
                 <div className="mt-4 h-1 w-8 rounded-full bg-solo-orange/20 transition-all duration-300 group-hover:w-full group-hover:bg-solo-orange" />
-              </a>
+              </motion.a>
             ))}
           </div>
         </div>

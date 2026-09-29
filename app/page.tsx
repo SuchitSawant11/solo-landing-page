@@ -16,7 +16,7 @@ export default function Page() {
         <Discover />
       </section>
 
-      {/* Learn & Build Skills*/} 
+      {/* Learn & Build Skills*/}
       <section id="learn" className="relative scroll-mt-20">
         <span id="build" aria-hidden="true" className="absolute -top-20" />
         <LearnBuildSkills />
@@ -25,7 +25,7 @@ export default function Page() {
       {/* Prove Skills*/}
       <section id="prove" className="scroll-mt-20">
         <ProveSkills />
-      </section> 
+      </section>
 
       {/* Grow / Profile */}
       <section id="profile" className="relative scroll-mt-20">

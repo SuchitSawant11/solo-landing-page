@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   BookOpen,
@@ -23,37 +26,37 @@ const learnSteps = [
     number: "01",
     title: "Find a course",
     text: "Browse courses from your dashboard.",
-    image: "/courses.png",
+    image: "/images/learn-and-build/learnSteps/courses.png",
   },
   {
     number: "02",
     title: "Enroll",
     text: "Click Enroll to add it to your journey.",
-    image: "/enroll .png",
+    image: "/images/learn-and-build/learnSteps/opportunities-course.png",
   },
   {
     number: "03",
     title: "Start learning",
     text: "Go to My Enrollments and begin lessons.",
-    image: "/my enrollment.png",
+    image: "/images/learn-and-build/learnSteps/my-enrollment.png",
   },
   {
     number: "04",
     title: "Complete the course",
     text: "Finish lessons, activities and assessments.",
-    image: "/course page.png",
+    image: "/images/learn-and-build/learnSteps/course-page.png",
   },
   {
     number: "05",
     title: "Request completion",
     text: "Fill the form, add badge/certificate, submit.",
-    image: "/request completion.png",
+    image: "/images/learn-and-build/learnSteps/request-completion.png",
   },
   {
     number: "06",
     title: "Done!",
     text: "See your learning achievement on your profile.",
-    image: "/enrollsuccess.png",
+    image: "/images/learn-and-build/learnSteps/enroll-success.png",
   },
 ];
 
@@ -61,19 +64,19 @@ const learningFeatures = [
   {
     title: "Learning activities",
     text: "Open your dashboard to access your learning activities, courses and other available opportunities.",
-    image: "/dashboard.png",
+    image: "/images/learn-and-build/learningFeatures/dashboard.png",
     icon: GraduationCap,
   },
   {
     title: "Track your progress",
     text: "Open your dashboard or Career Pathway to view your enrollment, learning progress and completed activities.",
-    image: "/Your Enrollment Progress.png",
+    image: "/images/learn-and-build/learningFeatures/your-enrollment-progress.png",
     icon: PlayCircle,
   },
   {
     title: "Discover opportunities",
     text: "Explore your dashboard and Career Pathways to find opportunities that match your skills and career interests.",
-    image: "/Top Matching Jobs.png",
+    image: "/images/learn-and-build/learningFeatures/top-matching-jobs.png",
     icon: CheckCircle2,
   },
 ];
@@ -92,25 +95,25 @@ const careerPathwaySteps = [
     number: "01",
     title: "Explore a Pathway",
     text: "Find a Career Pathway that matches your interests and career goals.",
-    image: "/career-pathway-explore.png",
+    image: "/images/learn-and-build/careerPathwaySteps/career-pathway-explore.png",
   },
   {
     number: "02",
     title: "Take the Pathway",
     text: "Review the pathway details and start your selected learning path.",
-    image: "/career-pathway-take.png",
+    image: "/images/learn-and-build/careerPathwaySteps/career-pathway-take.png",
   },
   {
     number: "03",
     title: "Follow Your Learning Path",
     text: "Work through the connected courses and learning opportunities in your pathway.",
-    image: "/career-pathway-learning.png",
+    image: "/images/learn-and-build/careerPathwaySteps/career-pathway-learning.png",
   },
   {
     number: "04",
     title: "Track Your Progress",
     text: "Complete courses, earn credentials, and monitor your progress as you move through the pathway.",
-    image: "/Your Enrollment Progress.png",
+    image: "/images/learn-and-build/careerPathwaySteps/career-pathway-progress.png",
   },
 ];
 
@@ -168,7 +171,13 @@ function LearnStep({
         : "left-1/2 -translate-x-1/2 origin-center";
 
   return (
-    <div className="relative flex min-w-[220px] flex-1 items-stretch">
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.45, delay: index * 0.07 }}
+      className="relative flex min-w-[220px] flex-1 items-stretch"
+    >
       {/* =====================================================
           STEP CARD
       ===================================================== */}
@@ -229,11 +238,11 @@ function LearnStep({
               group-hover:scale-100
               group-hover:opacity-100
               ${index === 0
-                          ? "left-0 origin-bottom-left"
-                          : index === learnSteps.length - 1
-                            ? "right-0 origin-bottom-right"
-                            : "left-1/2 -translate-x-1/2 origin-bottom"
-                        }
+                ? "left-0 origin-bottom-left"
+                : index === learnSteps.length - 1
+                  ? "right-0 origin-bottom-right"
+                  : "left-1/2 -translate-x-1/2 origin-bottom"
+              }
             `}
           >
             {/* Preview Header */}
@@ -301,7 +310,7 @@ function LearnStep({
           />
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
 
@@ -311,13 +320,21 @@ function LearnStep({
 
 function LearningFeatureCard({
   feature,
+  index = 0,
 }: {
   feature: (typeof learningFeatures)[number];
+  index?: number;
 }) {
   const Icon = feature.icon;
 
   return (
-    <div className="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-[0_4px_18px_rgba(23,20,18,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(23,20,18,0.09)]">
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.45, delay: index * 0.08 }}
+      className="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-[0_4px_18px_rgba(23,20,18,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(23,20,18,0.09)]"
+    >
 
       {/* Screenshot */}
 
@@ -356,7 +373,7 @@ function LearningFeatureCard({
         </div>
 
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -397,7 +414,13 @@ function LearningFlow() {
   ];
 
   return (
-    <div className="mt-8 rounded-2xl border border-solo-orange/10 bg-[#fff5f1] px-4 py-5 sm:px-6">
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5 }}
+      className="mt-8 rounded-2xl border border-solo-orange/10 bg-[#fff5f1] px-4 py-5 sm:px-6"
+    >
 
       <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.14em] text-solo-orange">
         SOLO Learner Flow
@@ -438,7 +461,7 @@ function LearningFlow() {
         })}
 
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -448,7 +471,13 @@ function LearningFlow() {
 
 function CareerFlow() {
   return (
-    <div className="mt-8 rounded-2xl border border-blue-100 bg-[#f3f6ff] px-4 py-5 sm:px-6">
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5 }}
+      className="mt-6 rounded-2xl border border-blue-100 bg-[#f3f6ff] px-4 py-5 sm:px-6"
+    >
 
       <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.14em] text-solo-blue">
         SOLO Career Flow
@@ -489,7 +518,7 @@ function CareerFlow() {
         })}
 
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -534,7 +563,13 @@ export default function LearnBuildSkills() {
                     INTRO
                 ================================================== */}
 
-        <div className="max-w-[760px]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.55 }}
+          className="max-w-[760px]"
+        >
 
           <div className="mb-5 flex items-center gap-3">
             <span className="inline-flex rounded-full border border-solo-orange/15 bg-white px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.16em] text-solo-orange shadow-sm sm:text-[9px]">
@@ -556,7 +591,7 @@ export default function LearnBuildSkills() {
             and grow your career on SOLO.
           </p>
 
-        </div>
+        </motion.div>
 
         {/* ==================================================
                     01 — LEARN ON SOLO
@@ -566,7 +601,13 @@ export default function LearnBuildSkills() {
 
           {/* Heading */}
 
-          <div className="flex items-start gap-4">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-start gap-4"
+          >
 
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-solo-orange text-xs font-bold text-white shadow-sm">
               01
@@ -588,7 +629,7 @@ export default function LearnBuildSkills() {
 
             </div>
 
-          </div>
+          </motion.div>
 
           {/* ==================================================
                         SIX STEP JOURNEY
@@ -639,7 +680,13 @@ export default function LearnBuildSkills() {
 
         <div className="mt-12">
 
-          <div className="mb-6">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+            className="mb-6"
+          >
 
             <h3 className="font-heading text-xl font-extrabold text-solo-text sm:text-2xl">
               Key learning features
@@ -649,13 +696,14 @@ export default function LearnBuildSkills() {
               Everything you need to learn, track and discover opportunities — all in one place.
             </p>
 
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {learningFeatures.map((feature) => (
+            {learningFeatures.map((feature, index) => (
               <LearningFeatureCard
                 key={feature.title}
                 feature={feature}
+                index={index}
               />
             ))}
           </div>
@@ -668,7 +716,13 @@ export default function LearnBuildSkills() {
 
         <div className="mt-20">
 
-          <div className="flex items-start gap-4">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-start gap-4"
+          >
 
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-solo-blue text-xs font-bold text-white shadow-sm">
               02
@@ -693,7 +747,7 @@ export default function LearnBuildSkills() {
 
             </div>
 
-          </div>
+          </motion.div>
 
           {/* =================================================
                   HOW IT WORKS
@@ -705,9 +759,13 @@ export default function LearnBuildSkills() {
             </h4>
 
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              {careerPathwaySteps.map((step) => (
-                <div
+              {careerPathwaySteps.map((step, stepIndex) => (
+                <motion.div
                   key={step.number}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.25 }}
+                  transition={{ duration: 0.45, delay: stepIndex * 0.08 }}
                   className="group overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_4px_18px_rgba(23,20,18,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(23,20,18,0.09)]"
                 >
                   {/* Screenshot */}
@@ -739,7 +797,7 @@ export default function LearnBuildSkills() {
                       {step.text}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -748,7 +806,13 @@ export default function LearnBuildSkills() {
             REAL SOLO EXAMPLE
         ================================================= */}
 
-          <div className="border-t border-neutral-100 bg-neutral-50/50 px-1 py-7">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+            className="border-t border-neutral-100 bg-neutral-50/50 px-1 py-7"
+          >
 
             {/* Screenshot Heading */}
             <div className="mb-5">
@@ -771,7 +835,7 @@ export default function LearnBuildSkills() {
 
               <div className="overflow-hidden">
                 <img
-                  src="/frontend-career-pathway.png"
+                  src="/images/learn-and-build/example/frontend-career-pathway.png"
                   alt="Frontend Developer Career Pathway in SOLO showing connected courses and earned credentials"
                   className="block h-auto w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                 />
@@ -786,13 +850,19 @@ export default function LearnBuildSkills() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* =================================================
             PROGRESS CALLOUT
         ================================================= */}
 
-          <div className="border-t border-neutral-100 px-1 py-5">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.45 }}
+            className="border-t border-neutral-100 px-1 py-5"
+          >
             <div className="flex items-start gap-4 rounded-xl border border-solo-orange/15 bg-solo-orange/[0.04] p-4 md:p-5">
 
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-solo-orange/10 text-solo-orange">
@@ -824,7 +894,7 @@ export default function LearnBuildSkills() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
 
           {/* Career flow */}
@@ -837,7 +907,13 @@ export default function LearnBuildSkills() {
                     FINAL CTA
                 ================================================== */}
 
-        <div className="mt-8 rounded-2xl border border-solo-orange/10 bg-[#fff5f1] px-6 py-7 sm:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+          className="mt-10 rounded-2xl border border-solo-orange/10 bg-[#fff5f1] px-6 py-7 sm:px-8"
+        >
 
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
 
@@ -879,7 +955,7 @@ export default function LearnBuildSkills() {
 
           </div>
 
-        </div>
+        </motion.div>
 
       </div>
     </section>
