@@ -273,7 +273,7 @@ export default function ProveSkills() {
   return (
     <section
       id="prove"
-      className="relative overflow-hidden bg-solo-bg"
+      className="relative overflow-hidden bg-solo-bg px-5 sm:px-6"
     >
       {/* =================================================
                 BACKGROUND ATMOSPHERE
@@ -299,7 +299,7 @@ export default function ProveSkills() {
         }}
       />
 
-      <div className="relative mx-auto max-w-[1240px] px-5 py-16 md:py-15">
+      <div className="relative mx-auto max-w-[1240px] py-16 md:py-15">
 
         {/* ===================================================
             SECTION INTRO

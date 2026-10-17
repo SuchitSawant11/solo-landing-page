@@ -252,7 +252,7 @@ function Eyebrow({ children, color = "orange" }: { children: React.ReactNode; co
 
 export default function Profile() {
   return (
-    <section id="profile" className="relative overflow-hidden bg-solo-bg">
+    <section id="profile" className="relative overflow-hidden bg-solo-bg px-5 sm:px-6">
       {/* BACKGROUND ATMOSPHERE */}
       <div
         aria-hidden="true"
@@ -272,7 +272,7 @@ export default function Profile() {
         }}
       />
 
-      <div className="relative mx-auto max-w-[1240px] px-5 py-16 md:px-6 md:py-20">
+      <div className="relative mx-auto max-w-[1240px] py-16 md:py-20">
 
         {/* =================================================
             INTRO

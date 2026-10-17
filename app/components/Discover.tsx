@@ -24,6 +24,8 @@ import {
     type Course,
 } from "../data/courses";
 
+import CareerCompass from "./CareerCompass";
+
 /* =========================================================
    CATEGORY ACCENTS
 ========================================================= */
@@ -285,7 +287,7 @@ export default function Discover() {
     return (
         <section
             id="discover"
-            className="relative isolate overflow-hidden bg-solo-bg scroll-mt-28"
+            className="relative isolate overflow-hidden bg-solo-bg scroll-mt-28 px-5 sm:px-6"
         >
             {/* =================================================
                 BACKGROUND ATMOSPHERE
@@ -315,7 +317,7 @@ export default function Discover() {
                 MAIN CONTENT
             ================================================= */}
 
-            <div className="relative z-10 mx-auto max-w-[1240px] px-5 py-16 md:px-6 md:py-20">
+            <div className="relative z-10 mx-auto max-w-[1240px]  py-16  md:py-20">
 
                 {/* =================================================
                     HERO / INTRO
@@ -872,8 +874,8 @@ export default function Discover() {
                             </p>
                         </div>
 
-                        <h3 className="mt-3 font-heading text-2xl font-extrabold tracking-tight text-solo-text md:text-3xl">
-                            Follow a structured path toward your career goal.
+                        <h3 className="mt-3 max-w-none whitespace-nowrap font-heading text-2xl font-extrabold tracking-tight text-solo-text md:text-3xl">
+                            Follow a structured path towards your career goal.
                         </h3>
 
                         <p className="mt-2 text-sm leading-6 text-solo-muted">
@@ -1043,6 +1045,11 @@ export default function Discover() {
                         </div>
                     </div>
                 </motion.div>
+
+                {/* =================================================
+                    CAREER COMPASS — INTERACTIVE CAREER READINESS DEMO
+                ================================================= */}
+                <CareerCompass />
             </div>
         </section>
     );
