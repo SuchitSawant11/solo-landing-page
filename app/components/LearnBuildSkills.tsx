@@ -711,10 +711,10 @@ export default function LearnBuildSkills() {
         </div>
 
         {/* ==================================================
-                    02 — GROW YOUR CAREER
+                    02 — Build YOUR CAREER
                 ================================================== */}
 
-        <div className="mt-20">
+        <div id="build" className="mt-20">
 
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -804,7 +804,7 @@ export default function LearnBuildSkills() {
 
           {/* =================================================
             REAL SOLO EXAMPLE
-        ================================================= */}
+          ================================================= */}
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

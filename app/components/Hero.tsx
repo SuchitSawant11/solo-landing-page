@@ -23,7 +23,7 @@ const JOURNEY_STEPS = [
     number: "03",
     title: "Build Skills",
     description: "Practice through real projects",
-    href: "#learn",
+    href: "#build",
     color: "border-solo-blue/30",
     numberColor: "text-solo-blue",
   },
