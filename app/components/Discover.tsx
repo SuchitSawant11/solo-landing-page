@@ -1050,6 +1050,17 @@ export default function Discover() {
                     CAREER COMPASS — INTERACTIVE CAREER READINESS DEMO
                 ================================================= */}
                 <CareerCompass />
+
+                <div className="mt-8 flex flex-col items-start justify-between gap-4 rounded-2xl border border-solo-orange/20 bg-gradient-to-r from-[#FFF5F0] to-white p-5 sm:flex-row sm:items-center sm:p-7">
+                    <div className="max-w-2xl">
+                        <p className="text-xs font-bold uppercase tracking-[0.14em] text-solo-orange">Your next step</p>
+                        <h3 className="mt-2 font-heading text-xl font-extrabold text-solo-text sm:text-2xl">Get a pathway made for you</h3>
+                        <p className="mt-2 text-sm leading-6 text-solo-muted">Share your goal and current skills. SOLO’s AI coach will suggest what to strengthen and where to start.</p>
+                    </div>
+                    <button type="button" onClick={() => window.dispatchEvent(new Event("open-career-coach"))} className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-solo-orange px-5 py-3 text-sm font-bold text-white transition hover:bg-[#e8391b]">
+                        Build my pathway <ArrowUpRight size={16} />
+                    </button>
+                </div>
             </div>
         </section>
     );

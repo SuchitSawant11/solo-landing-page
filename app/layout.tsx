@@ -1,6 +1,7 @@
 import { Montserrat, Roboto } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/Nav";
+import CareerCoach from "./components/CareerCoach";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${montserrat.variable} ${roboto.variable} font-body`}>
         <Nav />
         {children}
+        <CareerCoach />
       </body>
     </html>
   );

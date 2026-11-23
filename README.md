@@ -34,3 +34,12 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# SOLO Career Coach setup
+
+The floating **Build my pathway** button calls the server route at `/api/career-coach`, which uses Groq's `openai/gpt-oss-20b` model. The Groq key must stay on the server and must never be added to client-side code.
+
+1. Copy `.env.example` to `.env.local`.
+2. Set `GROQ_API_KEY` in `.env.local` to your key from the Groq console.
+3. Restart the development server, then open the coach and generate a pathway.
+
+The coach sends the learner's selected career, skills, and optional job description to Groq to generate a recommendation. The demo does not save those inputs.
